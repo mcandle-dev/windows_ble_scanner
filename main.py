@@ -21,7 +21,7 @@ class BLEScannerApp:
         self.page.title = "Windows BLE Scanner & Decoder"
         self.page.theme_mode = ft.ThemeMode.DARK
         self.page.padding = 20
-        self.page.window_width = 1000
+        self.page.window_width = 850  # Reduced width
         self.page.window_height = 800
 
         # Flet 0.80+ Colors and Icons are case-sensitive or moved.
@@ -65,16 +65,29 @@ class BLEScannerApp:
             ft.Divider(),
             ft.Column([
                 ft.Text("Detected Devices", size=20, weight="bold"),
-                ft.Container(content=ft.Column([self.device_list], scroll=ft.ScrollMode.ALWAYS), height=350, border=ft.Border.all(width=1, color="grey800"), border_radius=10),
+                ft.Container(
+                    content=ft.Column([self.device_list], scroll=ft.ScrollMode.ALWAYS), 
+                    height=280, # Reduced height for approx 5 rows
+                    border=ft.Border.all(width=1, color="grey800"), 
+                    border_radius=10
+                ),
             ]),
             ft.Divider(),
             ft.Column([
                 ft.Text("Connection Information", size=20, weight="bold"),
-                self.order_info_text,
-                ft.Row([self.read_char_text, self.write_char_text], spacing=20),
-                ft.Row([self.message_input, self.send_btn]),
-                self.status_text
-            ])
+                ft.Container(
+                    content=ft.Column([
+                        self.order_info_text,
+                        ft.Row([self.read_char_text, self.write_char_text], spacing=20),
+                        ft.Row([self.message_input, self.send_btn], spacing=10),
+                    ], spacing=15),
+                    padding=10,
+                    border=ft.Border.all(width=1, color="grey900"),
+                    border_radius=10,
+                    expand=True # Give more space to connection info
+                ),
+                self.status_text # Keep status text at the very bottom
+            ], expand=True)
         )
 
     def apply_filter(self, e):
