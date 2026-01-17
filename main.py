@@ -237,12 +237,17 @@ class BLEScannerApp:
                     short_uuid = char.uuid.split("-")[0][-4:] # Getting last 4 chars of first segment for display
                     print(f"    [Char] {char.uuid} (Short: {short_uuid}) | Props: {char.properties}")
                     
-                    # Store target write char (preferring the one the user sees as 0006 or similar)
-                    if not self.target_write_char and ("write" in char.properties or "write-without-response" in char.properties):
-                        self.target_write_char = char
-                        self.write_char_text.value = f"Write Channel: {short_uuid}"
+                    # Store target write char 
+                    # SKIP standard system characteristics like 2B29 (Database Hash), 2A00 (Device Name), etc.
+                    # Usually, application data chars have different/longer UUIDs or specific short ones.
+                    is_system_char = short_uuid.lower() in ["2b29", "2b2a", "2a00", "2a01", "2a05"]
+                    
+                    if not self.target_write_char and not is_system_char:
+                        if "write" in char.properties or "write-without-response" in char.properties:
+                            self.target_write_char = char
+                            self.write_char_text.value = f"Write Channel: {short_uuid}"
 
-                    if "read" in char.properties:
+                    if "read" in char.properties and not is_system_char:
                         if not found_read_char:
                             found_read_char = char
                             self.read_char_text.value = f"Read Channel: {short_uuid}"
