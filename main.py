@@ -207,22 +207,26 @@ class BLEScannerApp:
             self.connected_client = client
             self.status_text.value = f"Status: Connected to {address}"
             self.send_btn.disabled = False
-            
-            services = await client.get_services()
+            # Explore Services and Characteristics
+            print(f"\n[GATT] Discovering services for {address}...")
+            services = client.services # In modern bleak, this is a property
             found_info = False
+            
             for service in services:
+                print(f"  [Service] {service.uuid} ({service.description})")
                 for char in service.characteristics:
+                    print(f"    [Char] {char.uuid} | Props: {char.properties}")
                     if "read" in char.properties:
                         try:
                             data = await client.read_gatt_char(char.uuid)
                             decoded = data.decode('utf-8', errors='ignore')
                             if decoded.strip():
+                                print(f"      -> Read Data: {decoded}")
                                 self.order_info_text.value = f"Order Information: {decoded}"
                                 found_info = True
-                                break
+                                # Not breaking here so we can see all UUIDs in logs
                         except:
                             continue
-                if found_info: break
             
             if not found_info:
                 self.order_info_text.value = "Order Information: No readable data found."
