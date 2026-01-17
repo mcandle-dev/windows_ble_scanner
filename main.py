@@ -215,6 +215,7 @@ class BLEScannerApp:
         self.page.update()
 
     async def connect_device(self, address):
+        print(f"\n[CONNECT] Attempting to connect to {address}...")
         self.status_text.value = f"Status: Connecting to {address}..."
         self.page.update()
         
@@ -222,11 +223,13 @@ class BLEScannerApp:
             client = BleakClient(address)
             await client.connect()
             self.connected_client = client
+            print(f"[CONNECT] Successfully connected to {address}")
             self.status_text.value = f"Status: Connected to {address}"
             self.send_btn.disabled = False
+            
             # Explore Services and Characteristics
-            print(f"\n[GATT] Discovering services for {address}...")
-            services = client.services # In modern bleak, this is a property
+            print(f"[GATT] Discovering services for {address}...")
+            services = client.services 
             found_info = False
             self.target_write_char = None
             found_read_char = None
@@ -234,41 +237,43 @@ class BLEScannerApp:
             for service in services:
                 print(f"  [Service] {service.uuid} ({service.description})")
                 for char in service.characteristics:
-                    short_uuid = char.uuid.split("-")[0][-4:] # Getting last 4 chars of first segment for display
+                    short_uuid = char.uuid.split("-")[0][-4:]
                     print(f"    [Char] {char.uuid} (Short: {short_uuid}) | Props: {char.properties}")
                     
-                    # Store target write char 
-                    # SKIP standard system characteristics like 2B29 (Database Hash), 2A00 (Device Name), etc.
-                    # Usually, application data chars have different/longer UUIDs or specific short ones.
                     is_system_char = short_uuid.lower() in ["2b29", "2b2a", "2a00", "2a01", "2a05"]
                     
                     if not self.target_write_char and not is_system_char:
                         if "write" in char.properties or "write-without-response" in char.properties:
                             self.target_write_char = char
                             self.write_char_text.value = f"Write Channel: {short_uuid}"
+                            print(f"      -> Selected as WRITE target (Channel: {short_uuid})")
 
                     if "read" in char.properties and not is_system_char:
                         if not found_read_char:
                             found_read_char = char
                             self.read_char_text.value = f"Read Channel: {short_uuid}"
+                            print(f"      -> Selected as READ target (Channel: {short_uuid})")
                             
                         try:
                             data = await client.read_gatt_char(char.uuid)
                             decoded = data.decode('utf-8', errors='ignore')
                             if decoded.strip():
-                                print(f"      -> Read Data: {decoded}")
+                                print(f"      -> Initial Read Data: {decoded}")
                                 self.order_info_text.value = f"Order Information: {decoded}"
                                 found_info = True
-                        except:
+                        except Exception as e:
+                            print(f"      -> Read failed: {e}")
                             continue
             
             if not found_info:
                 self.order_info_text.value = "Order Information: No readable data found."
             
             if not self.target_write_char:
+                print("[WARN] No suitable writable application characteristic found.")
                 self.write_char_text.value = "Write Channel: Not found"
                 
         except Exception as ex:
+            print(f"[ERROR] Connection failed: {ex}")
             self.status_text.value = f"Status: Connection failed ({str(ex)})"
         
         self.page.update()
@@ -280,29 +285,39 @@ class BLEScannerApp:
             return
         
         try:
-            msg = self.message_input.value.encode('utf-8')
+            payload = self.message_input.value
+            msg = payload.encode('utf-8')
             char = self.target_write_char
             short_id = char.uuid.split("-")[0][-4:]
             
+            print(f"\n[SEND] Sending data to {short_id} ({char.uuid})")
+            print(f"  - Payload: {payload}")
+            
             # --- Robust Write Logic ---
-            # Try to determine the best write mode. "Access Denied" often means wrong mode or pairing required.
             if "write-without-response" in char.properties:
+                print(f"  - Method: Write Without Response")
                 await self.connected_client.write_gatt_char(char.uuid, msg, response=False)
                 self.status_text.value = f"Status: Data sent to {short_id} (No Response)"
             elif "write" in char.properties:
+                print(f"  - Method: Write With Response")
                 await self.connected_client.write_gatt_char(char.uuid, msg, response=True)
                 self.status_text.value = f"Status: Data sent to {short_id} (With Response)"
             else:
+                print(f"  - Error: Characteristic not writable.")
                 self.status_text.value = "Status: Target characteristic not writable."
+            
+            print(f"  - Result: Sent successfully")
                 
         except Exception as ex:
             err_msg = str(ex)
             short_id = self.target_write_char.uuid.split("-")[0][-4:]
+            print(f"  - Result: FAILED")
+            print(f"  - Error: {err_msg}")
+            
             if "Access Denied" in err_msg:
                 self.status_text.value = f"Status: Failed (Access Denied for {short_id}). Pairing may be required."
             else:
                 self.status_text.value = f"Status: Send failed ({err_msg})"
-            print(f"[ERROR] Write failed to {short_id}: {err_msg}")
             
         self.page.update()
 
