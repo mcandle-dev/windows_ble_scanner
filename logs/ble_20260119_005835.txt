@@ -1,0 +1,74 @@
+[00:57:58] Starting BLE Scan...
+[00:58:03] [SCAN] Found: mcan (50:98:9C:26:79:E8) | RSSI: -57
+[00:58:03]   - UUIDs: ['12345678-1234-5670-0000-222200805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[00:58:03]   - DECODED PHONE: 1234567812345670
+[00:58:03]   - DECODED CARD: 0000
+[00:58:05] [CONNECT] Attempting to connect to 50:98:9C:26:79:E8...
+[00:58:09] [SCAN] Found: mcan (50:98:9C:26:79:E8) | RSSI: -59
+[00:58:09]   - UUIDs: ['12345678-1234-5670-0000-222200805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[00:58:09]   - DECODED PHONE: 1234567812345670
+[00:58:09]   - DECODED CARD: 0000
+[00:58:10] [CONNECT] Successfully connected to 50:98:9C:26:79:E8
+[00:58:10] [GATT] Discovering services for 50:98:9C:26:79:E8...
+[00:58:10]   [Service] 00001801-0000-1000-8000-00805f9b34fb (Generic Attribute Profile)
+[00:58:10]     [Char] 00002a05-0000-1000-8000-00805f9b34fb (Short: 2a05) | Props: ['indicate']
+[00:58:10]     [Char] 00002b3a-0000-1000-8000-00805f9b34fb (Short: 2b3a) | Props: ['read']
+[00:58:10]       -> Selected as fallback READ target
+[00:58:10]       -> Initial Read Data: 
+[00:58:10]     [Char] 00002b29-0000-1000-8000-00805f9b34fb (Short: 2b29) | Props: ['write', 'read']
+[00:58:10]     [Char] 00002b2a-0000-1000-8000-00805f9b34fb (Short: 2b2a) | Props: ['read']
+[00:58:10]   [Service] 00001800-0000-1000-8000-00805f9b34fb (Generic Access Profile)
+[00:58:10]     [Char] 00002a00-0000-1000-8000-00805f9b34fb (Short: 2a00) | Props: ['read']
+[00:58:10]     [Char] 00002a01-0000-1000-8000-00805f9b34fb (Short: 2a01) | Props: ['read']
+[00:58:10]     [Char] 00002aa6-0000-1000-8000-00805f9b34fb (Short: 2aa6) | Props: ['read']
+[00:58:10]   [Service] 00001849-0000-1000-8000-00805f9b34fb (Generic Media Control Service)
+[00:58:10]     [Char] 00002b93-0000-1000-8000-00805f9b34fb (Short: 2b93) | Props: ['notify', 'read']
+[00:58:10]     [Char] 00002b96-0000-1000-8000-00805f9b34fb (Short: 2b96) | Props: ['notify']
+[00:58:10]     [Char] 00002b97-0000-1000-8000-00805f9b34fb (Short: 2b97) | Props: ['notify', 'read']
+[00:58:10]     [Char] 00002b98-0000-1000-8000-00805f9b34fb (Short: 2b98) | Props: ['notify', 'read']
+[00:58:10]     [Char] 00002b99-0000-1000-8000-00805f9b34fb (Short: 2b99) | Props: ['write-without-response', 'notify', 'read', 'write']
+[00:58:10]       -> Selected as fallback WRITE target
+[00:58:10]     [Char] 00002b9a-0000-1000-8000-00805f9b34fb (Short: 2b9a) | Props: ['write-without-response', 'notify', 'read', 'write']
+[00:58:10]     [Char] 00002b9b-0000-1000-8000-00805f9b34fb (Short: 2b9b) | Props: ['notify', 'read']
+[00:58:10]     [Char] 00002ba1-0000-1000-8000-00805f9b34fb (Short: 2ba1) | Props: ['write-without-response', 'notify', 'read', 'write']
+[00:58:10]     [Char] 00002ba2-0000-1000-8000-00805f9b34fb (Short: 2ba2) | Props: ['read']
+[00:58:10]     [Char] 00002ba3-0000-1000-8000-00805f9b34fb (Short: 2ba3) | Props: ['notify', 'read']
+[00:58:10]     [Char] 00002ba4-0000-1000-8000-00805f9b34fb (Short: 2ba4) | Props: ['write-without-response', 'notify', 'write']
+[00:58:10]     [Char] 00002ba5-0000-1000-8000-00805f9b34fb (Short: 2ba5) | Props: ['notify', 'read']
+[00:58:10]     [Char] 00002bba-0000-1000-8000-00805f9b34fb (Short: 2bba) | Props: ['read']
+[00:58:10]   [Service] 0000184c-0000-1000-8000-00805f9b34fb (Generic Telephone Bearer Service)
+[00:58:10]     [Char] 00002bb3-0000-1000-8000-00805f9b34fb (Short: 2bb3) | Props: ['notify', 'read']
+[00:58:10]     [Char] 00002bb4-0000-1000-8000-00805f9b34fb (Short: 2bb4) | Props: ['read']
+[00:58:10]     [Char] 00002bb5-0000-1000-8000-00805f9b34fb (Short: 2bb5) | Props: ['notify', 'read']
+[00:58:10]     [Char] 00002bb6-0000-1000-8000-00805f9b34fb (Short: 2bb6) | Props: ['notify', 'read']
+[00:58:10]     [Char] 00002bb9-0000-1000-8000-00805f9b34fb (Short: 2bb9) | Props: ['notify', 'read']
+[00:58:10]     [Char] 00002bba-0000-1000-8000-00805f9b34fb (Short: 2bba) | Props: ['read']
+[00:58:10]     [Char] 00002bbb-0000-1000-8000-00805f9b34fb (Short: 2bbb) | Props: ['notify', 'read']
+[00:58:10]     [Char] 00002bbd-0000-1000-8000-00805f9b34fb (Short: 2bbd) | Props: ['notify', 'read']
+[00:58:10]     [Char] 00002bbe-0000-1000-8000-00805f9b34fb (Short: 2bbe) | Props: ['write-without-response', 'notify', 'write']
+[00:58:10]     [Char] 00002bbf-0000-1000-8000-00805f9b34fb (Short: 2bbf) | Props: ['read']
+[00:58:10]     [Char] 00002bc0-0000-1000-8000-00805f9b34fb (Short: 2bc0) | Props: ['notify']
+[00:58:10]     [Char] 00002bc1-0000-1000-8000-00805f9b34fb (Short: 2bc1) | Props: ['notify', 'read']
+[00:58:11]     [Char] 00002bc2-0000-1000-8000-00805f9b34fb (Short: 2bc2) | Props: ['notify', 'read']
+[00:58:11]   [Service] 00001855-0000-1000-8000-00805f9b34fb (Telephony and Media Audio)
+[00:58:11]     [Char] 00002b51-0000-1000-8000-00805f9b34fb (Short: 2b51) | Props: ['read']
+[00:58:11]   [Service] 594a34fc-31db-11ea-978f-2e728ce88125 (Unknown)
+[00:58:11]     [Char] 594a36e6-31db-11ea-978f-2e728ce88125 (Short: 36e6) | Props: ['write', 'indicate']
+[00:58:11]     [Char] 594a3010-31db-11ea-978f-2e728ce88125 (Short: 3010) | Props: ['write-without-response', 'write']
+[00:58:11]   [Service] 0000fff0-0000-1000-8000-00805f9b34fb (Vendor specific)
+[00:58:11]     [Char] 0000fff1-0000-1000-8000-00805f9b34fb (Short: fff1) | Props: ['write-without-response', 'write']
+[00:58:11]       -> [MATCH] TARGET WRITE Characteristic found!
+[00:58:11]     [Char] 0000fff2-0000-1000-8000-00805f9b34fb (Short: fff2) | Props: ['notify', 'read']
+[00:58:11]       -> [MATCH] TARGET READ Characteristic found!
+[00:58:16] [SCAN] Found: mcan (50:98:9C:26:79:E8) | RSSI: -43
+[00:58:16]   - UUIDs: ['12345678-1234-5670-0000-222200805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[00:58:16]   - DECODED PHONE: 1234567812345670
+[00:58:16]   - DECODED CARD: 0000
+[00:58:21] [SEND] Sending data to fff1 (0000fff1-0000-1000-8000-00805f9b34fb)
+[00:58:21]   - Payload: order_id=12345
+[00:58:21]   - Method: Write Without Response
+[00:58:21]   - Result: Sent successfully
+[00:58:22] [SCAN] Found: mcan (50:98:9C:26:79:E8) | RSSI: -44
+[00:58:22]   - UUIDs: ['12345678-1234-5670-0000-222200805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[00:58:22]   - DECODED PHONE: 1234567812345670
+[00:58:22]   - DECODED CARD: 0000

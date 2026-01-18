@@ -1,10 +1,13 @@
 import asyncio
 import re
+import datetime
 import flet as ft
 from bleak import BleakScanner, BleakClient
 
 # --- Constants & Config ---
-DEFAULT_WRITE_UUID = "00002a00-0000-1000-8000-00805f9b34fb" 
+TARGET_SERVICE_UUID = "0000fff0-0000-1000-8000-00805f9b34fb"
+TARGET_WRITE_UUID   = "0000fff1-0000-1000-8000-00805f9b34fb"
+TARGET_READ_UUID    = "0000fff2-0000-1000-8000-00805f9b34fb"
 
 class BLEScannerApp:
     def __init__(self, page: ft.Page):
@@ -14,15 +17,53 @@ class BLEScannerApp:
         self.target_write_char = None
         self.is_scanning = False
         self.scanning_task = None
-
+        self.log_display = ft.ListView(expand=True, spacing=2, auto_scroll=True)
+        self.all_logs = [] # Store raw logs for saving
+        self.left_col_width = 500  # Initial width of left panel
+        # self.file_picker = ft.FilePicker() # Removed due to UI issues
+        # self.file_picker.on_result = self.on_save_file_result # Removed
+        
         self.setup_ui()
 
+    def log_message(self, msg, color="white"):
+        """Appends a message to the UI log display."""
+        timestamp = datetime.datetime.now().strftime("%H:%M:%S")
+        log_entry = f"[{timestamp}] {msg}"
+        self.all_logs.append(log_entry)
+        self.log_display.controls.append(
+            ft.Text(log_entry, size=12, color=color, font_family="monospace")
+        )
+        if len(self.log_display.controls) > 100:
+            self.log_display.controls.pop(0)
+        
+        # Keep internal log buffer manageable, but maybe a bit larger than UI
+        if len(self.all_logs) > 1000:
+            self.all_logs.pop(0)
+        try:
+            self.page.update()
+        except:
+            pass
+
     def setup_ui(self):
+        self.page.clean()
+        # self.page.overlay.clear() # No longer needed
+        # self.page.overlay.append(self.file_picker) # Removed
+        
         self.page.title = "Windows BLE Scanner & Decoder"
         self.page.theme_mode = ft.ThemeMode.DARK
         self.page.padding = 20
-        self.page.window_width = 850  # Reduced width
-        self.page.window_height = 800
+        self.page.window_maximized = True
+
+        # Drag event for resizable layout
+        def on_pan_update(e: ft.DragUpdateEvent):
+            if e.primary_delta is not None:
+                self.left_col_width += e.primary_delta
+                if self.left_col_width < 300: self.left_col_width = 300
+                elif self.left_col_width > 1200: self.left_col_width = 1200
+                # Enable fixed width when dragging starts
+                content_row.controls[0].expand = None
+                content_row.controls[0].width = self.left_col_width
+                self.page.update()
 
         # Flet 0.80+ Colors and Icons are case-sensitive or moved.
         # Using string literals for colors and icons is more robust across versions.
@@ -35,14 +76,15 @@ class BLEScannerApp:
         self.filter_input = ft.TextField(
             label="Filter by Device Name (e.g. Mcam)",
             width=300,
+            value="mcan",
             on_change=self.apply_filter
         )
         
         self.device_list = ft.DataTable(
             columns=[
                 ft.DataColumn(ft.Text("Name (MAC)")),
-                ft.DataColumn(ft.Text("Phone Number")),
-                ft.DataColumn(ft.Text("Card Number")),
+                ft.DataColumn(ft.Text("Phone No")),
+                ft.DataColumn(ft.Text("Card No")),
                 ft.DataColumn(ft.Text("RSSI"), numeric=True),
                 ft.DataColumn(ft.Text("Action")),
             ],
@@ -58,37 +100,94 @@ class BLEScannerApp:
 
         # Layout
         self.page.add(
+            # Header Section
             ft.Row([
                 ft.Text("BLE Scanner MVP", size=32, weight="bold"),
                 ft.Row([self.filter_input, self.scan_btn], spacing=10)
             ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
             ft.Divider(),
-            ft.Column([
-                ft.Text("Detected Devices", size=20, weight="bold"),
-                ft.Container(
-                    content=ft.Column([self.device_list], scroll=ft.ScrollMode.ALWAYS), 
-                    height=280, # Reduced height for approx 5 rows
-                    border=ft.Border.all(width=1, color="grey800"), 
-                    border_radius=10
+            # Main Content: Two Columns with Resizable Split
+            content_row := ft.Row([
+                # Left Column: Devices and Connection Info
+                ft.Column([
+                    ft.Text("Detected Devices", size=20, weight="bold"),
+                    ft.Container(
+                        content=ft.Column([self.device_list], scroll=ft.ScrollMode.ALWAYS), 
+                        height=300, 
+                        border=ft.Border.all(width=1, color="grey800"), 
+                        border_radius=10
+                    ),
+                    ft.Divider(),
+                    ft.Text("Connection Information", size=20, weight="bold"),
+                    ft.Container(
+                        content=ft.Column([
+                            self.order_info_text,
+                            ft.Row([self.read_char_text, self.write_char_text], spacing=20),
+                            ft.Row([self.message_input, self.send_btn], spacing=10),
+                        ], spacing=15),
+                        padding=10,
+                        border=ft.Border.all(width=1, color="grey900"),
+                        border_radius=10,
+                        expand=True
+                    ),
+                ], expand=True),
+                # Draggable Divider
+                ft.GestureDetector(
+                    content=ft.Container(
+                        content=ft.VerticalDivider(width=2, color="grey800"),
+                        width=10,
+                        bgcolor="transparent",
+                    ),
+                    on_pan_update=on_pan_update,
+                    on_hover=lambda _: setattr(self.page, "cursor", "col-resize") or self.page.update(),
+                    mouse_cursor=ft.MouseCursor.RESIZE_LEFT_RIGHT,
                 ),
-            ]),
-            ft.Divider(),
-            ft.Column([
-                ft.Text("Connection Information", size=20, weight="bold"),
-                ft.Container(
-                    content=ft.Column([
-                        self.order_info_text,
-                        ft.Row([self.read_char_text, self.write_char_text], spacing=20),
-                        ft.Row([self.message_input, self.send_btn], spacing=10),
-                    ], spacing=15),
-                    padding=10,
-                    border=ft.Border.all(width=1, color="grey900"),
-                    border_radius=10,
-                    expand=True # Give more space to connection info
-                ),
-                self.status_text # Keep status text at the very bottom
-            ], expand=True)
+                # Right Column: Activity Logs
+                ft.Column([
+                    ft.Row([
+                        ft.Text("Activity Logs", size=20, weight="bold"),
+                        ft.IconButton(
+                            icon=ft.icons.Icons.SAVE,
+                            tooltip="Auto-Save Logs (to ./logs)", 
+                            on_click=self.save_logs_direct
+                        )
+                    ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
+                    ft.Container(
+                        content=self.log_display,
+                        expand=True,
+                        padding=10,
+                        bgcolor="black",
+                        border=ft.Border.all(width=1, color="grey800"),
+                        border_radius=10
+                    ),
+                ], expand=True),
+            ], expand=True, spacing=0),
+            # Footer: Status Text
+            self.status_text 
         )
+        self.page.update()
+
+    def save_logs_direct(self, e):
+        """Saves logs directly to a 'logs' folder without FilePicker."""
+        import os
+        if not self.all_logs:
+            self.status_text.value = "Status: No logs to save."
+            self.page.update()
+            return
+
+        try:
+            os.makedirs("logs", exist_ok=True)
+            filename = f"logs/ble_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+            with open(filename, "w", encoding="utf-8") as f:
+                f.write("\n".join(self.all_logs))
+            
+            self.log_message(f"Logs saved to: {os.path.abspath(filename)}", color="green")
+            self.status_text.value = f"Status: Saved to {filename}"
+        except Exception as ex:
+            self.log_message(f"Failed to auto-save logs: {ex}", color="red")
+        self.page.update()
+
+    # def on_save_file_result(self, e): ... Removed
 
     def apply_filter(self, e):
         """Manually trigger a UI update to reflect the filter immediately if needed, 
@@ -142,17 +241,17 @@ class BLEScannerApp:
 
     async def run_scan(self):
         self.is_scanning = True
-        self.scan_btn.text = "Stop Scan"
-        self.scan_btn.icon = "stop"
-        self.scan_btn.style = ft.ButtonStyle(bgcolor="red700", color="white")
         self.status_text.value = "Status: Scanning..."
-        self.page.update()
+        try:
+            self.page.update()
+        except Exception:
+            return
 
-        print("\n" + "="*50)
-        print("Starting BLE Scan...")
-        print("="*50)
+        self.log_message("Starting BLE Scan...", color="amber")
 
         while self.is_scanning:
+            if not self.page.session:
+                break
             try:
                 # return_adv=True returns a dict: {address: (device, advertisement_data)}
                 devices_dict = await BleakScanner.discover(timeout=5.0, return_adv=True)
@@ -171,11 +270,11 @@ class BLEScannerApp:
                     phone, card = self.decode_uuid_data(uuids)
                     rssi = adv.rssi  # Get RSSI from AdvertisementData
                     
-                    # Console Logging
-                    print(f"[SCAN] Found: {d.name or 'Unknown'} ({address}) | RSSI: {rssi}")
-                    if uuids: print(f"  - UUIDs: {uuids}")
-                    if phone: print(f"  - DECODED PHONE: {phone}")
-                    if card: print(f"  - DECODED CARD: {card}")
+                    # Log to UI
+                    self.log_message(f"[SCAN] Found: {name} ({address}) | RSSI: {rssi}", color="amber")
+                    if uuids: self.log_message(f"  - UUIDs: {uuids}", color="grey400")
+                    if phone: self.log_message(f"  - DECODED PHONE: {phone}", color="green")
+                    if card: self.log_message(f"  - DECODED CARD: {card}", color="green")
 
                     self.devices[d.address] = {
                         "device": d,
@@ -196,9 +295,16 @@ class BLEScannerApp:
                         )
                     )
                 self.page.update()
+            except RuntimeError as re:
+                if "destroyed session" in str(re):
+                    self.is_scanning = False
+                    break
             except Exception as ex:
-                self.status_text.value = f"Status: Scan error ({str(ex)})"
-                self.page.update()
+                try:
+                    self.status_text.value = f"Status: Scan error ({str(ex)})"
+                    self.page.update()
+                except:
+                    break
             
             await asyncio.sleep(1)
 
@@ -209,13 +315,16 @@ class BLEScannerApp:
             self.scan_btn.icon = "play_arrow"
             self.scan_btn.style = ft.ButtonStyle(bgcolor="blue700", color="white")
             self.status_text.value = "Status: Idle"
-            print("\nScan Stopped by User.")
+            self.log_message("Scan Stopped by User.", color="amber")
         else:
+            self.scan_btn.text = "Stop Scan"
+            self.scan_btn.icon = "stop"
+            self.scan_btn.style = ft.ButtonStyle(bgcolor="red700", color="white")
             self.scanning_task = asyncio.create_task(self.run_scan())
         self.page.update()
 
     async def connect_device(self, address):
-        print(f"\n[CONNECT] Attempting to connect to {address}...")
+        self.log_message(f"[CONNECT] Attempting to connect to {address}...", color="blue")
         self.status_text.value = f"Status: Connecting to {address}..."
         self.page.update()
         
@@ -223,57 +332,71 @@ class BLEScannerApp:
             client = BleakClient(address)
             await client.connect()
             self.connected_client = client
-            print(f"[CONNECT] Successfully connected to {address}")
+            self.log_message(f"[CONNECT] Successfully connected to {address}", color="blue")
             self.status_text.value = f"Status: Connected to {address}"
             self.send_btn.disabled = False
             
             # Explore Services and Characteristics
-            print(f"[GATT] Discovering services for {address}...")
+            self.log_message(f"[GATT] Discovering services for {address}...", color="blue")
             services = client.services 
             found_info = False
             self.target_write_char = None
             found_read_char = None
             
             for service in services:
-                print(f"  [Service] {service.uuid} ({service.description})")
+                self.log_message(f"  [Service] {service.uuid} ({service.description})", color="blue")
                 for char in service.characteristics:
-                    short_uuid = char.uuid.split("-")[0][-4:]
-                    print(f"    [Char] {char.uuid} (Short: {short_uuid}) | Props: {char.properties}")
+                    char_uuid = char.uuid.lower()
+                    short_uuid = char_uuid.split("-")[0][-4:]
+                    self.log_message(f"    [Char] {char.uuid} (Short: {short_uuid}) | Props: {char.properties}", color="grey400")
                     
-                    is_system_char = short_uuid.lower() in ["2b29", "2b2a", "2a00", "2a01", "2a05"]
+                    is_system_char = short_uuid in ["2b29", "2b2a", "2a00", "2a01", "2a05"]
                     
+                    # --- Priority 1: Strict Match with ble-advertiser spec ---
+                    if char_uuid == TARGET_WRITE_UUID:
+                        self.target_write_char = char
+                        self.write_char_text.value = f"Write Channel: {short_uuid} (Fixed)"
+                        self.log_message(f"      -> [MATCH] TARGET WRITE Characteristic found!", color="green")
+                    
+                    if char_uuid == TARGET_READ_UUID:
+                        found_read_char = char
+                        self.read_char_text.value = f"Read Channel: {short_uuid} (Fixed)"
+                        self.log_message(f"      -> [MATCH] TARGET READ Characteristic found!", color="green")
+
+                    # --- Priority 2: Fallback Logic (if not found yet) ---
                     if not self.target_write_char and not is_system_char:
                         if "write" in char.properties or "write-without-response" in char.properties:
                             self.target_write_char = char
                             self.write_char_text.value = f"Write Channel: {short_uuid}"
-                            print(f"      -> Selected as WRITE target (Channel: {short_uuid})")
+                            self.log_message(f"      -> Selected as fallback WRITE target", color="blue")
 
-                    if "read" in char.properties and not is_system_char:
-                        if not found_read_char:
-                            found_read_char = char
-                            self.read_char_text.value = f"Read Channel: {short_uuid}"
-                            print(f"      -> Selected as READ target (Channel: {short_uuid})")
+                    if not found_read_char and "read" in char.properties and not is_system_char:
+                        found_read_char = char
+                        self.read_char_text.value = f"Read Channel: {short_uuid}"
+                        self.log_message(f"      -> Selected as fallback READ target", color="blue")
                             
                         try:
-                            data = await client.read_gatt_char(char.uuid)
-                            decoded = data.decode('utf-8', errors='ignore')
-                            if decoded.strip():
-                                print(f"      -> Initial Read Data: {decoded}")
-                                self.order_info_text.value = f"Order Information: {decoded}"
-                                found_info = True
+                            # Only try to read if it is explicitly the target READ char or has read property
+                            if char == found_read_char:
+                                data = await client.read_gatt_char(char.uuid)
+                                decoded = data.decode('utf-8', errors='ignore')
+                                if decoded.strip():
+                                    self.log_message(f"      -> Initial Read Data: {decoded}", color="blue")
+                                    self.order_info_text.value = f"Order Information: {decoded}"
+                                    found_info = True
                         except Exception as e:
-                            print(f"      -> Read failed: {e}")
+                            self.log_message(f"      -> Read failed: {e}", color="red")
                             continue
             
             if not found_info:
                 self.order_info_text.value = "Order Information: No readable data found."
             
             if not self.target_write_char:
-                print("[WARN] No suitable writable application characteristic found.")
+                self.log_message("[WARN] No suitable writable application characteristic found.", color="red")
                 self.write_char_text.value = "Write Channel: Not found"
                 
         except Exception as ex:
-            print(f"[ERROR] Connection failed: {ex}")
+            self.log_message(f"[ERROR] Connection failed: {ex}", color="red")
             self.status_text.value = f"Status: Connection failed ({str(ex)})"
         
         self.page.update()
@@ -290,29 +413,29 @@ class BLEScannerApp:
             char = self.target_write_char
             short_id = char.uuid.split("-")[0][-4:]
             
-            print(f"\n[SEND] Sending data to {short_id} ({char.uuid})")
-            print(f"  - Payload: {payload}")
+            self.log_message(f"[SEND] Sending data to {short_id} ({char.uuid})", color="green")
+            self.log_message(f"  - Payload: {payload}", color="grey400")
             
             # --- Robust Write Logic ---
             if "write-without-response" in char.properties:
-                print(f"  - Method: Write Without Response")
+                self.log_message(f"  - Method: Write Without Response", color="grey400")
                 await self.connected_client.write_gatt_char(char.uuid, msg, response=False)
                 self.status_text.value = f"Status: Data sent to {short_id} (No Response)"
             elif "write" in char.properties:
-                print(f"  - Method: Write With Response")
+                self.log_message(f"  - Method: Write With Response", color="grey400")
                 await self.connected_client.write_gatt_char(char.uuid, msg, response=True)
                 self.status_text.value = f"Status: Data sent to {short_id} (With Response)"
             else:
-                print(f"  - Error: Characteristic not writable.")
+                self.log_message(f"  - Error: Characteristic not writable.", color="red")
                 self.status_text.value = "Status: Target characteristic not writable."
             
-            print(f"  - Result: Sent successfully")
+            self.log_message(f"  - Result: Sent successfully", color="green")
                 
         except Exception as ex:
             err_msg = str(ex)
             short_id = self.target_write_char.uuid.split("-")[0][-4:]
-            print(f"  - Result: FAILED")
-            print(f"  - Error: {err_msg}")
+            self.log_message(f"  - Result: FAILED", color="red")
+            self.log_message(f"  - Error: {err_msg}", color="red")
             
             if "Access Denied" in err_msg:
                 self.status_text.value = f"Status: Failed (Access Denied for {short_id}). Pairing may be required."
