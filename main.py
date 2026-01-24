@@ -417,14 +417,14 @@ class BLEScannerApp:
             self.log_message(f"  - Payload: {payload}", color="grey400")
             
             # --- Robust Write Logic ---
-            if "write-without-response" in char.properties:
-                self.log_message(f"  - Method: Write Without Response", color="grey400")
-                await self.connected_client.write_gatt_char(char.uuid, msg, response=False)
-                self.status_text.value = f"Status: Data sent to {short_id} (No Response)"
-            elif "write" in char.properties:
+            if "write" in char.properties:
                 self.log_message(f"  - Method: Write With Response", color="grey400")
                 await self.connected_client.write_gatt_char(char.uuid, msg, response=True)
                 self.status_text.value = f"Status: Data sent to {short_id} (With Response)"
+            elif "write-without-response" in char.properties:
+                self.log_message(f"  - Method: Write Without Response", color="grey400")
+                await self.connected_client.write_gatt_char(char.uuid, msg, response=False)
+                self.status_text.value = f"Status: Data sent to {short_id} (No Response)"
             else:
                 self.log_message(f"  - Error: Characteristic not writable.", color="red")
                 self.status_text.value = "Status: Target characteristic not writable."
