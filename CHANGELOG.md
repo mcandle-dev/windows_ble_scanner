@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-01-25]
+### Changed
+- **UI Layout**: Relocated 'Write Channel Response' switch to the 'Connection Information' header line for better space utilization.
+- **UI Spacing**: Increased the height of the 'Connection Information' section by reducing the 'Detected Devices' section height.
+- **Connection Logic**: Implemented explicit disconnection logic when stopping scans or starting new connections to prevent "zombie" connection errors.
+- **Button UX**: Updated 'Start/Stop Scan' button to show consistent state (Red/Stop, Blue/Start) and automatically reset when a connection is established.
+
 ## [Unreleased]
 
 ## [2026-01-19]

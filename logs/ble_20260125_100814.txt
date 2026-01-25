@@ -1,0 +1,1000 @@
+[09:59:56] [SCAN] Found: Unknown (34:FC:99:D4:45:17) | RSSI: -91
+[09:59:56] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -71
+[09:59:56] [SCAN] Found: Unknown (CA:95:E4:C9:6E:31) | RSSI: -71
+[09:59:56] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -76
+[09:59:56] [SCAN] Found: Unknown (3D:3B:CC:92:E0:C6) | RSSI: -87
+[09:59:56] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -76
+[09:59:56] [SCAN] Found: Unknown (24:42:8A:4A:CE:6D) | RSSI: -85
+[09:59:56] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -79
+[09:59:56] [SCAN] Found: Unknown (04:BE:FC:C4:F5:B1) | RSSI: -56
+[09:59:56] [SCAN] Found: Unknown (34:C9:5D:44:D9:6F) | RSSI: -58
+[09:59:56] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -83
+[09:59:56] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -80
+[09:59:56] [SCAN] Found: Unknown (E7:B1:72:FF:B6:9A) | RSSI: -72
+[09:59:57] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -60
+[09:59:57] [SCAN] Found: Unknown (6C:97:7B:DD:E2:15) | RSSI: -75
+[09:59:57]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[09:59:57] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -72
+[09:59:57] [SCAN] Found: Unknown (31:38:B3:5D:8E:F7) | RSSI: -81
+[09:59:57] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -88
+[09:59:57] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -82
+[09:59:57] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -80
+[09:59:57] [SCAN] Found: Unknown (34:9E:B2:B7:FB:0C) | RSSI: -73
+[09:59:57] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -67
+[09:59:57] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -72
+[09:59:58] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -76
+[09:59:58] [SCAN] Found: Unknown (7A:40:AF:68:54:AF) | RSSI: -77
+[09:59:58]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[09:59:58] [SCAN] Found: Unknown (34:FC:99:D2:18:C6) | RSSI: -92
+[09:59:58] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -79
+[09:59:58] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -72
+[09:59:58] [SCAN] Found: Unknown (1D:7E:30:68:D9:34) | RSSI: -76
+[09:59:58] [SCAN] Found: Unknown (D9:26:77:57:2C:47) | RSSI: -81
+[09:59:58] [SCAN] Found: Unknown (1E:93:BF:CA:FF:10) | RSSI: -87
+[09:59:58] [SCAN] Found: Unknown (45:EC:20:EC:C4:C7) | RSSI: -67
+[09:59:59] [SCAN] Found: Unknown (43:2C:D9:70:44:BB) | RSSI: -65
+[10:00:00] [SEND] Sending data to fff1 (0000fff1-0000-1000-8000-00805f9b34fb)
+[10:00:00]   - Payload: order_id=1234
+[10:00:00]   - Method: Write With Response
+[10:00:00]   - Result: FAILED
+[10:00:00]   - Error: [WinError -2147483629] 개체가 닫혔습니다.
+[10:00:05] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -77
+[10:00:05] [SCAN] Found: Unknown (46:30:0B:F8:20:F6) | RSSI: -87
+[10:00:05] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -84
+[10:00:05] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -72
+[10:00:05] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -75
+[10:00:05] [SCAN] Found: Unknown (3D:3B:CC:92:E0:C6) | RSSI: -87
+[10:00:05] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -66
+[10:00:05] [SCAN] Found: Unknown (EE:8F:56:92:17:43) | RSSI: -82
+[10:00:05] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -71
+[10:00:05] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -78
+[10:00:05] [SCAN] Found: System A/C (34:FC:99:D2:18:C6) | RSSI: -88
+[10:00:05] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -72
+[10:00:05] [SCAN] Found: Unknown (1D:7E:30:68:D9:34) | RSSI: -77
+[10:00:05] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -80
+[10:00:05] [SCAN] Found: Unknown (22:35:4B:56:C3:35) | RSSI: -89
+[10:00:05] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -77
+[10:00:05] [SCAN] Found: System A/C (34:FC:99:D4:45:17) | RSSI: -89
+[10:00:06] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -79
+[10:00:06] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -72
+[10:00:06] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -71
+[10:00:06] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -69
+[10:00:06] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -77
+[10:00:06] [SCAN] Found: Unknown (6C:97:7B:DD:E2:15) | RSSI: -77
+[10:00:06]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:00:06] [SCAN] Found: Unknown (31:38:B3:5D:8E:F7) | RSSI: -87
+[10:00:06] [SCAN] Found: Unknown (24:42:8A:4A:CE:6D) | RSSI: -85
+[10:00:06] [SCAN] Found: Unknown (5F:05:E0:04:CF:0B) | RSSI: -68
+[10:00:06] [SCAN] Found: Unknown (08:7C:4A:9C:23:78) | RSSI: -86
+[10:00:06] [SCAN] Found: Unknown (34:C9:5D:44:D9:6F) | RSSI: -56
+[10:00:07] [SCAN] Found: Unknown (48:6A:65:FE:ED:B9) | RSSI: -69
+[10:00:07] [SCAN] Found: Unknown (04:BE:FC:C4:F5:B1) | RSSI: -67
+[10:00:07] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -82
+[10:00:07] [SCAN] Found: Unknown (03:3A:38:40:4C:8D) | RSSI: -76
+[10:00:07] [SCAN] Found: Unknown (ED:DA:CD:0B:0C:AF) | RSSI: -82
+[10:00:11] Scan Stopped by User.
+[10:00:14] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -84
+[10:00:14] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -72
+[10:00:14] [SCAN] Found: Unknown (03:3A:38:40:4C:8D) | RSSI: -72
+[10:00:14] [SCAN] Found: Unknown (66:6D:48:A1:09:0A) | RSSI: -62
+[10:00:14] [SCAN] Found: Unknown (08:7C:4A:9C:23:78) | RSSI: -85
+[10:00:14] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -79
+[10:00:14] [SCAN] Found: Unknown (24:42:8A:4A:CE:6D) | RSSI: -88
+[10:00:14] [SCAN] Found: System A/C (34:FC:99:D4:45:17) | RSSI: -89
+[10:00:14] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -65
+[10:00:14] [SCAN] Found: Unknown (34:9E:B2:B7:FB:0C) | RSSI: -72
+[10:00:14] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -67
+[10:00:14] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -75
+[10:00:14] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -75
+[10:00:14] [SCAN] Found: Unknown (D9:85:CE:6C:69:B7) | RSSI: -74
+[10:00:14] [SCAN] Found: Unknown (34:C9:5D:44:D9:6F) | RSSI: -59
+[10:00:14] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -75
+[10:00:15] [SCAN] Found: Unknown (34:FC:99:D2:18:C6) | RSSI: -88
+[10:00:15] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -73
+[10:00:15] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -76
+[10:00:15] [SCAN] Found: Unknown (22:35:4B:56:C3:35) | RSSI: -88
+[10:00:15] [SCAN] Found: Unknown (0C:6D:20:3C:AC:3B) | RSSI: -82
+[10:00:15] [SCAN] Found: Unknown (3D:3B:CC:92:E0:C6) | RSSI: -83
+[10:00:15] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -83
+[10:00:15] [SCAN] Found: Unknown (CA:95:E4:C9:6E:31) | RSSI: -70
+[10:00:15] [SCAN] Found: Unknown (1D:7E:30:68:D9:34) | RSSI: -73
+[10:00:15] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -69
+[10:00:15] [SCAN] Found: Unknown (68:EF:FC:0F:F4:84) | RSSI: -52
+[10:00:16]   - UUIDs: ['0000fef3-0000-1000-8000-00805f9b34fb']
+[10:00:16] [SCAN] Found: Unknown (7A:40:AF:68:54:AF) | RSSI: -78
+[10:00:16]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:00:16] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -74
+[10:00:16] [SCAN] Found: Unknown (50:90:60:8A:64:11) | RSSI: -86
+[10:00:16] [SCAN] Found: Unknown (6C:97:7B:DD:E2:15) | RSSI: -75
+[10:00:16]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:00:16] [SCAN] Found: Unknown (29:C8:EC:7D:17:42) | RSSI: -71
+[10:00:17] [SCAN] Found: Unknown (72:50:45:F8:0F:12) | RSSI: -56
+[10:00:17] [SCAN] Found: Unknown (66:F7:DD:93:AA:60) | RSSI: -52
+[10:00:17]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b']
+[10:00:17]   - DECODED PHONE: 1234567812345678
+[10:00:17]   - DECODED CARD: 0000
+[10:00:17] [SCAN] Found: Unknown (35:F4:15:0C:86:93) | RSSI: -74
+[10:00:17] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -85
+[10:00:17] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -82
+[10:00:23] Starting BLE Scan...
+[10:00:24] [CONNECT] Attempting to connect to 66:F7:DD:93:AA:60...
+[10:00:24] [CONNECT] Attempting to connect to 66:F7:DD:93:AA:60...
+[10:00:25] [CONNECT] Attempting to connect to 66:F7:DD:93:AA:60...
+[10:00:30] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -71
+[10:00:30] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -66
+[10:00:30] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -73
+[10:00:30] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -81
+[10:00:30] [SCAN] Found: System A/C (34:FC:99:D4:45:17) | RSSI: -93
+[10:00:30] [SCAN] Found: Unknown (C6:17:D1:DE:6C:AB) | RSSI: -86
+[10:00:30] [SCAN] Found: Unknown (22:35:4B:56:C3:35) | RSSI: -89
+[10:00:30] [SCAN] Found: Unknown (DC:F0:71:6B:77:37) | RSSI: -78
+[10:00:30] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -81
+[10:00:30] [SCAN] Found: Unknown (66:6D:48:A1:09:0A) | RSSI: -63
+[10:00:30] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -74
+[10:00:30] [SCAN] Found: Unknown (D8:A3:EC:C9:9F:C3) | RSSI: -81
+[10:00:30] [SCAN] Found: mcandle (66:F7:DD:93:AA:60) | RSSI: -52
+[10:00:30]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:00:30]   - DECODED PHONE: 1234567812345678
+[10:00:30]   - DECODED CARD: 0000
+[10:00:30] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -78
+[10:00:30] [SCAN] Found: Unknown (35:F4:15:0C:86:93) | RSSI: -77
+[10:00:30] [SCAN] Found: Unknown (68:EF:FC:0F:F4:84) | RSSI: -56
+[10:00:30]   - UUIDs: ['0000fef3-0000-1000-8000-00805f9b34fb']
+[10:00:30] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -73
+[10:00:30] [SCAN] Found: Unknown (34:C9:5D:44:D9:6F) | RSSI: -66
+[10:00:30] [SCAN] Found: Unknown (34:9E:B2:B7:FB:0C) | RSSI: -73
+[10:00:30] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -71
+[10:00:30] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -85
+[10:00:30] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -60
+[10:00:30] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -82
+[10:00:31] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -88
+[10:00:31] [SCAN] Found: Unknown (1F:FC:4F:03:D9:11) | RSSI: -84
+[10:00:31] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -76
+[10:00:31] [SCAN] Found: Unknown (29:C8:EC:7D:17:42) | RSSI: -77
+[10:00:31] [SCAN] Found: Unknown (6F:31:A9:9F:23:5F) | RSSI: -83
+[10:00:31] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -80
+[10:00:31] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -71
+[10:00:31] [SCAN] Found: System A/C (34:FC:99:D2:18:C6) | RSSI: -89
+[10:00:31] [SCAN] Found: Unknown (CA:95:E4:C9:6E:31) | RSSI: -75
+[10:00:31] [SCAN] Found: Unknown (04:BE:FC:C4:F5:B1) | RSSI: -57
+[10:00:32] [SCAN] Found: Unknown (31:38:B3:5D:8E:F7) | RSSI: -87
+[10:00:32] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -70
+[10:00:32] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -71
+[10:00:32] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -71
+[10:00:32] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -88
+[10:00:32] [SCAN] Found: System A/C (34:FC:99:D4:45:17) | RSSI: -91
+[10:00:32] [SCAN] Found: Unknown (C6:17:D1:DE:6C:AB) | RSSI: -86
+[10:00:32] [SCAN] Found: Unknown (22:35:4B:56:C3:35) | RSSI: -91
+[10:00:32] [SCAN] Found: Unknown (DC:F0:71:6B:77:37) | RSSI: -78
+[10:00:32] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -85
+[10:00:32] [SCAN] Found: Unknown (66:6D:48:A1:09:0A) | RSSI: -63
+[10:00:32] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -74
+[10:00:32] [SCAN] Found: Unknown (D8:A3:EC:C9:9F:C3) | RSSI: -84
+[10:00:32] [SCAN] Found: mcandle (66:F7:DD:93:AA:60) | RSSI: -52
+[10:00:32]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:00:33]   - DECODED PHONE: 1234567812345678
+[10:00:33]   - DECODED CARD: 0000
+[10:00:33] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -78
+[10:00:33] [SCAN] Found: Unknown (35:F4:15:0C:86:93) | RSSI: -73
+[10:00:33] [SCAN] Found: Unknown (68:EF:FC:0F:F4:84) | RSSI: -53
+[10:00:33]   - UUIDs: ['0000fef3-0000-1000-8000-00805f9b34fb']
+[10:00:33] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -86
+[10:00:33] [SCAN] Found: Unknown (34:C9:5D:44:D9:6F) | RSSI: -68
+[10:00:33] [SCAN] Found: Unknown (34:9E:B2:B7:FB:0C) | RSSI: -73
+[10:00:33] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -74
+[10:00:33] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -85
+[10:00:33] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -76
+[10:00:34] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -80
+[10:00:34] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -90
+[10:00:34] [SCAN] Found: Unknown (1F:FC:4F:03:D9:11) | RSSI: -83
+[10:00:34] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -85
+[10:00:34] [SCAN] Found: Unknown (29:C8:EC:7D:17:42) | RSSI: -77
+[10:00:34] [SCAN] Found: Unknown (6F:31:A9:9F:23:5F) | RSSI: -83
+[10:00:34] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -82
+[10:00:34] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -75
+[10:00:34] [SCAN] Found: System A/C (34:FC:99:D2:18:C6) | RSSI: -89
+[10:00:34] [SCAN] Found: Unknown (CA:95:E4:C9:6E:31) | RSSI: -75
+[10:00:35] [SCAN] Found: Unknown (04:BE:FC:C4:F5:B1) | RSSI: -57
+[10:00:35] [SCAN] Found: Unknown (31:38:B3:5D:8E:F7) | RSSI: -88
+[10:00:35] [SCAN] Found: Unknown (7A:40:AF:68:54:AF) | RSSI: -73
+[10:00:35]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:00:41] [SCAN] Found: Unknown (6C:97:7B:DD:E2:15) | RSSI: -76
+[10:00:41]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:00:41] [SCAN] Found: Unknown (6F:63:14:A9:FB:0F) | RSSI: -66
+[10:00:41] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -68
+[10:00:41] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -84
+[10:00:41] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -62
+[10:00:41] [SCAN] Found: Unknown (68:EF:FC:0F:F4:84) | RSSI: -53
+[10:00:41]   - UUIDs: ['0000fef3-0000-1000-8000-00805f9b34fb']
+[10:00:41] [SCAN] Found: Unknown (35:F4:15:0C:86:93) | RSSI: -74
+[10:00:41] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -69
+[10:00:41] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -82
+[10:00:41] [SCAN] Found: Unknown (34:9E:B2:B7:FB:0C) | RSSI: -75
+[10:00:41] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -70
+[10:00:41] [SCAN] Found: System A/C (34:FC:99:D4:45:17) | RSSI: -90
+[10:00:41] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -74
+[10:00:41] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -84
+[10:00:41] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -72
+[10:00:42] [SCAN] Found: Unknown (29:C8:EC:7D:17:42) | RSSI: -73
+[10:00:42] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -72
+[10:00:42] [SCAN] Found: Unknown (5F:05:E0:04:CF:0B) | RSSI: -69
+[10:00:42] [SCAN] Found: Unknown (D2:0C:B5:88:FF:B0) | RSSI: -66
+[10:00:42] [SCAN] Found: Unknown (22:35:4B:56:C3:35) | RSSI: -89
+[10:00:42] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -84
+[10:00:42] [SCAN] Found: Unknown (34:FC:99:D2:18:C6) | RSSI: -89
+[10:00:42] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -70
+[10:00:42] [SCAN] Found: Unknown (45:E7:47:A7:AA:E0) | RSSI: -75
+[10:00:42] [SCAN] Found: mcandle (66:F7:DD:93:AA:60) | RSSI: -56
+[10:00:43]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:00:43]   - DECODED PHONE: 1234567812345678
+[10:00:43]   - DECODED CARD: 0000
+[10:00:43] [SCAN] Found: Unknown (57:CB:5D:95:D0:58) | RSSI: -85
+[10:00:43] [SCAN] Found: Unknown (72:50:45:F8:0F:12) | RSSI: -53
+[10:00:43] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -80
+[10:00:43] [SCAN] Found: Unknown (38:64:E2:A4:D1:E8) | RSSI: -68
+[10:00:43] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -82
+[10:00:43] [SCAN] Found: Unknown (50:48:FF:2E:24:57) | RSSI: -82
+[10:00:43] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -88
+[10:00:43] [SCAN] Found: Unknown (0A:76:22:D4:17:C5) | RSSI: -72
+[10:00:44] [SCAN] Found: Unknown (66:6D:48:A1:09:0A) | RSSI: -63
+[10:00:44] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -72
+[10:00:44] [SCAN] Found: System A/C (34:FC:99:D4:45:17) | RSSI: -88
+[10:00:44] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -75
+[10:00:44] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -85
+[10:00:44] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -62
+[10:00:44] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -82
+[10:00:44] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -70
+[10:00:44] [SCAN] Found: Unknown (29:C8:EC:7D:17:42) | RSSI: -73
+[10:00:44] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -73
+[10:00:44] [SCAN] Found: Unknown (5F:05:E0:04:CF:0B) | RSSI: -69
+[10:00:44] [SCAN] Found: Unknown (D2:0C:B5:88:FF:B0) | RSSI: -66
+[10:00:44] [SCAN] Found: Unknown (22:35:4B:56:C3:35) | RSSI: -89
+[10:00:45] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -84
+[10:00:45] [SCAN] Found: Unknown (34:FC:99:D2:18:C6) | RSSI: -92
+[10:00:45] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -71
+[10:00:45] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -76
+[10:00:45] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -84
+[10:00:45] [SCAN] Found: Unknown (68:EF:FC:0F:F4:84) | RSSI: -53
+[10:00:45]   - UUIDs: ['0000fef3-0000-1000-8000-00805f9b34fb']
+[10:00:45] [SCAN] Found: Unknown (35:F4:15:0C:86:93) | RSSI: -74
+[10:00:45] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -71
+[10:00:45] [SCAN] Found: Unknown (45:E7:47:A7:AA:E0) | RSSI: -75
+[10:00:45] [SCAN] Found: mcandle (66:F7:DD:93:AA:60) | RSSI: -52
+[10:00:45]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:00:45]   - DECODED PHONE: 1234567812345678
+[10:00:46]   - DECODED CARD: 0000
+[10:00:46] [SCAN] Found: Unknown (57:CB:5D:95:D0:58) | RSSI: -85
+[10:00:46] [SCAN] Found: Unknown (72:50:45:F8:0F:12) | RSSI: -53
+[10:00:46] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -80
+[10:00:46] [SCAN] Found: Unknown (38:64:E2:A4:D1:E8) | RSSI: -68
+[10:00:46] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -82
+[10:00:46] [SCAN] Found: Unknown (50:48:FF:2E:24:57) | RSSI: -82
+[10:00:46] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -88
+[10:00:46] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -66
+[10:00:46] [SCAN] Found: Unknown (34:9E:B2:B7:FB:0C) | RSSI: -75
+[10:00:47] [SCAN] Found: Unknown (0A:76:22:D4:17:C5) | RSSI: -72
+[10:00:47] [SCAN] Found: Unknown (66:6D:48:A1:09:0A) | RSSI: -68
+[10:00:47] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -83
+[10:00:47] [SCAN] Found: Unknown (56:86:19:CA:2D:42) | RSSI: -89
+[10:00:47] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -66
+[10:00:47] [SCAN] Found: Unknown (39:5C:87:03:D5:BF) | RSSI: -75
+[10:00:47] [SCAN] Found: Unknown (1F:FC:4F:03:D9:11) | RSSI: -81
+[10:00:47] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -86
+[10:00:48] [SCAN] Found: Unknown (31:38:B3:5D:8E:F7) | RSSI: -86
+[10:00:53] [SCAN] Found: mcandle (66:F7:DD:93:AA:60) | RSSI: -54
+[10:00:53]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:00:53]   - DECODED PHONE: 1234567812345678
+[10:00:53]   - DECODED CARD: 0000
+[10:00:53] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -69
+[10:00:53] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -73
+[10:00:53] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -67
+[10:00:53] [SCAN] Found: Unknown (68:EF:FC:0F:F4:84) | RSSI: -52
+[10:00:53]   - UUIDs: ['0000fef3-0000-1000-8000-00805f9b34fb']
+[10:00:54] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -86
+[10:00:54] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -83
+[10:00:54] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -61
+[10:00:54] [SCAN] Found: Unknown (0A:76:22:D4:17:C5) | RSSI: -82
+[10:00:54] [SCAN] Found: Unknown (34:FC:99:D4:45:17) | RSSI: -89
+[10:00:54] [SCAN] Found: Unknown (D8:A3:EC:C9:9F:C3) | RSSI: -77
+[10:00:54] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -64
+[10:00:54] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -76
+[10:00:54] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -70
+[10:00:54] [SCAN] Found: Unknown (34:9E:B2:B7:FB:0C) | RSSI: -74
+[10:00:54] [SCAN] Found: Unknown (1F:FC:4F:03:D9:11) | RSSI: -80
+[10:00:54] [SCAN] Found: Unknown (D9:85:CE:6C:69:B7) | RSSI: -85
+[10:00:54] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -74
+[10:00:54] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -84
+[10:00:54] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -72
+[10:00:54] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -67
+[10:00:54] [SCAN] Found: Unknown (CA:95:E4:C9:6E:31) | RSSI: -68
+[10:00:54] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -82
+[10:00:54] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -72
+[10:00:54] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -83
+[10:00:54] [SCAN] Found: Unknown (66:6D:48:A1:09:0A) | RSSI: -65
+[10:00:55] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -80
+[10:00:55] [SCAN] Found: Unknown (34:FC:99:D2:18:C6) | RSSI: -91
+[10:00:55] [SCAN] Found: Unknown (72:50:45:F8:0F:12) | RSSI: -53
+[10:00:55] [SCAN] Found: Unknown (7A:40:AF:68:54:AF) | RSSI: -80
+[10:00:55]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:00:56] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -76
+[10:00:56] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -67
+[10:00:56] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -72
+[10:00:56] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -70
+[10:00:56] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -61
+[10:00:56] [SCAN] Found: Unknown (34:9E:B2:B7:FB:0C) | RSSI: -74
+[10:00:56] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -67
+[10:00:57] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -84
+[10:00:57] [SCAN] Found: Unknown (68:EF:FC:0F:F4:84) | RSSI: -53
+[10:00:57]   - UUIDs: ['0000fef3-0000-1000-8000-00805f9b34fb']
+[10:00:57] [SCAN] Found: Unknown (1F:FC:4F:03:D9:11) | RSSI: -80
+[10:00:57] [SCAN] Found: Unknown (D9:85:CE:6C:69:B7) | RSSI: -85
+[10:00:57] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -64
+[10:00:57] [SCAN] Found: Unknown (0A:76:22:D4:17:C5) | RSSI: -75
+[10:00:57] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -74
+[10:00:57] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -80
+[10:00:57] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -84
+[10:00:57] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -72
+[10:00:57] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -78
+[10:00:57] [SCAN] Found: mcandle (66:F7:DD:93:AA:60) | RSSI: -57
+[10:00:57]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:00:57]   - DECODED PHONE: 1234567812345678
+[10:00:57]   - DECODED CARD: 0000
+[10:00:57] [SCAN] Found: Unknown (CA:95:E4:C9:6E:31) | RSSI: -68
+[10:00:57] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -82
+[10:00:57] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -77
+[10:00:57] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -84
+[10:00:57] [SCAN] Found: Unknown (66:6D:48:A1:09:0A) | RSSI: -67
+[10:00:57] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -79
+[10:00:57] [SCAN] Found: Unknown (34:FC:99:D2:18:C6) | RSSI: -87
+[10:00:57] [SCAN] Found: Unknown (72:50:45:F8:0F:12) | RSSI: -53
+[10:00:58] [SCAN] Found: Unknown (7A:40:AF:68:54:AF) | RSSI: -80
+[10:00:58]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:00:58] [SCAN] Found: Unknown (EE:8F:56:92:17:43) | RSSI: -75
+[10:00:58] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -87
+[10:00:58] [SCAN] Found: Unknown (34:FC:99:D4:45:17) | RSSI: -90
+[10:00:58] [ERROR] Connection failed: 
+[10:00:58] [ERROR] Connection failed: 
+[10:00:58] [ERROR] Connection failed: 
+[10:01:04] [SCAN] Found: Unknown (0A:76:22:D4:17:C5) | RSSI: -74
+[10:01:04] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -73
+[10:01:04] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -84
+[10:01:04] [SCAN] Found: Unknown (D9:26:77:57:2C:47) | RSSI: -76
+[10:01:04] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -80
+[10:01:04] [SCAN] Found: Unknown (68:EF:FC:0F:F4:84) | RSSI: -56
+[10:01:04]   - UUIDs: ['0000fef3-0000-1000-8000-00805f9b34fb']
+[10:01:04] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -79
+[10:01:04] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -79
+[10:01:04] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -68
+[10:01:04] [SCAN] Found: Unknown (D2:0C:B5:88:FF:B0) | RSSI: -68
+[10:01:04] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -76
+[10:01:04] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -72
+[10:01:04] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -71
+[10:01:04] [SCAN] Found: Unknown (D8:A3:EC:C9:9F:C3) | RSSI: -76
+[10:01:04] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -72
+[10:01:05] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -79
+[10:01:05] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -83
+[10:01:05] [SCAN] Found: Unknown (6C:97:7B:DD:E2:15) | RSSI: -76
+[10:01:05]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:05] [SCAN] Found: Unknown (22:35:4B:56:C3:35) | RSSI: -88
+[10:01:05] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -72
+[10:01:05] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -79
+[10:01:05] [SCAN] Found: System A/C (34:FC:99:D2:18:C6) | RSSI: -87
+[10:01:05] [SCAN] Found: Unknown (66:6D:48:A1:09:0A) | RSSI: -63
+[10:01:05] [SCAN] Found: mcandle (66:F7:DD:93:AA:60) | RSSI: -54
+[10:01:05]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:01:05]   - DECODED PHONE: 1234567812345678
+[10:01:05]   - DECODED CARD: 0000
+[10:01:06] [SCAN] Found: Unknown (72:50:45:F8:0F:12) | RSSI: -53
+[10:01:06] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -72
+[10:01:06] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -81
+[10:01:06] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -79
+[10:01:06] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -62
+[10:01:06] [SCAN] Found: Unknown (1F:FC:4F:03:D9:11) | RSSI: -86
+[10:01:06] [SCAN] Found: Unknown (38:64:E2:A4:D1:E8) | RSSI: -63
+[10:01:06] [SCAN] Found: Unknown (34:FC:99:D4:45:17) | RSSI: -89
+[10:01:06] [SCAN] Found: Unknown (CF:86:6B:59:A5:C9) | RSSI: -81
+[10:01:07] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -77
+[10:01:07] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -70
+[10:01:07] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -77
+[10:01:07] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -78
+[10:01:07] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -63
+[10:01:07] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -76
+[10:01:07] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -84
+[10:01:07] [SCAN] Found: Unknown (6C:97:7B:DD:E2:15) | RSSI: -76
+[10:01:07]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:07] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -68
+[10:01:07] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -84
+[10:01:07] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -78
+[10:01:07] [SCAN] Found: Unknown (22:35:4B:56:C3:35) | RSSI: -88
+[10:01:07] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -74
+[10:01:07] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -79
+[10:01:08] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -82
+[10:01:08] [SCAN] Found: System A/C (34:FC:99:D2:18:C6) | RSSI: -87
+[10:01:08] [SCAN] Found: Unknown (66:6D:48:A1:09:0A) | RSSI: -63
+[10:01:08] [SCAN] Found: Unknown (68:EF:FC:0F:F4:84) | RSSI: -58
+[10:01:08]   - UUIDs: ['0000fef3-0000-1000-8000-00805f9b34fb']
+[10:01:08] [SCAN] Found: mcandle (66:F7:DD:93:AA:60) | RSSI: -54
+[10:01:08]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:01:08]   - DECODED PHONE: 1234567812345678
+[10:01:08]   - DECODED CARD: 0000
+[10:01:08] [SCAN] Found: Unknown (72:50:45:F8:0F:12) | RSSI: -56
+[10:01:08] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -75
+[10:01:08] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -83
+[10:01:08] [SCAN] Found: Unknown (0A:76:22:D4:17:C5) | RSSI: -74
+[10:01:09] [SCAN] Found: Unknown (D8:A3:EC:C9:9F:C3) | RSSI: -76
+[10:01:09] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -83
+[10:01:09] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -86
+[10:01:09] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -59
+[10:01:09] [SCAN] Found: Unknown (1F:FC:4F:03:D9:11) | RSSI: -86
+[10:01:09] [SCAN] Found: Unknown (38:64:E2:A4:D1:E8) | RSSI: -63
+[10:01:09] [SCAN] Found: Unknown (34:FC:99:D4:45:17) | RSSI: -89
+[10:01:09] [SCAN] Found: Unknown (CF:86:6B:59:A5:C9) | RSSI: -81
+[10:01:09] [SCAN] Found: Unknown (D3:10:16:5C:7E:52) | RSSI: -83
+[10:01:10] [SCAN] Found: Unknown (7A:40:AF:68:54:AF) | RSSI: -82
+[10:01:10]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:10] [SCAN] Found: Unknown (50:48:FF:2E:24:57) | RSSI: -84
+[10:01:10] [SCAN] Found: Unknown (31:38:B3:5D:8E:F7) | RSSI: -89
+[10:01:10] [SCAN] Found: Unknown (39:5C:87:03:D5:BF) | RSSI: -75
+[10:01:10] [SCAN] Found: Unknown (EE:8F:56:92:17:43) | RSSI: -72
+[10:01:10] [SCAN] Found: Unknown (5F:05:E0:04:CF:0B) | RSSI: -67
+[10:01:16] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -84
+[10:01:16] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -81
+[10:01:16] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -62
+[10:01:16] [SCAN] Found: Unknown (D8:A3:EC:C9:9F:C3) | RSSI: -75
+[10:01:16] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -72
+[10:01:16] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -70
+[10:01:16] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -66
+[10:01:16] [SCAN] Found: Unknown (39:5C:87:03:D5:BF) | RSSI: -78
+[10:01:16] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -69
+[10:01:16] [SCAN] Found: mcandle (66:F7:DD:93:AA:60) | RSSI: -56
+[10:01:16]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:01:16]   - DECODED PHONE: 1234567812345678
+[10:01:16]   - DECODED CARD: 0000
+[10:01:16] [SCAN] Found: Unknown (34:FC:99:D4:45:17) | RSSI: -91
+[10:01:16] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -82
+[10:01:16] [SCAN] Found: Unknown (34:9E:B2:B7:FB:0C) | RSSI: -73
+[10:01:16] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -81
+[10:01:16] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -76
+[10:01:17] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -73
+[10:01:17] [SCAN] Found: Unknown (0A:76:22:D4:17:C5) | RSSI: -80
+[10:01:17] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -81
+[10:01:17] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -78
+[10:01:17] [SCAN] Found: Unknown (4E:AD:9B:7C:24:69) | RSSI: -63
+[10:01:17] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -78
+[10:01:17] [SCAN] Found: Unknown (7A:40:AF:68:54:AF) | RSSI: -76
+[10:01:17]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:17] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -56
+[10:01:17] [SCAN] Found: Unknown (6C:97:7B:DD:E2:15) | RSSI: -74
+[10:01:17]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:17] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -77
+[10:01:17] [SCAN] Found: Unknown (5F:05:E0:04:CF:0B) | RSSI: -78
+[10:01:17] [SCAN] Found: Unknown (31:38:B3:5D:8E:F7) | RSSI: -87
+[10:01:17] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -75
+[10:01:17] [SCAN] Found: Unknown (38:64:E2:A4:D1:E8) | RSSI: -56
+[10:01:17] [SCAN] Found: Unknown (45:E7:47:A7:AA:E0) | RSSI: -69
+[10:01:18] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -71
+[10:01:18] [SCAN] Found: Unknown (4E:AD:9B:7C:24:69) | RSSI: -68
+[10:01:18] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -85
+[10:01:18] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -76
+[10:01:18] [SCAN] Found: Unknown (0A:76:22:D4:17:C5) | RSSI: -80
+[10:01:18] [SCAN] Found: Unknown (7A:40:AF:68:54:AF) | RSSI: -76
+[10:01:18]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:18] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -68
+[10:01:18] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -79
+[10:01:18] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -62
+[10:01:18] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -77
+[10:01:18] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -72
+[10:01:18] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -66
+[10:01:18] [SCAN] Found: mcandle (66:F7:DD:93:AA:60) | RSSI: -56
+[10:01:18]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:01:18]   - DECODED PHONE: 1234567812345678
+[10:01:18]   - DECODED CARD: 0000
+[10:01:18] [SCAN] Found: Unknown (6C:97:7B:DD:E2:15) | RSSI: -74
+[10:01:18]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:18] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -81
+[10:01:18] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -69
+[10:01:18] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -87
+[10:01:18] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -72
+[10:01:18] [SCAN] Found: Unknown (5F:05:E0:04:CF:0B) | RSSI: -78
+[10:01:18] [SCAN] Found: Unknown (31:38:B3:5D:8E:F7) | RSSI: -87
+[10:01:18] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -80
+[10:01:19] [SCAN] Found: Unknown (38:64:E2:A4:D1:E8) | RSSI: -56
+[10:01:19] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -67
+[10:01:19] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -62
+[10:01:19] [SCAN] Found: Unknown (45:E7:47:A7:AA:E0) | RSSI: -69
+[10:01:19] [SCAN] Found: Unknown (77:C5:4B:4C:3C:0A) | RSSI: -65
+[10:01:19]   - UUIDs: ['0000fef3-0000-1000-8000-00805f9b34fb']
+[10:01:19] [SCAN] Found: Unknown (D8:A3:EC:C9:9F:C3) | RSSI: -76
+[10:01:19] [SCAN] Found: System A/C (34:FC:99:D2:18:C6) | RSSI: -86
+[10:01:23] Scan Stopped by User.
+[10:01:24] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -73
+[10:01:24] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -72
+[10:01:24] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -58
+[10:01:24] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -61
+[10:01:24] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -77
+[10:01:24] [SCAN] Found: Unknown (77:C5:4B:4C:3C:0A) | RSSI: -65
+[10:01:24]   - UUIDs: ['0000fef3-0000-1000-8000-00805f9b34fb']
+[10:01:24] [SCAN] Found: Unknown (4E:AD:9B:7C:24:69) | RSSI: -65
+[10:01:24] [SCAN] Found: Unknown (34:FC:99:D2:18:C6) | RSSI: -87
+[10:01:24] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -82
+[10:01:24] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -66
+[10:01:25] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -81
+[10:01:25] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -75
+[10:01:25] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -75
+[10:01:25] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -81
+[10:01:25] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -77
+[10:01:25] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -69
+[10:01:25] [SCAN] Found: Unknown (D8:A3:EC:C9:9F:C3) | RSSI: -75
+[10:01:25] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -73
+[10:01:25] [SCAN] Found: Unknown (39:5C:87:03:D5:BF) | RSSI: -69
+[10:01:25] [SCAN] Found: System A/C (34:FC:99:D4:45:17) | RSSI: -87
+[10:01:26] [SCAN] Found: Unknown (7A:40:AF:68:54:AF) | RSSI: -78
+[10:01:26]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:26] [SCAN] Found: Unknown (C6:17:D1:DE:6C:AB) | RSSI: -70
+[10:01:26] [SCAN] Found: Unknown (1F:FC:4F:03:D9:11) | RSSI: -85
+[10:01:26] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -85
+[10:01:26] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -74
+[10:01:26] [SCAN] Found: Unknown (D2:0C:B5:88:FF:B0) | RSSI: -70
+[10:01:27] Starting BLE Scan...
+[10:01:27] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -81
+[10:01:27] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -75
+[10:01:27] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -73
+[10:01:27] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -76
+[10:01:27] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -76
+[10:01:27] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -69
+[10:01:27] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -68
+[10:01:27] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -84
+[10:01:27] [SCAN] Found: Unknown (D8:A3:EC:C9:9F:C3) | RSSI: -75
+[10:01:27] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -74
+[10:01:27] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -76
+[10:01:27] [SCAN] Found: Unknown (39:5C:87:03:D5:BF) | RSSI: -69
+[10:01:27] [SCAN] Found: System A/C (34:FC:99:D4:45:17) | RSSI: -88
+[10:01:27] [SCAN] Found: Unknown (7A:40:AF:68:54:AF) | RSSI: -81
+[10:01:27]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:27] [SCAN] Found: Unknown (C6:17:D1:DE:6C:AB) | RSSI: -70
+[10:01:28] [SCAN] Found: Unknown (1F:FC:4F:03:D9:11) | RSSI: -80
+[10:01:28] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -84
+[10:01:28] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -76
+[10:01:28] [SCAN] Found: Unknown (34:FC:99:D2:18:C6) | RSSI: -87
+[10:01:28] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -83
+[10:01:28] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -79
+[10:01:28] [SCAN] Found: Unknown (D2:0C:B5:88:FF:B0) | RSSI: -69
+[10:01:28] [SCAN] Found: Unknown (4E:AD:9B:7C:24:69) | RSSI: -65
+[10:01:28] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -75
+[10:01:28] [SCAN] Found: Unknown (77:C5:4B:4C:3C:0A) | RSSI: -66
+[10:01:29]   - UUIDs: ['0000fef3-0000-1000-8000-00805f9b34fb']
+[10:01:29] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -60
+[10:01:29] [SCAN] Found: Unknown (CF:86:6B:59:A5:C9) | RSSI: -81
+[10:01:29] [SCAN] Found: Unknown (0A:76:22:D4:17:C5) | RSSI: -76
+[10:01:35] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -76
+[10:01:35] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -77
+[10:01:35] [SCAN] Found: System A/C (34:FC:99:D2:18:C6) | RSSI: -86
+[10:01:35] [SCAN] Found: Unknown (77:C5:4B:4C:3C:0A) | RSSI: -65
+[10:01:35]   - UUIDs: ['0000fef3-0000-1000-8000-00805f9b34fb']
+[10:01:35] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -84
+[10:01:35] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -86
+[10:01:35] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -84
+[10:01:35] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -76
+[10:01:35] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -82
+[10:01:35] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -79
+[10:01:35] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -83
+[10:01:35] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -60
+[10:01:35] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -73
+[10:01:36] [SCAN] Found: Unknown (6F:31:A9:9F:23:5F) | RSSI: -85
+[10:01:36] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -76
+[10:01:36] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -73
+[10:01:36] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -85
+[10:01:36] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -66
+[10:01:36] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -84
+[10:01:36] [SCAN] Found: System A/C (34:FC:99:D4:45:17) | RSSI: -90
+[10:01:36] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -69
+[10:01:36] [SCAN] Found: Unknown (D3:10:16:5C:7E:52) | RSSI: -88
+[10:01:36] [SCAN] Found: Unknown (0A:76:22:D4:17:C5) | RSSI: -84
+[10:01:36] [SCAN] Found: Unknown (5F:05:E0:04:CF:0B) | RSSI: -66
+[10:01:36] [SCAN] Found: Unknown (50:48:FF:2E:24:57) | RSSI: -69
+[10:01:37] [SCAN] Found: Unknown (D2:0C:B5:88:FF:B0) | RSSI: -69
+[10:01:37] [SCAN] Found: Unknown (7A:40:AF:68:54:AF) | RSSI: -73
+[10:01:37]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:37] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -81
+[10:01:37] [SCAN] Found: Unknown (EE:8F:56:92:17:43) | RSSI: -79
+[10:01:37] [SCAN] Found: Unknown (39:5C:87:03:D5:BF) | RSSI: -78
+[10:01:37] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -73
+[10:01:37] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -76
+[10:01:37] [SCAN] Found: System A/C (34:FC:99:D2:18:C6) | RSSI: -87
+[10:01:37] [SCAN] Found: Unknown (77:C5:4B:4C:3C:0A) | RSSI: -68
+[10:01:38]   - UUIDs: ['0000fef3-0000-1000-8000-00805f9b34fb']
+[10:01:38] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -76
+[10:01:38] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -82
+[10:01:38] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -84
+[10:01:38] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -67
+[10:01:38] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -82
+[10:01:38] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -67
+[10:01:38] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -83
+[10:01:38] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -59
+[10:01:38] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -71
+[10:01:38] [SCAN] Found: Unknown (6F:31:A9:9F:23:5F) | RSSI: -85
+[10:01:38] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -76
+[10:01:38] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -71
+[10:01:38] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -85
+[10:01:38] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -66
+[10:01:39] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -75
+[10:01:39] [SCAN] Found: System A/C (34:FC:99:D4:45:17) | RSSI: -86
+[10:01:39] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -82
+[10:01:39] [SCAN] Found: Unknown (D3:10:16:5C:7E:52) | RSSI: -88
+[10:01:39] [SCAN] Found: Unknown (0A:76:22:D4:17:C5) | RSSI: -87
+[10:01:39] [SCAN] Found: Unknown (5F:05:E0:04:CF:0B) | RSSI: -66
+[10:01:39] [SCAN] Found: Unknown (50:48:FF:2E:24:57) | RSSI: -69
+[10:01:39] [SCAN] Found: Unknown (D2:0C:B5:88:FF:B0) | RSSI: -75
+[10:01:39] [SCAN] Found: Unknown (7A:40:AF:68:54:AF) | RSSI: -73
+[10:01:39]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:40] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -86
+[10:01:40] [SCAN] Found: Unknown (EE:8F:56:92:17:43) | RSSI: -79
+[10:01:40] [SCAN] Found: Unknown (39:5C:87:03:D5:BF) | RSSI: -78
+[10:01:40] [SCAN] Found: Unknown (CA:95:E4:C9:6E:31) | RSSI: -66
+[10:01:40] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -76
+[10:01:40] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -82
+[10:01:40] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -84
+[10:01:40] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -73
+[10:01:40] [SCAN] Found: System A/C (34:FC:99:D2:18:C6) | RSSI: -87
+[10:01:40] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -67
+[10:01:40] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -82
+[10:01:40] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -67
+[10:01:40] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -83
+[10:01:41] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -59
+[10:01:41] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -71
+[10:01:41] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -76
+[10:01:41] [SCAN] Found: Unknown (6F:31:A9:9F:23:5F) | RSSI: -85
+[10:01:41] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -76
+[10:01:41] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -71
+[10:01:41] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -85
+[10:01:41] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -66
+[10:01:41] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -75
+[10:01:41] [SCAN] Found: System A/C (34:FC:99:D4:45:17) | RSSI: -86
+[10:01:41] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -82
+[10:01:42] [SCAN] Found: Unknown (77:C5:4B:4C:3C:0A) | RSSI: -68
+[10:01:42]   - UUIDs: ['0000fef3-0000-1000-8000-00805f9b34fb']
+[10:01:42] [SCAN] Found: Unknown (D3:10:16:5C:7E:52) | RSSI: -88
+[10:01:42] [SCAN] Found: Unknown (0A:76:22:D4:17:C5) | RSSI: -87
+[10:01:42] [SCAN] Found: Unknown (5F:05:E0:04:CF:0B) | RSSI: -66
+[10:01:42] [SCAN] Found: Unknown (50:48:FF:2E:24:57) | RSSI: -69
+[10:01:42] [SCAN] Found: Unknown (D2:0C:B5:88:FF:B0) | RSSI: -75
+[10:01:42] [SCAN] Found: Unknown (7A:40:AF:68:54:AF) | RSSI: -73
+[10:01:42]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:42] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -86
+[10:01:42] [SCAN] Found: Unknown (EE:8F:56:92:17:43) | RSSI: -79
+[10:01:43] [SCAN] Found: Unknown (39:5C:87:03:D5:BF) | RSSI: -78
+[10:01:43] [SCAN] Found: Unknown (CA:95:E4:C9:6E:31) | RSSI: -66
+[10:01:48] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -77
+[10:01:48] [SCAN] Found: Unknown (39:5C:87:03:D5:BF) | RSSI: -74
+[10:01:48] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -80
+[10:01:48] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -59
+[10:01:48] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -74
+[10:01:48] [SCAN] Found: Unknown (6F:31:A9:9F:23:5F) | RSSI: -85
+[10:01:48] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -74
+[10:01:48] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -82
+[10:01:48] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -77
+[10:01:48] [SCAN] Found: Unknown (31:38:B3:5D:8E:F7) | RSSI: -88
+[10:01:48] [SCAN] Found: Unknown (0C:6D:20:3C:AC:3B) | RSSI: -81
+[10:01:48] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -81
+[10:01:48] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -81
+[10:01:48] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -74
+[10:01:48] [SCAN] Found: Unknown (1F:FC:4F:03:D9:11) | RSSI: -83
+[10:01:48] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -70
+[10:01:49] [SCAN] Found: Unknown (38:64:E2:A4:D1:E8) | RSSI: -60
+[10:01:49] [SCAN] Found: System A/C (34:FC:99:D4:45:17) | RSSI: -87
+[10:01:49] [SCAN] Found: Unknown (EE:8F:56:92:17:43) | RSSI: -78
+[10:01:49] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -85
+[10:01:49] [SCAN] Found: Unknown (4E:AD:9B:7C:24:69) | RSSI: -65
+[10:01:49] [SCAN] Found: Unknown (50:48:FF:2E:24:57) | RSSI: -80
+[10:01:49] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -85
+[10:01:49] [SCAN] Found: Unknown (D8:A3:EC:C9:9F:C3) | RSSI: -77
+[10:01:49] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -77
+[10:01:49] [SCAN] Found: Unknown (6C:97:7B:DD:E2:15) | RSSI: -72
+[10:01:49]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:49] [SCAN] Found: Unknown (34:9E:B2:B7:FB:0C) | RSSI: -77
+[10:01:49] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -86
+[10:01:49] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -86
+[10:01:49] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -72
+[10:01:49] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -66
+[10:01:49] [SCAN] Found: Unknown (D9:85:CE:6C:69:B7) | RSSI: -77
+[10:01:50] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -72
+[10:01:50] [SCAN] Found: Unknown (39:5C:87:03:D5:BF) | RSSI: -74
+[10:01:50] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -80
+[10:01:50] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -59
+[10:01:50] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -67
+[10:01:50] [SCAN] Found: Unknown (6F:31:A9:9F:23:5F) | RSSI: -85
+[10:01:50] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -74
+[10:01:50] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -84
+[10:01:50] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -77
+[10:01:50] [SCAN] Found: Unknown (31:38:B3:5D:8E:F7) | RSSI: -88
+[10:01:50] [SCAN] Found: Unknown (0C:6D:20:3C:AC:3B) | RSSI: -81
+[10:01:50] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -81
+[10:01:50] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -81
+[10:01:50] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -65
+[10:01:50] [SCAN] Found: Unknown (1F:FC:4F:03:D9:11) | RSSI: -83
+[10:01:50] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -69
+[10:01:50] [SCAN] Found: Unknown (38:64:E2:A4:D1:E8) | RSSI: -60
+[10:01:50] [SCAN] Found: System A/C (34:FC:99:D4:45:17) | RSSI: -87
+[10:01:50] [SCAN] Found: Unknown (EE:8F:56:92:17:43) | RSSI: -75
+[10:01:50] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -85
+[10:01:50] [SCAN] Found: Unknown (4E:AD:9B:7C:24:69) | RSSI: -68
+[10:01:50] [SCAN] Found: Unknown (50:48:FF:2E:24:57) | RSSI: -80
+[10:01:50] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -76
+[10:01:50] [SCAN] Found: Unknown (D8:A3:EC:C9:9F:C3) | RSSI: -77
+[10:01:51] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -76
+[10:01:51] [SCAN] Found: Unknown (6C:97:7B:DD:E2:15) | RSSI: -76
+[10:01:51]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:51] [SCAN] Found: Unknown (34:9E:B2:B7:FB:0C) | RSSI: -73
+[10:01:51] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -86
+[10:01:51] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -86
+[10:01:51] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -77
+[10:01:51] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -84
+[10:01:51] [SCAN] Found: Unknown (D9:85:CE:6C:69:B7) | RSSI: -77
+[10:01:51] [SCAN] Found: Unknown (5F:05:E0:04:CF:0B) | RSSI: -66
+[10:01:51] [SCAN] Found: Unknown (0A:76:22:D4:17:C5) | RSSI: -75
+[10:01:51] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -67
+[10:01:51] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -72
+[10:01:51] [SCAN] Found: Unknown (38:64:E2:A4:D1:E8) | RSSI: -60
+[10:01:51] [SCAN] Found: System A/C (34:FC:99:D4:45:17) | RSSI: -87
+[10:01:51] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -80
+[10:01:51] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -81
+[10:01:52] [SCAN] Found: Unknown (EE:8F:56:92:17:43) | RSSI: -75
+[10:01:52] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -85
+[10:01:52] [SCAN] Found: Unknown (4E:AD:9B:7C:24:69) | RSSI: -68
+[10:01:52] [SCAN] Found: Unknown (2F:97:3B:44:BE:88) | RSSI: -81
+[10:01:52] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -69
+[10:01:52] [SCAN] Found: Unknown (50:48:FF:2E:24:57) | RSSI: -80
+[10:01:52] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -76
+[10:01:52] [SCAN] Found: Unknown (0C:6D:20:3C:AC:3B) | RSSI: -81
+[10:01:52] [SCAN] Found: Unknown (D8:A3:EC:C9:9F:C3) | RSSI: -77
+[10:01:52] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -74
+[10:01:52] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -76
+[10:01:52] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -65
+[10:01:52] [SCAN] Found: Unknown (6C:97:7B:DD:E2:15) | RSSI: -76
+[10:01:52]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:52] [SCAN] Found: Unknown (34:9E:B2:B7:FB:0C) | RSSI: -73
+[10:01:52] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -84
+[10:01:52] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -59
+[10:01:52] [SCAN] Found: Unknown (65:94:36:3D:9C:A5) | RSSI: -86
+[10:01:52] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -86
+[10:01:52] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -77
+[10:01:52] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -77
+[10:01:52] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -84
+[10:01:52] [SCAN] Found: Unknown (6F:31:A9:9F:23:5F) | RSSI: -85
+[10:01:53] [SCAN] Found: Unknown (D9:85:CE:6C:69:B7) | RSSI: -77
+[10:01:53] [SCAN] Found: Unknown (5F:05:E0:04:CF:0B) | RSSI: -66
+[10:01:53] [SCAN] Found: Unknown (0A:76:22:D4:17:C5) | RSSI: -75
+[10:01:58] [SCAN] Found: Unknown (27:FB:F4:46:D7:4E) | RSSI: -74
+[10:01:58] [SCAN] Found: Unknown (34:FC:99:D4:45:17) | RSSI: -86
+[10:01:58] [SCAN] Found: Unknown (33:D8:A1:54:09:13) | RSSI: -72
+[10:01:58] [SCAN] Found: Unknown (4D:60:65:69:56:45) | RSSI: -66
+[10:01:58] [SCAN] Found: Unknown (72:20:BD:9B:70:88) | RSSI: -77
+[10:01:58] [SCAN] Found: Unknown (34:FC:99:D3:3C:86) | RSSI: -73
+[10:01:58] [SCAN] Found: Unknown (77:C5:4B:4C:3C:0A) | RSSI: -68
+[10:01:58]   - UUIDs: ['0000fef3-0000-1000-8000-00805f9b34fb']
+[10:01:58] [SCAN] Found: System A/C (34:FC:99:D2:18:C6) | RSSI: -85
+[10:01:58] [SCAN] Found: Unknown (2E:90:D3:79:87:91) | RSSI: -65
+[10:01:58] [SCAN] Found: Unknown (05:2D:6A:49:C3:74) | RSSI: -85
+[10:01:58] [SCAN] Found: Unknown (0C:70:1B:79:87:11) | RSSI: -62
+[10:01:58] [SCAN] Found: Unknown (54:CF:82:BB:8D:2C) | RSSI: -89
+[10:01:58] [SCAN] Found: Unknown (4E:AD:9B:7C:24:69) | RSSI: -64
+[10:01:58] [SCAN] Found: Unknown (6C:97:7B:DD:E2:15) | RSSI: -76
+[10:01:58]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:58] [SCAN] Found: Unknown (51:C9:8A:25:64:2C) | RSSI: -75
+[10:01:58] [SCAN] Found: Unknown (77:06:BA:2E:B5:0B) | RSSI: -84
+[10:01:58] [SCAN] Found: Unknown (31:DF:97:8D:E0:1C) | RSSI: -74
+[10:01:58] [SCAN] Found: Unknown (EE:8F:56:92:17:43) | RSSI: -73
+[10:01:59] [SCAN] Found: Unknown (63:D5:6A:01:6D:D8) | RSSI: -79
+[10:01:59] [SCAN] Found: Unknown (41:26:E6:95:5F:07) | RSSI: -62
+[10:01:59] [SCAN] Found: Unknown (7F:B9:87:8F:3B:40) | RSSI: -84
+[10:01:59] [SCAN] Found: Unknown (31:38:B3:5D:8E:F7) | RSSI: -87
+[10:01:59] [SCAN] Found: Unknown (7A:40:AF:68:54:AF) | RSSI: -73
+[10:01:59]   - UUIDs: ['0000fd69-0000-1000-8000-00805f9b34fb']
+[10:01:59] [SCAN] Found: Unknown (35:33:AD:5A:A7:29) | RSSI: -73
+[10:01:59] [SCAN] Found: Unknown (72:61:5B:3A:20:EF) | RSSI: -89
+[10:01:59] [SCAN] Found: Unknown (0A:76:22:D4:17:C5) | RSSI: -80
+[10:01:59] [SCAN] Found: Unknown (0C:6D:20:3C:AC:3B) | RSSI: -81
+[10:01:59] [SCAN] Found: Unknown (CA:95:E4:C9:6E:31) | RSSI: -67
+[10:01:59] [SCAN] Found: Unknown (D8:A3:EC:C9:9F:C3) | RSSI: -83
+[10:01:59] [SCAN] Found: Unknown (1F:FC:4F:03:D9:11) | RSSI: -87
+[10:01:59] [SCAN] Found: System A/C (34:FC:99:D2:18:C6) | RSSI: -87
+[10:01:59] [SCAN] Found: System A/C (34:FC:99:D2:18:C6) | RSSI: -87
+[10:02:04] Scan Stopped by User.
+[10:02:06] Starting BLE Scan...
+[10:02:11] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -61
+[10:02:11]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:11]   - DECODED PHONE: 1234567812345678
+[10:02:12]   - DECODED CARD: 0000
+[10:02:12] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -61
+[10:02:12]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:12]   - DECODED PHONE: 1234567812345678
+[10:02:12]   - DECODED CARD: 0000
+[10:02:12] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -61
+[10:02:12]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:12]   - DECODED PHONE: 1234567812345678
+[10:02:12]   - DECODED CARD: 0000
+[10:02:16] [CONNECT] Attempting to connect to 5F:40:F3:A4:89:B2...
+[10:02:17] [CONNECT] Attempting to connect to 5F:40:F3:A4:89:B2...
+[10:02:17] [CONNECT] Attempting to connect to 5F:40:F3:A4:89:B2...
+[10:02:17] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -55
+[10:02:17]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:17]   - DECODED PHONE: 1234567812345678
+[10:02:17]   - DECODED CARD: 0000
+[10:02:18] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -55
+[10:02:18]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:18]   - DECODED PHONE: 1234567812345678
+[10:02:18]   - DECODED CARD: 0000
+[10:02:18] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -55
+[10:02:18]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:18]   - DECODED PHONE: 1234567812345678
+[10:02:18]   - DECODED CARD: 0000
+[10:02:18] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -55
+[10:02:18]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:18]   - DECODED PHONE: 1234567812345678
+[10:02:18]   - DECODED CARD: 0000
+[10:02:23] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -58
+[10:02:23]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:23]   - DECODED PHONE: 1234567812345678
+[10:02:23]   - DECODED CARD: 0000
+[10:02:24] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -58
+[10:02:24]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:24]   - DECODED PHONE: 1234567812345678
+[10:02:24]   - DECODED CARD: 0000
+[10:02:24] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -56
+[10:02:24]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:24]   - DECODED PHONE: 1234567812345678
+[10:02:24]   - DECODED CARD: 0000
+[10:02:24] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -63
+[10:02:24]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:24]   - DECODED PHONE: 1234567812345678
+[10:02:24]   - DECODED CARD: 0000
+[10:02:29] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -55
+[10:02:29]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:30]   - DECODED PHONE: 1234567812345678
+[10:02:30]   - DECODED CARD: 0000
+[10:02:30] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -58
+[10:02:30]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:30]   - DECODED PHONE: 1234567812345678
+[10:02:30]   - DECODED CARD: 0000
+[10:02:30] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -58
+[10:02:30]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:30]   - DECODED PHONE: 1234567812345678
+[10:02:30]   - DECODED CARD: 0000
+[10:02:30] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -58
+[10:02:31]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:31]   - DECODED PHONE: 1234567812345678
+[10:02:31]   - DECODED CARD: 0000
+[10:02:36] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -58
+[10:02:36]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:36]   - DECODED PHONE: 1234567812345678
+[10:02:36]   - DECODED CARD: 0000
+[10:02:36] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -58
+[10:02:36]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:36]   - DECODED PHONE: 1234567812345678
+[10:02:36]   - DECODED CARD: 0000
+[10:02:37] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -58
+[10:02:37]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:37]   - DECODED PHONE: 1234567812345678
+[10:02:37]   - DECODED CARD: 0000
+[10:02:37] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -58
+[10:02:37]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:37]   - DECODED PHONE: 1234567812345678
+[10:02:37]   - DECODED CARD: 0000
+[10:02:42] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -58
+[10:02:42]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:42]   - DECODED PHONE: 1234567812345678
+[10:02:42]   - DECODED CARD: 0000
+[10:02:42] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -58
+[10:02:43]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:43]   - DECODED PHONE: 1234567812345678
+[10:02:43]   - DECODED CARD: 0000
+[10:02:43] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -58
+[10:02:43]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:43]   - DECODED PHONE: 1234567812345678
+[10:02:43]   - DECODED CARD: 0000
+[10:02:43] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -54
+[10:02:43]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:43]   - DECODED PHONE: 1234567812345678
+[10:02:43]   - DECODED CARD: 0000
+[10:02:45] [ERROR] Connection failed: Could not get GATT services: Unreachable
+[10:02:47] [ERROR] Connection failed: 
+[10:02:48] [ERROR] Connection failed: 
+[10:02:48] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -62
+[10:02:48]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:48]   - DECODED PHONE: 1234567812345678
+[10:02:48]   - DECODED CARD: 0000
+[10:02:49] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -62
+[10:02:49]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:49]   - DECODED PHONE: 1234567812345678
+[10:02:49]   - DECODED CARD: 0000
+[10:02:49] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -62
+[10:02:49]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:49]   - DECODED PHONE: 1234567812345678
+[10:02:49]   - DECODED CARD: 0000
+[10:02:49] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -62
+[10:02:49]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:49]   - DECODED PHONE: 1234567812345678
+[10:02:49]   - DECODED CARD: 0000
+[10:02:55] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -56
+[10:02:55]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:55]   - DECODED PHONE: 1234567812345678
+[10:02:55]   - DECODED CARD: 0000
+[10:02:55] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -56
+[10:02:55]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:55]   - DECODED PHONE: 1234567812345678
+[10:02:55]   - DECODED CARD: 0000
+[10:02:55] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -56
+[10:02:55]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:55]   - DECODED PHONE: 1234567812345678
+[10:02:55]   - DECODED CARD: 0000
+[10:02:55] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -56
+[10:02:55]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:02:55]   - DECODED PHONE: 1234567812345678
+[10:02:55]   - DECODED CARD: 0000
+[10:03:01] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -82
+[10:03:01]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:03:01]   - DECODED PHONE: 1234567812345678
+[10:03:01]   - DECODED CARD: 0000
+[10:03:01] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -82
+[10:03:01]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:03:01]   - DECODED PHONE: 1234567812345678
+[10:03:01]   - DECODED CARD: 0000
+[10:03:01] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -82
+[10:03:01]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:03:01]   - DECODED PHONE: 1234567812345678
+[10:03:01]   - DECODED CARD: 0000
+[10:03:01] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -82
+[10:03:01]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:03:01]   - DECODED PHONE: 1234567812345678
+[10:03:01]   - DECODED CARD: 0000
+[10:03:07] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -73
+[10:03:07]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:03:07]   - DECODED PHONE: 1234567812345678
+[10:03:07]   - DECODED CARD: 0000
+[10:03:07] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -73
+[10:03:07]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:03:07]   - DECODED PHONE: 1234567812345678
+[10:03:07]   - DECODED CARD: 0000
+[10:03:07] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -73
+[10:03:07]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:03:07]   - DECODED PHONE: 1234567812345678
+[10:03:07]   - DECODED CARD: 0000
+[10:03:08] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -73
+[10:03:08]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:03:08]   - DECODED PHONE: 1234567812345678
+[10:03:08]   - DECODED CARD: 0000
+[10:03:13] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -68
+[10:03:13]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:03:13]   - DECODED PHONE: 1234567812345678
+[10:03:13]   - DECODED CARD: 0000
+[10:03:13] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -68
+[10:03:13]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:03:13]   - DECODED PHONE: 1234567812345678
+[10:03:14]   - DECODED CARD: 0000
+[10:03:14] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -68
+[10:03:14]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:03:14]   - DECODED PHONE: 1234567812345678
+[10:03:14]   - DECODED CARD: 0000
+[10:03:14] [SCAN] Found: mcandle (5F:40:F3:A4:89:B2) | RSSI: -68
+[10:03:14]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:03:14]   - DECODED PHONE: 1234567812345678
+[10:03:14]   - DECODED CARD: 0000
+[10:07:07] Scan Stopped by User.
+[10:07:11] [SCAN] Found: mcandle (41:D3:10:DC:8D:06) | RSSI: -55
+[10:07:11]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:07:11]   - DECODED PHONE: 1234567812345678
+[10:07:11]   - DECODED CARD: 0000
+[10:07:11] [SCAN] Found: mcandle (41:D3:10:DC:8D:06) | RSSI: -55
+[10:07:11]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:07:11]   - DECODED PHONE: 1234567812345678
+[10:07:11]   - DECODED CARD: 0000
+[10:07:11] [SCAN] Found: mcandle (41:D3:10:DC:8D:06) | RSSI: -55
+[10:07:11]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:07:11]   - DECODED PHONE: 1234567812345678
+[10:07:11]   - DECODED CARD: 0000
+[10:07:11] [SCAN] Found: mcandle (41:D3:10:DC:8D:06) | RSSI: -55
+[10:07:11]   - UUIDs: ['12345678-1234-5678-0000-123400805f9b', '0000fff0-0000-1000-8000-00805f9b34fb']
+[10:07:11]   - DECODED PHONE: 1234567812345678
+[10:07:11]   - DECODED CARD: 0000
+[10:07:14] [CONNECT] Attempting to connect to 41:D3:10:DC:8D:06...
+[10:07:46] [ERROR] Connection failed: 

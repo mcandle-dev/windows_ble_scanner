@@ -23,6 +23,7 @@ class BLEScannerApp:
         # self.file_picker = ft.FilePicker() # Removed due to UI issues
         # self.file_picker.on_result = self.on_save_file_result # Removed
         
+        self.write_response_switch = ft.Switch(label="Write Channel Response", value=True)
         self.setup_ui()
 
     def log_message(self, msg, color="white"):
@@ -113,12 +114,15 @@ class BLEScannerApp:
                     ft.Text("Detected Devices", size=20, weight="bold"),
                     ft.Container(
                         content=ft.Column([self.device_list], scroll=ft.ScrollMode.ALWAYS), 
-                        height=300, 
+                        height=260, 
                         border=ft.Border.all(width=1, color="grey800"), 
                         border_radius=10
                     ),
                     ft.Divider(),
-                    ft.Text("Connection Information", size=20, weight="bold"),
+                    ft.Row([
+                        ft.Text("Connection Information", size=20, weight="bold"),
+                        self.write_response_switch
+                    ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
                     ft.Container(
                         content=ft.Column([
                             self.order_info_text,
@@ -308,22 +312,47 @@ class BLEScannerApp:
             
             await asyncio.sleep(1)
 
-    async def toggle_scan(self, e):
-        if self.is_scanning:
-            self.is_scanning = False
-            self.scan_btn.text = "Start Scan"
-            self.scan_btn.icon = "play_arrow"
-            self.scan_btn.style = ft.ButtonStyle(bgcolor="blue700", color="white")
-            self.status_text.value = "Status: Idle"
-            self.log_message("Scan Stopped by User.", color="amber")
-        else:
+    async def disconnect_current_device(self):
+        if self.connected_client:
+            try:
+                self.log_message(f"[INFO] Disconnecting from previous device...", color="grey400")
+                await self.connected_client.disconnect()
+            except Exception as e:
+                self.log_message(f"[WARN] Disconnect error: {e}", color="grey400")
+            finally:
+                self.connected_client = None
+                self.status_text.value = "Status: Disconnected"
+
+    def set_scan_state(self, is_scanning):
+        self.is_scanning = is_scanning
+        if is_scanning:
             self.scan_btn.text = "Stop Scan"
             self.scan_btn.icon = "stop"
             self.scan_btn.style = ft.ButtonStyle(bgcolor="red700", color="white")
-            self.scanning_task = asyncio.create_task(self.run_scan())
+        else:
+            self.scan_btn.text = "Start Scan"
+            self.scan_btn.icon = "play_arrow"
+            self.scan_btn.style = ft.ButtonStyle(bgcolor="blue700", color="white")
         self.page.update()
 
+    async def toggle_scan(self, e):
+        if self.is_scanning:
+            self.set_scan_state(False)
+            await self.disconnect_current_device()
+            self.status_text.value = "Status: Idle"
+            self.log_message("Scan Stopped by User.", color="amber")
+        else:
+            await self.disconnect_current_device()
+            self.set_scan_state(True)
+            self.scanning_task = asyncio.create_task(self.run_scan())
+
     async def connect_device(self, address):
+        # Auto-stop scan when connecting
+        if self.is_scanning:
+            self.set_scan_state(False)
+            self.log_message("[INFO] auto-stopping scan for connection...", color="grey400")
+        
+        await self.disconnect_current_device()
         self.log_message(f"[CONNECT] Attempting to connect to {address}...", color="blue")
         self.status_text.value = f"Status: Connecting to {address}..."
         self.page.update()
@@ -417,17 +446,13 @@ class BLEScannerApp:
             self.log_message(f"  - Payload: {payload}", color="grey400")
             
             # --- Robust Write Logic ---
-            if "write" in char.properties:
-                self.log_message(f"  - Method: Write With Response", color="grey400")
-                await self.connected_client.write_gatt_char(char.uuid, msg, response=True)
-                self.status_text.value = f"Status: Data sent to {short_id} (With Response)"
-            elif "write-without-response" in char.properties:
-                self.log_message(f"  - Method: Write Without Response", color="grey400")
-                await self.connected_client.write_gatt_char(char.uuid, msg, response=False)
-                self.status_text.value = f"Status: Data sent to {short_id} (No Response)"
-            else:
-                self.log_message(f"  - Error: Characteristic not writable.", color="red")
-                self.status_text.value = "Status: Target characteristic not writable."
+            # Use User preference from switch
+            use_response = self.write_response_switch.value
+            method_str = "With Response" if use_response else "Without Response"
+            
+            self.log_message(f"  - Method (Override): {method_str}", color="grey400")
+            await self.connected_client.write_gatt_char(char.uuid, msg, response=use_response)
+            self.status_text.value = f"Status: Data sent to {short_id} ({method_str})"
             
             self.log_message(f"  - Result: Sent successfully", color="green")
                 

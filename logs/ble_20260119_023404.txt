@@ -1,0 +1,57 @@
+[02:32:17] Starting BLE Scan...
+[02:32:23] [SCAN] Found: MCandle_Dev (71:B6:7C:71:B9:C3) | RSSI: -40
+[02:32:35] [SCAN] Found: MCandle_Dev (71:B6:7C:71:B9:C3) | RSSI: -43
+[02:32:40] [CONNECT] Attempting to connect to 71:B6:7C:71:B9:C3...
+[02:32:41] [SCAN] Found: MCandle_Dev (71:B6:7C:71:B9:C3) | RSSI: -41
+[02:32:47] [CONNECT] Successfully connected to 71:B6:7C:71:B9:C3
+[02:32:47] [GATT] Discovering services for 71:B6:7C:71:B9:C3...
+[02:32:47]   [Service] 00001800-0000-1000-8000-00805f9b34fb (Generic Access Profile)
+[02:32:47]     [Char] 00002a00-0000-1000-8000-00805f9b34fb (Short: 2a00) | Props: ['read']
+[02:32:47]     [Char] 00002a01-0000-1000-8000-00805f9b34fb (Short: 2a01) | Props: ['read']
+[02:32:47]   [Service] 00001801-0000-1000-8000-00805f9b34fb (Generic Attribute Profile)
+[02:32:47]     [Char] 00002a05-0000-1000-8000-00805f9b34fb (Short: 2a05) | Props: ['indicate']
+[02:32:47]   [Service] 0000180a-0000-1000-8000-00805f9b34fb (Device Information)
+[02:32:47]     [Char] 00002a29-0000-1000-8000-00805f9b34fb (Short: 2a29) | Props: ['read']
+[02:32:47]       -> Selected as fallback READ target
+[02:32:47]       -> Initial Read Data: Apple Inc.
+[02:32:47]     [Char] 00002a24-0000-1000-8000-00805f9b34fb (Short: 2a24) | Props: ['read']
+[02:32:47]   [Service] d0611e78-bbb4-4591-a5f8-487910ae4366 (Apple Continuity Service)
+[02:32:47]     [Char] 8667556c-9a37-4c91-84ed-54ee27d90049 (Short: 556c) | Props: ['extended-properties', 'notify', 'write', 'reliable-write']
+[02:32:47]       -> Selected as fallback WRITE target
+[02:32:47]   [Service] 9fa480e0-4967-4542-9390-d343dc5d04ae (Apple Nearby Service)
+[02:32:47]     [Char] af0badb1-5b99-43cd-917a-a77bc549e3cc (Short: adb1) | Props: ['extended-properties', 'notify', 'write', 'reliable-write']
+[02:32:47]   [Service] 0000180f-0000-1000-8000-00805f9b34fb (Battery Service)
+[02:32:47]     [Char] 00002a19-0000-1000-8000-00805f9b34fb (Short: 2a19) | Props: ['read', 'notify']
+[02:32:48]   [Service] 00001805-0000-1000-8000-00805f9b34fb (Current Time Service)
+[02:32:48]     [Char] 00002a2b-0000-1000-8000-00805f9b34fb (Short: 2a2b) | Props: ['read', 'notify']
+[02:32:48]     [Char] 00002a0f-0000-1000-8000-00805f9b34fb (Short: 2a0f) | Props: ['read']
+[02:32:48]   [Service] 7905f431-b5ce-4e99-a40f-4b1e122d00d0 (Apple Notification Center Service)
+[02:32:48]     [Char] 69d1d8f3-45e1-49a8-9821-9bbdfdaad9d9 (Short: d8f3) | Props: ['extended-properties', 'write', 'reliable-write']
+[02:32:48]     [Char] 9fbf120d-6301-42d9-8c58-25e699a21dbd (Short: 120d) | Props: ['notify']
+[02:32:48]     [Char] 22eac6e9-24d6-4bb5-be44-b36ace7c7bfb (Short: c6e9) | Props: ['notify']
+[02:32:48]   [Service] 89d3502b-0f36-433a-8ef4-c502ad55f8dc (Apple Media Service)
+[02:32:48]     [Char] 9b3c81d8-57b1-4a8a-b8df-0e56f7ca51c2 (Short: 81d8) | Props: ['extended-properties', 'notify', 'write', 'reliable-write']
+[02:32:48]     [Char] 2f7cabce-808d-411f-9a0c-bb92ba96c102 (Short: abce) | Props: ['extended-properties', 'notify', 'write', 'reliable-write']
+[02:32:48]     [Char] c6b2f38c-23ab-46d8-a6ab-a3a870bbd5d7 (Short: f38c) | Props: ['extended-properties', 'read', 'write', 'reliable-write']
+[02:32:53] [SCAN] Found: MCandle_Dev (71:B6:7C:71:B9:C3) | RSSI: -63
+[02:32:59] [SCAN] Found: MCandle_Dev (71:B6:7C:71:B9:C3) | RSSI: -64
+[02:33:06] [SCAN] Found: MCandle_Dev (71:B6:7C:71:B9:C3) | RSSI: -69
+[02:33:06] [SEND] Sending data to 556c (8667556c-9a37-4c91-84ed-54ee27d90049)
+[02:33:06]   - Payload: oder112233
+[02:33:06]   - Method: Write With Response
+[02:33:06]   - Result: FAILED
+[02:33:06]   - Error: Could not write value b'oder112233' to characteristic 0010: Protocol Error 0x05: Insufficient Authentication
+[02:33:12] [SCAN] Found: MCandle_Dev (71:B6:7C:71:B9:C3) | RSSI: -64
+[02:33:18] [SCAN] Found: MCandle_Dev (71:B6:7C:71:B9:C3) | RSSI: -63
+[02:33:24] [SCAN] Found: MCandle_Dev (71:B6:7C:71:B9:C3) | RSSI: -66
+[02:33:30] [SCAN] Found: MCandle_Dev (71:B6:7C:71:B9:C3) | RSSI: -74
+[02:33:36] [SCAN] Found: MCandle_Dev (71:B6:7C:71:B9:C3) | RSSI: -74
+[02:33:43] [SCAN] Found: MCandle_Dev (71:B6:7C:71:B9:C3) | RSSI: -61
+[02:33:49] [SCAN] Found: MCandle_Dev (71:B6:7C:71:B9:C3) | RSSI: -62
+[02:33:51] [SEND] Sending data to 556c (8667556c-9a37-4c91-84ed-54ee27d90049)
+[02:33:51]   - Payload: 12344
+[02:33:51]   - Method: Write With Response
+[02:33:51]   - Result: FAILED
+[02:33:52]   - Error: Could not write value b'12344' to characteristic 0010: Protocol Error 0x05: Insufficient Authentication
+[02:33:55] [SCAN] Found: MCandle_Dev (71:B6:7C:71:B9:C3) | RSSI: -67
+[02:34:01] [SCAN] Found: MCandle_Dev (71:B6:7C:71:B9:C3) | RSSI: -67

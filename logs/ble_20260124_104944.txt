@@ -1,0 +1,49 @@
+[10:49:06] Starting BLE Scan...
+[10:49:12] [SCAN] Found: mcandle (64:92:63:3C:B8:DF) | RSSI: -42
+[10:49:12]   - UUIDs: ['12345678-90ab-cdef-1234-1234567890ab']
+[10:49:12]   - DECODED PHONE: 1234567890abcdef
+[10:49:12]   - DECODED CARD: 1234
+[10:49:14] [CONNECT] Attempting to connect to 64:92:63:3C:B8:DF...
+[10:49:18] [SCAN] Found: mcandle (64:92:63:3C:B8:DF) | RSSI: -53
+[10:49:18]   - UUIDs: ['12345678-90ab-cdef-1234-1234567890ab']
+[10:49:18]   - DECODED PHONE: 1234567890abcdef
+[10:49:18]   - DECODED CARD: 1234
+[10:49:18] [CONNECT] Successfully connected to 64:92:63:3C:B8:DF
+[10:49:18] [GATT] Discovering services for 64:92:63:3C:B8:DF...
+[10:49:18]   [Service] 00001800-0000-1000-8000-00805f9b34fb (Generic Access Profile)
+[10:49:18]     [Char] 00002a00-0000-1000-8000-00805f9b34fb (Short: 2a00) | Props: ['read']
+[10:49:18]     [Char] 00002a01-0000-1000-8000-00805f9b34fb (Short: 2a01) | Props: ['read']
+[10:49:19]   [Service] 00001801-0000-1000-8000-00805f9b34fb (Generic Attribute Profile)
+[10:49:19]     [Char] 00002a05-0000-1000-8000-00805f9b34fb (Short: 2a05) | Props: ['indicate']
+[10:49:19]   [Service] 0000180a-0000-1000-8000-00805f9b34fb (Device Information)
+[10:49:19]     [Char] 00002a29-0000-1000-8000-00805f9b34fb (Short: 2a29) | Props: ['read']
+[10:49:19]       -> Selected as fallback READ target
+[10:49:19]       -> Initial Read Data: Apple Inc.
+[10:49:19]     [Char] 00002a24-0000-1000-8000-00805f9b34fb (Short: 2a24) | Props: ['read']
+[10:49:19]   [Service] d0611e78-bbb4-4591-a5f8-487910ae4366 (Apple Continuity Service)
+[10:49:19]     [Char] 8667556c-9a37-4c91-84ed-54ee27d90049 (Short: 556c) | Props: ['notify', 'write', 'extended-properties', 'reliable-write']
+[10:49:19]       -> Selected as fallback WRITE target
+[10:49:19]   [Service] 9fa480e0-4967-4542-9390-d343dc5d04ae (Apple Nearby Service)
+[10:49:19]     [Char] af0badb1-5b99-43cd-917a-a77bc549e3cc (Short: adb1) | Props: ['notify', 'write', 'extended-properties', 'reliable-write']
+[10:49:19]   [Service] 0000fff0-0000-1000-8000-00805f9b34fb (Vendor specific)
+[10:49:19]     [Char] 0000fff1-0000-1000-8000-00805f9b34fb (Short: fff1) | Props: ['write-without-response', 'extended-properties', 'write', 'reliable-write']
+[10:49:19]       -> [MATCH] TARGET WRITE Characteristic found!
+[10:49:19]     [Char] 0000fff2-0000-1000-8000-00805f9b34fb (Short: fff2) | Props: ['read', 'notify']
+[10:49:19]       -> [MATCH] TARGET READ Characteristic found!
+[10:49:19]   [Service] 0000180f-0000-1000-8000-00805f9b34fb (Battery Service)
+[10:49:19]     [Char] 00002a19-0000-1000-8000-00805f9b34fb (Short: 2a19) | Props: ['read', 'notify']
+[10:49:19]   [Service] 00001805-0000-1000-8000-00805f9b34fb (Current Time Service)
+[10:49:19]     [Char] 00002a2b-0000-1000-8000-00805f9b34fb (Short: 2a2b) | Props: ['read', 'notify']
+[10:49:19]     [Char] 00002a0f-0000-1000-8000-00805f9b34fb (Short: 2a0f) | Props: ['read']
+[10:49:19]   [Service] 7905f431-b5ce-4e99-a40f-4b1e122d00d0 (Apple Notification Center Service)
+[10:49:19]     [Char] 69d1d8f3-45e1-49a8-9821-9bbdfdaad9d9 (Short: d8f3) | Props: ['write', 'extended-properties', 'reliable-write']
+[10:49:19]     [Char] 9fbf120d-6301-42d9-8c58-25e699a21dbd (Short: 120d) | Props: ['notify']
+[10:49:19]     [Char] 22eac6e9-24d6-4bb5-be44-b36ace7c7bfb (Short: c6e9) | Props: ['notify']
+[10:49:19]   [Service] 89d3502b-0f36-433a-8ef4-c502ad55f8dc (Apple Media Service)
+[10:49:19]     [Char] 9b3c81d8-57b1-4a8a-b8df-0e56f7ca51c2 (Short: 81d8) | Props: ['notify', 'write', 'extended-properties', 'reliable-write']
+[10:49:19]     [Char] 2f7cabce-808d-411f-9a0c-bb92ba96c102 (Short: abce) | Props: ['notify', 'write', 'extended-properties', 'reliable-write']
+[10:49:19]     [Char] c6b2f38c-23ab-46d8-a6ab-a3a870bbd5d7 (Short: f38c) | Props: ['read', 'write', 'extended-properties', 'reliable-write']
+[10:49:31] [SEND] Sending data to fff1 (0000fff1-0000-1000-8000-00805f9b34fb)
+[10:49:31]   - Payload: 111111111
+[10:49:31]   - Method: Write With Response
+[10:49:31]   - Result: Sent successfully
