@@ -75,9 +75,17 @@ python main.py
 ```
 
 ## 프로젝트 구조
+
+이 리포는 SDD(Spec-Driven Development) 방식으로 관리됩니다.
+
 - `main.py`: 애플리케이션의 메인 로직 및 UI 코드.
-- `logs/`: 일자별 작업 로그 파일 저장.
-- `requirements.md`: 프로젝트 상세 요구 정의서.
+- `constitution.md`: 리포의 불변 개발 원칙.
+- `DESIGN.md`: 현행 시스템 설계 문서.
+- `specs/NNN-*/`: 기능 단위 spec / plan / tasks.
+- `CLAUDE.md`: AI 에이전트 작업 지침.
+- `KICKOFF_PROMPT.md`: 새 개발 세션 시작용 프롬프트.
+- `logs/`: BLE 세션 로그 및 일자별 작업 일지.
+- `requirements.md`: 프로젝트 상세 요구 정의서 (초기 문서).
 
 ## 저작권 및 참고
 - 본 프로젝트는 사용자 요구사항에 따른 MVP(Minimum Viable Product) 버전입니다.
