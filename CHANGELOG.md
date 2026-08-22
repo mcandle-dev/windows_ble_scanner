@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-08-23]
+### Added
+- **AT+CONNECT Handshake**: The scanner now sends `AT+CONNECT` on the write channel right
+  after GATT discovery. `ble-advertiser` (Android) waits for this command and shuts down its
+  GATT server 60 seconds after advertising starts if it never arrives — which made Send fail
+  while the UI still showed a live connection.
+- **Disconnect Detection**: Registered a Bleak `disconnected_callback`. When the peer drops the
+  link the UI now clears the Read/Write channel labels, disables Send, and logs the event.
+  Previously Windows' cached GATT database left the UI showing a connection that was already gone.
+
+### Changed
+- **Start Scan**: Starting a scan now clears the previously detected devices before listing new ones.
+- **Send Diagnostics**: A blocked Send now logs the specific precondition that failed
+  (no connection / no write channel / empty message) instead of returning silently.
+  A closed-connection write error additionally logs a hint about the peer's GATT server timeout.
+
+### Fixed
+- **Initial Read**: The read attempt was nested inside the fallback-selection branch, so when the
+  fixed `fff2` target matched it was never actually read. The read now runs once after discovery
+  against whichever channel was finally selected.
+- **Send Error Handler**: The handler dereferenced `self.target_write_char`, which a concurrent
+  disconnect could clear, faulting the error path itself. It now uses the local binding.
+
 ## [2026-01-25]
 ### Changed
 - **UI Layout**: Relocated 'Write Channel Response' switch to the 'Connection Information' header line for better space utilization.

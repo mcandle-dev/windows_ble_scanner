@@ -9,6 +9,11 @@ TARGET_SERVICE_UUID = "0000fff0-0000-1000-8000-00805f9b34fb"
 TARGET_WRITE_UUID   = "0000fff1-0000-1000-8000-00805f9b34fb"
 TARGET_READ_UUID    = "0000fff2-0000-1000-8000-00805f9b34fb"
 
+# ble-advertiser waits for this command after the physical connection and keeps a
+# 60s countdown running until it arrives. When the countdown expires the peripheral
+# shuts down its GATT server, so writes fail while Windows still reports a live link.
+HANDSHAKE_CONNECT_CMD = "AT+CONNECT"
+
 class BLEScannerApp:
     def __init__(self, page: ft.Page):
         self.page = page
@@ -314,14 +319,41 @@ class BLEScannerApp:
 
     async def disconnect_current_device(self):
         if self.connected_client:
+            client = self.connected_client
+            # Drop the reference up front so on_device_disconnected() recognises the
+            # callback that follows as our own teardown and stays quiet.
+            self.connected_client = None
             try:
                 self.log_message(f"[INFO] Disconnecting from previous device...", color="grey400")
-                await self.connected_client.disconnect()
+                await client.disconnect()
             except Exception as e:
                 self.log_message(f"[WARN] Disconnect error: {e}", color="grey400")
             finally:
-                self.connected_client = None
+                self.target_write_char = None
+                self.send_btn.disabled = True
                 self.status_text.value = "Status: Disconnected"
+
+    def on_device_disconnected(self, client):
+        """Bleak calls this when the peer drops the link.
+
+        Without it the UI keeps showing a live connection and populated channels
+        (Windows caches the GATT database), so Send stays enabled and fails.
+        """
+        if self.connected_client is not client:
+            return
+        self.connected_client = None
+        self.target_write_char = None
+        self.send_btn.disabled = True
+        self.read_char_text.value = "Read Channel: -"
+        self.write_char_text.value = "Write Channel: -"
+        self.status_text.value = "Status: Disconnected by peer"
+        self.log_message("[DISCONNECT] Peer closed the connection. Send disabled.", color="red")
+
+    def clear_devices(self):
+        """Drops the previous scan's results so a new scan starts from an empty list."""
+        self.devices.clear()
+        self.device_list.rows.clear()
+        self.page.update()
 
     def set_scan_state(self, is_scanning):
         self.is_scanning = is_scanning
@@ -343,6 +375,8 @@ class BLEScannerApp:
             self.log_message("Scan Stopped by User.", color="amber")
         else:
             await self.disconnect_current_device()
+            self.clear_devices()
+            self.log_message("Cleared previously detected devices.", color="grey400")
             self.set_scan_state(True)
             self.scanning_task = asyncio.create_task(self.run_scan())
 
@@ -358,7 +392,7 @@ class BLEScannerApp:
         self.page.update()
         
         try:
-            client = BleakClient(address)
+            client = BleakClient(address, disconnected_callback=self.on_device_disconnected)
             await client.connect()
             self.connected_client = client
             self.log_message(f"[CONNECT] Successfully connected to {address}", color="blue")
@@ -403,39 +437,72 @@ class BLEScannerApp:
                         found_read_char = char
                         self.read_char_text.value = f"Read Channel: {short_uuid}"
                         self.log_message(f"      -> Selected as fallback READ target", color="blue")
-                            
-                        try:
-                            # Only try to read if it is explicitly the target READ char or has read property
-                            if char == found_read_char:
-                                data = await client.read_gatt_char(char.uuid)
-                                decoded = data.decode('utf-8', errors='ignore')
-                                if decoded.strip():
-                                    self.log_message(f"      -> Initial Read Data: {decoded}", color="blue")
-                                    self.order_info_text.value = f"Order Information: {decoded}"
-                                    found_info = True
-                        except Exception as e:
-                            self.log_message(f"      -> Read failed: {e}", color="red")
-                            continue
-            
+
+            # Read once from the channel we finally settled on. Reading inside the
+            # discovery loop only ever hit the fallback characteristic, so the fixed
+            # fff2 target was discovered but never actually read.
+            if found_read_char:
+                try:
+                    data = await client.read_gatt_char(found_read_char.uuid)
+                    decoded = data.decode('utf-8', errors='ignore')
+                    if decoded.strip():
+                        self.log_message(f"[GATT] Initial Read Data: {decoded}", color="blue")
+                        self.order_info_text.value = f"Order Information: {decoded}"
+                        found_info = True
+                except Exception as e:
+                    self.log_message(f"[GATT] Initial read failed: {e}", color="red")
+
             if not found_info:
                 self.order_info_text.value = "Order Information: No readable data found."
             
             if not self.target_write_char:
                 self.log_message("[WARN] No suitable writable application characteristic found.", color="red")
                 self.write_char_text.value = "Write Channel: Not found"
-                
+            else:
+                await self.send_handshake()
+
+
         except Exception as ex:
             self.log_message(f"[ERROR] Connection failed: {ex}", color="red")
             self.status_text.value = f"Status: Connection failed ({str(ex)})"
         
         self.page.update()
 
+    async def send_handshake(self):
+        """Announces us to the peer so it leaves its 'waiting for terminal' state.
+
+        Harmless for peers that do not implement the command: they treat it as an
+        ordinary payload on the write characteristic.
+        """
+        try:
+            self.log_message(f"[HANDSHAKE] Sending {HANDSHAKE_CONNECT_CMD}...", color="amber")
+            await self.connected_client.write_gatt_char(
+                self.target_write_char.uuid,
+                HANDSHAKE_CONNECT_CMD.encode('utf-8'),
+                response=True,
+            )
+            self.log_message(f"[HANDSHAKE] {HANDSHAKE_CONNECT_CMD} acknowledged.", color="green")
+        except Exception as ex:
+            self.log_message(f"[HANDSHAKE] {HANDSHAKE_CONNECT_CMD} failed: {ex}", color="red")
+
     async def send_data(self, e):
-        if not self.connected_client or not self.message_input.value or not self.target_write_char:
-            self.status_text.value = "Status: No device connected or message empty."
+        # Report which precondition blocked the send; this used to return silently,
+        # leaving no trace in the Activity Log of why nothing was transmitted.
+        if not self.connected_client:
+            reason = "no device connected"
+        elif not self.target_write_char:
+            reason = "no write channel selected"
+        elif not self.message_input.value:
+            reason = "message is empty"
+        else:
+            reason = None
+
+        if reason:
+            self.log_message(f"[SEND] Aborted: {reason}.", color="red")
+            self.status_text.value = f"Status: Send aborted ({reason})."
             self.page.update()
             return
-        
+
         try:
             payload = self.message_input.value
             msg = payload.encode('utf-8')
@@ -458,12 +525,22 @@ class BLEScannerApp:
                 
         except Exception as ex:
             err_msg = str(ex)
-            short_id = self.target_write_char.uuid.split("-")[0][-4:]
+            # Read from the local binding: a disconnect during the write clears
+            # self.target_write_char, which would fault this handler.
+            short_id = char.uuid.split("-")[0][-4:]
             self.log_message(f"  - Result: FAILED", color="red")
             self.log_message(f"  - Error: {err_msg}", color="red")
             
             if "Access Denied" in err_msg:
                 self.status_text.value = f"Status: Failed (Access Denied for {short_id}). Pairing may be required."
+            elif "-2147483629" in err_msg or "closed" in err_msg.lower():
+                self.log_message(
+                    "  - Hint: the peer already closed its GATT server (ble-advertiser stops it "
+                    "60s after advertising starts, and again as soon as one order is received). "
+                    "Restart advertising on the device and reconnect.",
+                    color="amber",
+                )
+                self.status_text.value = "Status: Send failed (peer closed its GATT server)."
             else:
                 self.status_text.value = f"Status: Send failed ({err_msg})"
             

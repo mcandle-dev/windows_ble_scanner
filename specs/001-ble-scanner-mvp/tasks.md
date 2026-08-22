@@ -18,7 +18,10 @@
 
 ## 미완 (차기 spec 후보)
 
-- [ ] T12. 연결 상태 관리 강화: 연결 유실 감지, 자동 재연결 또는 사용자 알림
+- [x] T12a. 연결 유실 감지: Bleak `disconnected_callback` 등록, UI 상태·Send 버튼 초기화
+- [x] T12b. `AT+CONNECT` 핸드셰이크 전송 (ble-advertiser 대기 타이머 취소)
+- [x] T12c. 고정 Read 채널(fff2) 초기 Read 누락 버그 수정
+- [ ] T12d. 자동 재연결 (연결 유실 시 사용자 확인 후 재시도)
 - [ ] T13. UUID 파싱 정밀화: 제조사 데이터(manufacturer data) 패턴 지원, literal 판정
       휴리스틱(`010`/`1234` prefix) 정식화
 - [ ] T14. Notify 구독 지원 검토 (현재 Read 폴링/1회 읽기만 존재)
