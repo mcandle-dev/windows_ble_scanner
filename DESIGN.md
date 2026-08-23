@@ -39,7 +39,8 @@
 | 핸드셰이크 | `send_handshake` | 연결 직후 `AT+CONNECT` 전송. 상대의 대기 타이머를 취소시킴. 성공 여부를 bool로 반환 |
 | 자동 전송 | `auto_send_order` | 핸드셰이크 성공 시, 스위치 ON + 메시지 있음이면 주문을 이어서 전송 (spec 002) |
 | 전송 본체 | `send_order` | Send 버튼과 자동 전송이 공유하는 전송 로직 |
-| 쓰기 | `write_to_peer` | 특성 객체로 write. 중복 특성이 있으면 순서대로 시도. `io_busy` 가드 |
+| 쓰기 | `write_to_peer` | 특성 객체로 write. 중복 특성이 있으면 순서대로 시도하되 링크 사망 시 중단. `io_busy` 가드 |
+| 응답 읽기 | `read_peer_response` | 명령 직후 fff2 Read (상대는 Notify 미구현). 주문 후 취소는 예상 동작으로 표기 |
 | 해제 | `disconnect_current_device` | 좀비 연결 방지용 명시적 disconnect |
 | 해제 감지 | `on_device_disconnected` | Bleak 콜백. 상대가 링크를 끊으면 채널 표시 초기화 + Send 비활성화 |
 | 송신 (버튼) | `send_data` | Send 버튼 핸들러. `send_order(origin="SEND")` 호출만 담당 |

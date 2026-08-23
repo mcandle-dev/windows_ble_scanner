@@ -18,11 +18,17 @@
 
 ## 후속 (2026-08-23 상대측 계약 정합 작업)
 
-- [x] T12a. 연결 유실 감지: Bleak `disconnected_callback` 등록, UI 상태·Send 버튼 초기화
-- [x] T12b. `AT+CONNECT` 핸드셰이크 전송 (ble-advertiser 대기 타이머 취소)
-- [x] T12c. 고정 Read 채널(fff2) 초기 Read 누락 버그 수정
+- [x] T12a. 연결 유실 감지: Bleak `disconnected_callback` 등록, UI 상태·Send 버튼 초기화 (`66c6a10`)
+- [x] T12b. `AT+CONNECT` 핸드셰이크 전송 (ble-advertiser 대기 타이머 취소) (`66c6a10`)
+- [x] T12c. 고정 Read 채널(fff2) 초기 Read 누락 버그 수정 (`66c6a10`), 명령 후 응답 Read (`175247e`)
 - [x] T13. UUID 파싱 정정: 카드/전화 필드 뒤바뀜 수정, 송신측 실제 인코딩과 정합.
-      데모 데이터용 휴리스틱(`010`/`1234` prefix)을 실제 배치 판정으로 대체
+      데모 데이터용 휴리스틱(`010`/`1234` prefix)을 실제 배치 판정으로 대체 (`b63d9a7`, `9540b64`)
+
+- [x] T16. 채널 선정 견고화: `fff0` 내 short UUID 매칭 + fallback에서 SIG base 배제 (`237f2e2`)
+- [x] T17. 특성을 객체(handle)로 지정 — 중복 특성 대응 (`da02042`), 링크 사망 시 순회 중단 (`c1f079b`)
+- [x] T18. MAC 회전 대응: 광고 내용 기준 장치 중복 제거 (`b49a594`)
+- [x] T19. 레이아웃 반응형 전환: 좌측 두 패널 `expand` 기반 + 테이블 좌우 스크롤 (`cd9f482`)
+- [x] T20. 상대측 계약 문서화 + `ble-peer-analyst` 에이전트 (`1360c45`, `ea099e3`, `8c48cb4`)
 
 ## 미완 (차기 spec 후보)
 
