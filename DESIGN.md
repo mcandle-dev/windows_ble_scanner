@@ -90,6 +90,9 @@ TARGET_READ_UUID    = "0000fff2-0000-1000-8000-00805f9b34fb"
 
 ## 5. 상대측(Peer) 제약 — ble-advertiser (Android)
 
+> 전체 계약(광고 인코딩·명령 프로토콜·응답 스키마)은 [PEER_CONTRACT.md](PEER_CONTRACT.md) 참조.
+> 상대 변경 여부는 `ble-peer-analyst` 에이전트로 재검증한다.
+
 송신측 `mcandle-dev/ble-advertiser`의 GATT 서버는 **수명이 짧다**. 이 앱의 동작을 이해하려면
 반드시 함께 봐야 한다 (`CardFragment.kt`):
 
@@ -117,6 +120,7 @@ requirements.md    # 원 요구 정의서 (역사적 문서)
 constitution.md    # 불변 원칙
 DESIGN.md          # 이 문서
 CLAUDE.md          # AI 에이전트 작업 지침
+PEER_CONTRACT.md   # 상대측(ble-advertiser) 계약 스냅샷
 KICKOFF_PROMPT.md  # 새 세션 시작 프롬프트
 specs/NNN-*/       # 기능 단위 spec/plan/tasks
 logs/              # BLE 세션 로그 + 작업 일지
