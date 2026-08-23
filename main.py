@@ -20,6 +20,7 @@ class BLEScannerApp:
         self.devices = {}  # address: {name, phone, card, rssi, uuids}
         self.connected_client = None
         self.target_write_char = None
+        self.target_read_char = None
         self.is_scanning = False
         self.scanning_task = None
         self.log_display = ft.ListView(expand=True, spacing=2, auto_scroll=True)
@@ -338,6 +339,7 @@ class BLEScannerApp:
                 self.log_message(f"[WARN] Disconnect error: {e}", color="grey400")
             finally:
                 self.target_write_char = None
+                self.target_read_char = None
                 self.send_btn.disabled = True
                 self.status_text.value = "Status: Disconnected"
 
@@ -412,7 +414,7 @@ class BLEScannerApp:
             services = client.services 
             found_info = False
             self.target_write_char = None
-            found_read_char = None
+            self.target_read_char = None
             
             for service in services:
                 self.log_message(f"  [Service] {service.uuid} ({service.description})", color="blue")
@@ -430,7 +432,7 @@ class BLEScannerApp:
                         self.log_message(f"      -> [MATCH] TARGET WRITE Characteristic found!", color="green")
                     
                     if char_uuid == TARGET_READ_UUID:
-                        found_read_char = char
+                        self.target_read_char = char
                         self.read_char_text.value = f"Read Channel: {short_uuid} (Fixed)"
                         self.log_message(f"      -> [MATCH] TARGET READ Characteristic found!", color="green")
 
@@ -441,21 +443,23 @@ class BLEScannerApp:
                             self.write_char_text.value = f"Write Channel: {short_uuid}"
                             self.log_message(f"      -> Selected as fallback WRITE target", color="blue")
 
-                    if not found_read_char and "read" in char.properties and not is_system_char:
-                        found_read_char = char
+                    if not self.target_read_char and "read" in char.properties and not is_system_char:
+                        self.target_read_char = char
                         self.read_char_text.value = f"Read Channel: {short_uuid}"
                         self.log_message(f"      -> Selected as fallback READ target", color="blue")
 
             # Read once from the channel we finally settled on. Reading inside the
             # discovery loop only ever hit the fallback characteristic, so the fixed
             # fff2 target was discovered but never actually read.
-            if found_read_char:
+            # Diagnostic only: this runs before the handshake, so the peer has not
+            # loaded a reply yet and answers with its placeholder. The value shown in
+            # Order Information comes from read_peer_response() after each command.
+            if self.target_read_char:
                 try:
-                    data = await client.read_gatt_char(found_read_char.uuid)
+                    data = await client.read_gatt_char(self.target_read_char.uuid)
                     decoded = data.decode('utf-8', errors='ignore')
                     if decoded.strip():
                         self.log_message(f"[GATT] Initial Read Data: {decoded}", color="blue")
-                        self.order_info_text.value = f"Order Information: {decoded}"
                         found_info = True
                 except Exception as e:
                     self.log_message(f"[GATT] Initial read failed: {e}", color="red")
@@ -476,6 +480,26 @@ class BLEScannerApp:
         
         self.page.update()
 
+    async def read_peer_response(self, label):
+        """Reads the peer's reply to the command we just wrote.
+
+        ble-advertiser answers every write by loading a JSON status into the read
+        characteristic and waiting for us to read it — it declares NOTIFY but never
+        sends one, so a reply we do not read is a reply we never see.
+        """
+        if not self.connected_client or not self.target_read_char:
+            return
+        try:
+            data = await self.connected_client.read_gatt_char(self.target_read_char.uuid)
+            decoded = data.decode('utf-8', errors='ignore').strip()
+            if decoded:
+                self.log_message(f"  - Response ({label}): {decoded}", color="blue")
+                self.order_info_text.value = f"Order Information: {decoded}"
+            else:
+                self.log_message(f"  - Response ({label}): <empty>", color="grey400")
+        except Exception as ex:
+            self.log_message(f"  - Response ({label}) read failed: {ex}", color="red")
+
     async def send_handshake(self):
         """Announces us to the peer so it leaves its 'waiting for terminal' state.
 
@@ -490,6 +514,7 @@ class BLEScannerApp:
                 response=True,
             )
             self.log_message(f"[HANDSHAKE] {HANDSHAKE_CONNECT_CMD} acknowledged.", color="green")
+            await self.read_peer_response(HANDSHAKE_CONNECT_CMD)
         except Exception as ex:
             self.log_message(f"[HANDSHAKE] {HANDSHAKE_CONNECT_CMD} failed: {ex}", color="red")
 
@@ -528,8 +553,11 @@ class BLEScannerApp:
             self.log_message(f"  - Method (Override): {method_str}", color="grey400")
             await self.connected_client.write_gatt_char(char.uuid, msg, response=use_response)
             self.status_text.value = f"Status: Data sent to {short_id} ({method_str})"
-            
+
             self.log_message(f"  - Result: Sent successfully", color="green")
+            # The peer reports acceptance (or a parse error) only through the read
+            # channel, so a write that returns cleanly is not yet a confirmed order.
+            await self.read_peer_response("order")
                 
         except Exception as ex:
             err_msg = str(ex)

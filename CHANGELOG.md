@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 
 ## [2026-08-23]
+### Added (Protocol)
+- **Read The Peer's Reply**: The scanner now reads the response characteristic after the
+  `AT+CONNECT` handshake and after every order write. The peer answers each command by loading a
+  JSON status into `fff2` and waiting to be read — it declares NOTIFY but never sends one — so
+  until now every acknowledgement and every parse error went unseen. The connect-time read is
+  kept as a diagnostic log only: it runs before the handshake, when the peer still returns its
+  `"No data"` placeholder, which was being displayed as Order Information.
+
 ### Fixed (Decoding)
 - **Phone/Card Were Swapped**: `decode_uuid_data` read UUID segments 1-3 as the phone number and
   segment 4 as the card number. The advertiser lays the UUID out as
