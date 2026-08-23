@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 
 ## [2026-08-23]
+### Added (Connect & Send — spec 002)
+- **Order Goes Out With The Connection**: Connect now runs the whole exchange — connect, discover,
+  `AT+CONNECT`, read the reply, write the order, read the reply — without waiting on further
+  clicks. The peer closes its GATT server about 60s after its user taps pay, and operator typing
+  was consuming that window; a run that missed it is what produced the `Unreachable` failure.
+- **Auto Send Guards**: The order is sent only when the message field is non-empty *and* the new
+  `Auto Send on Connect` switch is on, so nothing fires unintentionally. A failed handshake skips
+  the order entirely rather than producing a second failure.
+- **Time Budget In The Log**: Discovery, handshake and the full exchange each report their elapsed
+  time since Connect, with a warning when the total passes 60s.
+- **Faster Discovery**: The scan cycle drops from 5s+1s to 3s+0.5s, since a scan cycle is the first
+  thing to eat into the peer's window.
+
 ### Changed (Write Timeouts)
 - **No Queue Pile-Up**: A write with response blocks until the peer answers or the GATT layer gives
   up ~30s later. Sends pressed during that wait queued behind it and all failed together. Send is

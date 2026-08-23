@@ -57,6 +57,9 @@ class BLEScannerApp:
         # self.file_picker.on_result = self.on_save_file_result # Removed
         
         self.write_response_switch = ft.Switch(label="Write Channel Response", value=True)
+        # The peer's GATT server lives ~60s from the moment its user taps pay, so the
+        # order goes out as part of connecting rather than waiting on another click.
+        self.auto_send_switch = ft.Switch(label="Auto Send on Connect", value=True)
         self.setup_ui()
 
     def log_message(self, msg, color="white"):
@@ -165,8 +168,8 @@ class BLEScannerApp:
                     ft.Divider(),
                     ft.Row([
                         ft.Text("Connection Information", size=20, weight="bold"),
-                        self.write_response_switch
-                    ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
+                        ft.Row([self.auto_send_switch, self.write_response_switch], spacing=10, wrap=True),
+                    ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN, wrap=True),
                     ft.Container(
                         content=ft.Column([
                             self.order_info_text,
@@ -311,7 +314,9 @@ class BLEScannerApp:
                 break
             try:
                 # return_adv=True returns a dict: {address: (device, advertisement_data)}
-                devices_dict = await BleakScanner.discover(timeout=5.0, return_adv=True)
+                # Kept short: a scan cycle is the first thing to eat into the peer's
+                # 60s window, and advertising intervals are in the hundreds of ms.
+                devices_dict = await BleakScanner.discover(timeout=3.0, return_adv=True)
                 filter_val = (self.filter_input.value or "").lower()
 
                 # Android rotates its BLE address every few minutes, so one phone
@@ -391,7 +396,7 @@ class BLEScannerApp:
                 except:
                     break
             
-            await asyncio.sleep(1)
+            await asyncio.sleep(0.5)
 
     async def disconnect_current_device(self):
         if self.connected_client:
@@ -458,11 +463,18 @@ class BLEScannerApp:
             self.scanning_task = asyncio.create_task(self.run_scan())
 
     async def connect_device(self, address):
+        # The peer's GATT server closes about 60s after its user taps pay, so the
+        # whole exchange is timed and the budget reported.
+        started = datetime.datetime.now()
+
+        def elapsed():
+            return (datetime.datetime.now() - started).total_seconds()
+
         # Auto-stop scan when connecting
         if self.is_scanning:
             self.set_scan_state(False)
             self.log_message("[INFO] auto-stopping scan for connection...", color="grey400")
-        
+
         await self.disconnect_current_device()
         self.log_message(f"[CONNECT] Attempting to connect to {address}...", color="blue")
         self.status_text.value = f"Status: Connecting to {address}..."
@@ -557,11 +569,18 @@ class BLEScannerApp:
             if not found_info:
                 self.order_info_text.value = "Order Information: No readable data found."
             
+            self.log_message(f"[GATT] Discovery complete ({elapsed():.1f}s since Connect).", color="grey400")
+
             if not self.target_write_char:
                 self.log_message("[WARN] No suitable writable application characteristic found.", color="red")
                 self.write_char_text.value = "Write Channel: Not found"
             else:
-                await self.send_handshake()
+                # Only carry on to the order once the peer has acknowledged us; a
+                # failed handshake means its server is already gone, so writing the
+                # order would just produce a second failure.
+                if await self.send_handshake():
+                    self.log_message(f"[HANDSHAKE] Done ({elapsed():.1f}s since Connect).", color="grey400")
+                    await self.auto_send_order(elapsed)
 
 
         except Exception as ex:
@@ -569,6 +588,31 @@ class BLEScannerApp:
             self.status_text.value = f"Status: Connection failed ({str(ex)})"
         
         self.page.update()
+
+    async def auto_send_order(self, elapsed):
+        """Sends the pending order as part of connecting, if one is waiting.
+
+        Sending on connect is what keeps the exchange inside the peer's window; an
+        empty message field means nothing is pending, which is also the guard against
+        firing an order the operator did not intend.
+        """
+        if not self.auto_send_switch.value:
+            self.log_message("[AUTO-SEND] Off — connected only.", color="grey400")
+            return
+        if not self.message_input.value:
+            self.log_message("[AUTO-SEND] No message entered — connected only.", color="grey400")
+            return
+
+        await self.send_order(origin="AUTO-SEND")
+
+        total = elapsed()
+        self.log_message(f"[AUTO-SEND] Finished {total:.1f}s after Connect.", color="grey400")
+        if total >= 60:
+            self.log_message(
+                f"[WARN] The exchange took {total:.0f}s. The peer closes its GATT server 60s "
+                "after advertising starts, so this run was probably outside its window.",
+                color="amber",
+            )
 
     async def write_to_peer(self, payload, response):
         """Writes to the target characteristic, addressing it by object.
@@ -647,10 +691,16 @@ class BLEScannerApp:
             self.target_write_char = used
             self.log_message(f"[HANDSHAKE] {HANDSHAKE_CONNECT_CMD} acknowledged (handle {used.handle}).", color="green")
             await self.read_peer_response(HANDSHAKE_CONNECT_CMD)
+            return True
         except Exception as ex:
             self.log_message(f"[HANDSHAKE] {HANDSHAKE_CONNECT_CMD} failed: {ex}", color="red")
+            return False
 
     async def send_data(self, e):
+        """Send button handler. The order itself goes out through send_order()."""
+        await self.send_order(origin="SEND")
+
+    async def send_order(self, origin="SEND"):
         # Report which precondition blocked the send; this used to return silently,
         # leaving no trace in the Activity Log of why nothing was transmitted.
         if self.io_busy:
@@ -665,7 +715,7 @@ class BLEScannerApp:
             reason = None
 
         if reason:
-            self.log_message(f"[SEND] Aborted: {reason}.", color="red")
+            self.log_message(f"[{origin}] Aborted: {reason}.", color="red")
             self.status_text.value = f"Status: Send aborted ({reason})."
             self.page.update()
             return
@@ -676,7 +726,7 @@ class BLEScannerApp:
             char = self.target_write_char
             short_id = char.uuid.split("-")[0][-4:]
             
-            self.log_message(f"[SEND] Sending data to {short_id} ({char.uuid})", color="green")
+            self.log_message(f"[{origin}] Sending data to {short_id} ({char.uuid})", color="green")
             self.log_message(f"  - Payload: {payload}", color="grey400")
             
             # --- Robust Write Logic ---

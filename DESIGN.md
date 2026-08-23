@@ -33,13 +33,16 @@
 
 | 영역 | 메서드 | 역할 |
 |---|---|---|
-| 스캔 루프 | `run_scan` | `BleakScanner.discover(timeout=5, return_adv=True)`를 1초 간격 무한 루프로 반복. 광고 내용(이름+카드+전화)으로 중복 MAC을 합친 뒤 테이블 갱신 |
+| 스캔 루프 | `run_scan` | `BleakScanner.discover(timeout=3, return_adv=True)`를 0.5초 간격 무한 루프로 반복. 광고 내용(이름+카드+전화)으로 중복 MAC을 합친 뒤 테이블 갱신 |
 | 디코딩 | `decode_uuid_data` | Service UUID → 전화번호/카드번호 (constitution §3의 2단계 규칙) |
-| 연결 | `connect_device` | 스캔 자동 중지 → 기존 연결 해제 → 연결 → GATT 서비스 전수 탐색 → Read/Write 채널 선정 (constitution §4) → 초기 Read로 Order Information 표시 → `AT+CONNECT` 핸드셰이크 |
-| 핸드셰이크 | `send_handshake` | 연결 직후 `AT+CONNECT` 전송. 상대(ble-advertiser)의 대기 타이머를 취소시킴 |
+| 연결 | `connect_device` | 스캔 자동 중지 → 기존 연결 해제 → 연결 → GATT 전수 탐색 → 채널 선정 (constitution §4) → 진단 Read → 핸드셰이크 → 자동 전송. 단계별 경과 시간 계측 |
+| 핸드셰이크 | `send_handshake` | 연결 직후 `AT+CONNECT` 전송. 상대의 대기 타이머를 취소시킴. 성공 여부를 bool로 반환 |
+| 자동 전송 | `auto_send_order` | 핸드셰이크 성공 시, 스위치 ON + 메시지 있음이면 주문을 이어서 전송 (spec 002) |
+| 전송 본체 | `send_order` | Send 버튼과 자동 전송이 공유하는 전송 로직 |
+| 쓰기 | `write_to_peer` | 특성 객체로 write. 중복 특성이 있으면 순서대로 시도. `io_busy` 가드 |
 | 해제 | `disconnect_current_device` | 좀비 연결 방지용 명시적 disconnect |
 | 해제 감지 | `on_device_disconnected` | Bleak 콜백. 상대가 링크를 끊으면 채널 표시 초기화 + Send 비활성화 |
-| 송신 | `send_data` | UTF-8 인코딩 후 `write_gatt_char`; Response 여부는 UI 스위치로 사용자 제어 |
+| 송신 (버튼) | `send_data` | Send 버튼 핸들러. `send_order(origin="SEND")` 호출만 담당 |
 | 로깅 | `log_message`, `save_logs_direct` | UI 로그(최대 100줄 표시/1000줄 버퍼) + `logs/` 파일 저장 |
 
 ### 주요 상태
@@ -66,8 +69,8 @@ TARGET_READ_UUID    = "0000fff2-0000-1000-8000-00805f9b34fb"
 │  Name(MAC)|Phone|Card|RSSI|  │r│  + Save 버튼 → logs/ble_*.txt     │
 │  [Connect]                   │a│                                   │
 │ Connection Information       │g│                                   │
+│  Auto Send / Write Response  │ │                                   │
 │  Order Info / Read·Write 채널 │ │                                   │
-│  Write Response 스위치        │ │                                   │
 │  메시지 입력 + [Send]          │ │                                   │
 ├──────────────────────────────┴─┴──────────────────────────────────┤
 │ Status bar                                                        │
@@ -83,12 +86,15 @@ TARGET_READ_UUID    = "0000fff2-0000-1000-8000-00805f9b34fb"
 1. **스캔**: Start Scan 시 이전 결과를 비운 뒤 시작 → 루프마다 발견 장치를 필터링
    → UUID 디코딩 → **광고 내용 기준 중복 제거**(MAC 회전 대응, 최강 RSSI 채택)
    → 테이블 재구성 → 로그 기록.
-2. **연결**: Connect 클릭 → 스캔 중지·기존 연결 해제 → GATT 전수 탐색을 로그로 출력
-   → 고정 UUID 매칭(Fixed) 또는 fallback으로 Read/Write 채널 확정 → 확정된 채널에서
-   초기 Read → Order Information 표시 → `AT+CONNECT` 핸드셰이크 전송.
-3. **송신**: Send → 전제 조건 검사(미충족 시 사유를 로그에 기록) → 스위치 값에 따라
+2. **연결 + 자동 전송** (spec 002, 상대의 60초 창 안에 끝내기 위해 한 동작으로 묶임):
+   Connect 클릭 → 스캔 중지·기존 연결 해제 → GATT 전수 탐색 → 채널 확정(고정 UUID 또는
+   `fff0` 내 short UUID, fallback은 SIG base 제외) → 진단용 초기 Read
+   → `AT+CONNECT` 핸드셰이크 → 응답 Read → **성공 시** 주문 자동 전송 → 응답 Read.
+   각 단계 경과 시간을 로그에 남기고, 전체가 60초를 넘으면 경고.
+   메시지가 비었거나 `Auto Send on Connect`가 꺼져 있으면 연결까지만 한다.
+3. **수동 송신**: Send → 전제 조건 검사(미충족 시 사유를 로그에 기록) → 스위치 값에 따라
    With/Without Response 결정 → 실패 시 원인 안내(Access Denied → 페어링 필요,
-   연결 종료 → 상대 GATT 서버 타임아웃 안내).
+   Unreachable/연결 종료 → 상대 GATT 서버 소멸 안내).
 4. **해제 감지**: 상대가 링크를 끊으면 Bleak 콜백이 채널 표시를 초기화하고 Send를 비활성화.
 
 ## 5. 상대측(Peer) 제약 — ble-advertiser (Android)
@@ -109,7 +115,7 @@ Windows는 GATT 서비스 DB를 캐싱하므로, 상대가 서버를 내려도 �
 
 ## 6. 알려진 제약 / 기술 부채
 
-- 스캔 루프가 `discover()` 폴링 방식이라 갱신 주기가 ~6초(타임아웃 5s + sleep 1s).
+- 스캔 루프가 `discover()` 폴링 방식이라 갱신 주기가 ~3.5초(타임아웃 3s + sleep 0.5s).
 - 자동 재연결 없음 (해제 감지까지만 구현됨).
 - 테스트 코드 없음. 실기기(Windows BT + Android/iOS 광고 장치) 수동 검증에 의존.
 
