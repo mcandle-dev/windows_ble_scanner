@@ -3,9 +3,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [2026-08-23]
-### Fixed (Duplicate Service Registration)
-- **"Multiple Characteristics with this UUID"**: The peer registers its `fff0` service twice, so
-  discovery finds two `fff1` and two `fff2` characteristics. Every GATT call passed a UUID string,
+### Fixed (Duplicate Characteristics)
+- **"Multiple Characteristics with this UUID"**: Discovery returned the `fff0` service twice on
+  device, so two `fff1` and two `fff2` characteristics were present. Every GATT call passed a UUID
+  string,
   which Bleak cannot resolve when it matches more than one characteristic — the handshake and the
   initial read both failed with `Multiple Characteristics with this UUID, refer to your desired
   characteristic by the 'handle' attribute instead`. Reads and writes now address the

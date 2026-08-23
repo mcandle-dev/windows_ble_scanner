@@ -39,7 +39,7 @@ class BLEScannerApp:
         self.connected_client = None
         self.target_write_char = None
         self.target_read_char = None
-        # The peer has been seen registering its fff0 service twice, leaving two
+        # Discovery has returned two fff0 service instances on device, leaving two
         # characteristics per channel. Keep every match so a write can fall back to
         # the other one instead of failing outright.
         self.write_candidates = []
@@ -532,7 +532,7 @@ class BLEScannerApp:
                     handles = ", ".join(str(c.handle) for c in found)
                     self.log_message(
                         f"[WARN] {len(found)} {kind} characteristics share this UUID "
-                        f"(handles {handles}) — the peer registered its service more than once. "
+                        f"(handles {handles}) — the same UUID resolves to more than one characteristic. "
                         f"Using handle {found[0].handle}, falling back to the others if it rejects.",
                         color="amber",
                     )
