@@ -48,13 +48,29 @@ Service Data (`0000FE10-…`)에 `카드번호+전화뒤4자리`를 ASCII 또는
 
 `GattServiceConfig.kt`
 
-| 항목 | UUID | 속성 |
+| 항목 | UUID (GitHub HEAD) | 속성 |
 |---|---|---|
 | Service | `0000fff0-0000-1000-8000-00805f9b34fb` | primary |
 | Write (Scanner→Store) | `0000fff1-0000-1000-8000-00805f9b34fb` | WRITE, WRITE_NO_RESPONSE / PERMISSION_WRITE |
 | Read/Notify (Store→Scanner) | `0000fff2-0000-1000-8000-00805f9b34fb` | READ, NOTIFY / PERMISSION_READ |
 
 본딩·암호화 요구 없음 (`PERMISSION_WRITE`/`PERMISSION_READ` 평문).
+
+> ⚠️ **base UUID가 빌드마다 다르다.** 2026-08-23 실기기 로그(`ble_20260823_130656.txt`)의
+> 단말은 `0000fff0-1234-1234-8000-00805f9b34fb` / `…fff1-1234-1234-…` / `…fff2-1234-1234-…`
+> 를 노출했다. GitHub HEAD(`0035a76`)는 표준 base이므로, **사용자 로컬 빌드
+> (`D:\dev\mcandle\ble-advertiser`)가 GitHub과 다르다**는 뜻이다.
+> 16비트 값(`fff0`/`fff1`/`fff2`)은 유지되므로, 이쪽은 **`fff0` 서비스 내 short UUID 매칭**으로
+> 양쪽을 모두 수용한다 (constitution §4).
+> 광고의 Scan Response에는 여전히 표준 `0000fff0-0000-1000-8000-…`가 실린다 — 광고와 실제
+> GATT 서비스의 base가 서로 다르다.
+
+### 안드로이드 폰의 시스템 특성 (fallback 금지 대상)
+
+폰 자체가 SIG 표준 서비스를 다수 노출하며, 쓰기 가능한 것도 많다:
+Generic Media Control(`1849`, 예 `2b99`), Generic Telephone Bearer(`184c`, 예 `2bbe`),
+Telephony and Media Audio(`1855`). **여기에 쓰면 `Insufficient Authentication`으로 실패한다.**
+fallback 탐색에서 SIG base(`…-0000-1000-8000-00805f9b34fb`) 특성은 전부 제외해야 한다.
 
 ## 3. 명령 프로토콜 (fff1에 write)
 

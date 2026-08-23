@@ -9,10 +9,28 @@ TARGET_SERVICE_UUID = "0000fff0-0000-1000-8000-00805f9b34fb"
 TARGET_WRITE_UUID   = "0000fff1-0000-1000-8000-00805f9b34fb"
 TARGET_READ_UUID    = "0000fff2-0000-1000-8000-00805f9b34fb"
 
+# The peer has shipped builds that keep the fff0/fff1/fff2 16-bit values but change
+# the base UUID (e.g. 0000fff1-1234-1234-8000-...), which the full-UUID test above
+# misses. Match on the short form inside an fff0 service as well.
+TARGET_SERVICE_SHORT = "fff0"
+TARGET_WRITE_SHORT   = "fff1"
+TARGET_READ_SHORT    = "fff2"
+
+# Bluetooth SIG base UUID. Characteristics on this base belong to standard system
+# services (GAP/GATT, media control, telephone bearer); Windows demands bonding for
+# most of them, so writing to one yields "Insufficient Authentication". They are
+# never valid fallback targets.
+SIG_BASE_SUFFIX = "-0000-1000-8000-00805f9b34fb"
+
 # ble-advertiser waits for this command after the physical connection and keeps a
 # 60s countdown running until it arrives. When the countdown expires the peripheral
 # shuts down its GATT server, so writes fail while Windows still reports a live link.
 HANDSHAKE_CONNECT_CMD = "AT+CONNECT"
+
+
+def short_uuid_of(uuid_str):
+    """16-bit short form of a 128-bit UUID string (0000fff1-... -> fff1)."""
+    return str(uuid_str).lower().split("-")[0][-4:]
 
 class BLEScannerApp:
     def __init__(self, page: ft.Page):
@@ -417,33 +435,42 @@ class BLEScannerApp:
             self.target_read_char = None
             
             for service in services:
+                in_target_service = short_uuid_of(service.uuid) == TARGET_SERVICE_SHORT
                 self.log_message(f"  [Service] {service.uuid} ({service.description})", color="blue")
                 for char in service.characteristics:
                     char_uuid = char.uuid.lower()
-                    short_uuid = char_uuid.split("-")[0][-4:]
+                    short_uuid = short_uuid_of(char_uuid)
                     self.log_message(f"    [Char] {char.uuid} (Short: {short_uuid}) | Props: {char.properties}", color="grey400")
-                    
-                    is_system_char = short_uuid in ["2b29", "2b2a", "2a00", "2a01", "2a05"]
-                    
-                    # --- Priority 1: Strict Match with ble-advertiser spec ---
-                    if char_uuid == TARGET_WRITE_UUID:
+
+                    is_sig_char = char_uuid.endswith(SIG_BASE_SUFFIX)
+
+                    # --- Priority 1: the documented vendor characteristics ---
+                    # Accept either the exact UUID or the 16-bit short form when it
+                    # sits inside an fff0 service, so a peer build that changes the
+                    # base UUID still resolves to the right channel.
+                    if char_uuid == TARGET_WRITE_UUID or (in_target_service and short_uuid == TARGET_WRITE_SHORT):
+                        label = "Fixed" if char_uuid == TARGET_WRITE_UUID else "Vendor base"
                         self.target_write_char = char
-                        self.write_char_text.value = f"Write Channel: {short_uuid} (Fixed)"
-                        self.log_message(f"      -> [MATCH] TARGET WRITE Characteristic found!", color="green")
-                    
-                    if char_uuid == TARGET_READ_UUID:
+                        self.write_char_text.value = f"Write Channel: {short_uuid} ({label})"
+                        self.log_message(f"      -> [MATCH] TARGET WRITE Characteristic found! ({label})", color="green")
+
+                    if char_uuid == TARGET_READ_UUID or (in_target_service and short_uuid == TARGET_READ_SHORT):
+                        label = "Fixed" if char_uuid == TARGET_READ_UUID else "Vendor base"
                         self.target_read_char = char
-                        self.read_char_text.value = f"Read Channel: {short_uuid} (Fixed)"
-                        self.log_message(f"      -> [MATCH] TARGET READ Characteristic found!", color="green")
+                        self.read_char_text.value = f"Read Channel: {short_uuid} ({label})"
+                        self.log_message(f"      -> [MATCH] TARGET READ Characteristic found! ({label})", color="green")
 
                     # --- Priority 2: Fallback Logic (if not found yet) ---
-                    if not self.target_write_char and not is_system_char:
+                    # Standard SIG characteristics are excluded outright: the phone
+                    # exposes dozens of writable ones (media control, telephone
+                    # bearer) that only reject us with Insufficient Authentication.
+                    if not self.target_write_char and not is_sig_char:
                         if "write" in char.properties or "write-without-response" in char.properties:
                             self.target_write_char = char
                             self.write_char_text.value = f"Write Channel: {short_uuid}"
                             self.log_message(f"      -> Selected as fallback WRITE target", color="blue")
 
-                    if not self.target_read_char and "read" in char.properties and not is_system_char:
+                    if not self.target_read_char and "read" in char.properties and not is_sig_char:
                         self.target_read_char = char
                         self.read_char_text.value = f"Read Channel: {short_uuid}"
                         self.log_message(f"      -> Selected as fallback READ target", color="blue")

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 
 ## [2026-08-23]
+### Fixed (Channel Selection)
+- **Insufficient Authentication On Every Write**: A peer build exposes the GATT service on a
+  non-standard base UUID (`0000fff1-1234-1234-8000-…`), so the exact-UUID match missed it and the
+  fallback picked the phone's own Generic Media Control characteristic (`2b99`) — a SIG system
+  characteristic that requires bonding, failing both the handshake and the send with
+  `Insufficient Authentication`. Channel selection now also accepts the 16-bit short form
+  (`fff1`/`fff2`) inside an `fff0` service, so either base resolves correctly.
+- **Fallback No Longer Targets System Characteristics**: The five-entry blacklist is replaced by
+  excluding the whole Bluetooth SIG base (`…-0000-1000-8000-00805f9b34fb`) from fallback
+  selection. A phone exposes dozens of writable system characteristics; none is a valid target.
+  When nothing qualifies, the scanner now writes nowhere rather than to a system characteristic.
+
 ### Added (Protocol)
 - **Read The Peer's Reply**: The scanner now reads the response characteristic after the
   `AT+CONNECT` handshake and after every order write. The peer answers each command by loading a

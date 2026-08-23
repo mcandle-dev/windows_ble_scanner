@@ -36,9 +36,14 @@
 
 ## 4. GATT 채널 선정: 고정 UUID 우선, Fallback 허용
 
-- Write `0000fff1-…`, Read `0000fff2-…` (Service `0000fff0-…`)를 **1순위 고정 타겟**으로 한다.
+- Write `fff1`, Read `fff2` (Service `fff0`)를 **1순위 고정 타겟**으로 한다.
+  매칭은 전체 UUID 일치뿐 아니라 **`fff0` 서비스 안의 16비트 short 값**으로도 인정한다 —
+  상대가 base UUID를 바꾼 빌드(`0000fff1-1234-1234-…`)를 배포한 전력이 있다.
 - 고정 타겟이 없으면 속성(`write`/`write-without-response`/`read`) 기반 fallback 탐색을 하되,
-  시스템 특성(`2b29`, `2b2a`, `2a00`, `2a01`, `2a05`)은 반드시 제외한다 (Access Denied 방지).
+  **Bluetooth SIG base(`…-0000-1000-8000-00805f9b34fb`) 특성은 전부 제외한다.**
+  안드로이드 폰은 쓰기 가능한 시스템 특성(미디어 제어 `2b99`, 전화 `2bbe` 등)을 다수 노출하며,
+  여기에 쓰면 `Insufficient Authentication`으로 실패한다.
+- fallback 대상이 없으면 **아무 데도 쓰지 않는다.** 시스템 특성에 쓰는 것보다 안 쓰는 게 낫다.
 
 ## 5. 방어적 예외 처리 (Windows BLE 스택)
 
