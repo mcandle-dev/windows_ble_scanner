@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 
 ## [2026-08-23]
+### Changed (Post-Order Read)
+- **Expected Teardown Is Not An Error**: The peer closes its GATT server the moment it accepts an
+  order, so the read that follows an order write is usually cancelled
+  (`WinError -2147023673`). That was logged in red as a read failure, which reads as though the
+  order had not gone through when the write had already succeeded. It is now a grey line naming
+  the peer behaviour. A read failure anywhere else still reports as an error.
+
 ### Fixed (Dead-Link Handling)
 - **`'NoneType' object has no attribute 'write_gatt_char'`**: The candidate loop re-read
   `self.connected_client` on every attempt, which the disconnect callback clears mid-loop, so a

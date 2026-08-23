@@ -36,8 +36,12 @@ def short_uuid_of(uuid_str):
 # Errors that mean the link itself is gone rather than this characteristic
 # refusing. Retrying another characteristic over a dead link only stacks up
 # failures. -2147483629 is "the object was closed", -2147483634 is "the method was
-# called at an unexpected time"; both arrive localised, so match on the code.
-LINK_GONE_MARKERS = ("not connected", "unreachable", "closed", "-2147483629", "-2147483634")
+# called at an unexpected time", -2147023673 is "the operation was cancelled"; all
+# three arrive localised, so match on the code.
+LINK_GONE_MARKERS = (
+    "not connected", "unreachable", "closed",
+    "-2147483629", "-2147483634", "-2147023673",
+)
 
 
 def link_is_gone(error):
@@ -678,7 +682,7 @@ class BLEScannerApp:
             self.io_busy = False
             self.send_btn.disabled = self.connected_client is None
 
-    async def read_peer_response(self, label):
+    async def read_peer_response(self, label, expect_teardown=False):
         """Reads the peer's reply to the command we just wrote.
 
         ble-advertiser answers every write by loading a JSON status into the read
@@ -704,7 +708,18 @@ class BLEScannerApp:
                 last_error = ex
                 if link_is_gone(ex) or self.connected_client is None:
                     break
-        self.log_message(f"  - Response ({label}) read failed: {last_error}", color="red")
+
+        # The peer shuts its GATT server down the moment it accepts an order, so
+        # after an order write there is often nothing left to read. The write
+        # already succeeded; reporting that in red reads as a failure it is not.
+        if expect_teardown and link_is_gone(last_error):
+            self.log_message(
+                f"  - Response ({label}) unavailable: the peer closed its GATT server on accepting "
+                "the order, which is its normal behaviour. The write itself succeeded.",
+                color="grey400",
+            )
+        else:
+            self.log_message(f"  - Response ({label}) read failed: {last_error}", color="red")
 
     async def send_handshake(self):
         """Announces us to the peer so it leaves its 'waiting for terminal' state.
@@ -769,7 +784,7 @@ class BLEScannerApp:
             self.log_message(f"  - Result: Sent successfully", color="green")
             # The peer reports acceptance (or a parse error) only through the read
             # channel, so a write that returns cleanly is not yet a confirmed order.
-            await self.read_peer_response("order")
+            await self.read_peer_response("order", expect_teardown=True)
                 
         except Exception as ex:
             err_msg = str(ex)
