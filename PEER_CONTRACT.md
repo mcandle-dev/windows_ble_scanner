@@ -142,6 +142,40 @@ fun startGattServer() {
 → 이쪽은 **특성 객체(handle)로 지정**하고, 매칭된 것이 여럿이면 순서대로 시도한다.
 UUID 문자열로 되돌리지 말 것.
 
+### ⚠️ Write만 30초 타임아웃 (Read는 정상) — 상대측 결함
+
+2026-08-23 로그 3건에서 일관된 패턴: **`fff2` Read는 즉시 성공하는데 `fff1` Write는 30초 뒤
+`Unreachable`로 실패**한다. Read가 방금 성공했으므로 "상대가 죽었다"로는 설명되지 않는다.
+상대가 write를 **받고도 ATT 응답을 보내지 않는** 것이다.
+
+원인은 두 핸들러의 구조 차이다 (`GattServerManager.kt`):
+
+| | Read 핸들러 | Write 핸들러 |
+|---|---|---|
+| Fragment 콜백 호출 | **없음** — `responseCharacteristic.value`만 반환 | **있음** (L224 `callback.onConnectCommandReceived`) |
+| `sendResponse` 위치 | 즉시 | 콜백 **이후** (L231–239) |
+| catch 범위 | `SecurityException` | `SecurityException` **뿐** (L332) |
+
+`CardFragment.onConnectCommandReceived`는 `requireActivity()`를 쓴다 (L174).
+**Fragment가 detach된 상태면 `IllegalStateException`이 발생**하고, 이는
+`catch (e: SecurityException)`에 걸리지 않아 핸들러 밖으로 빠져나간다
+→ **`sendResponse()`에 도달하지 못함** → Central의 write-with-response가 30초 대기 후 타임아웃.
+
+Read는 Fragment를 건드리지 않으므로 항상 성공한다. 관측된 비대칭과 정확히 일치한다.
+`onOrderReceived`도 같은 구조라 주문 write에도 동일하게 적용된다.
+
+**Fragment가 detach되는 경우**: 화면 잠김, 앱 백그라운드, 결제 플로우 화면 전환,
+그리고 누적된 leaked GATT 서버(위 절)가 이미 사라진 Fragment를 계속 참조하는 경우.
+
+**상대측 수정 방향**:
+1. `sendResponse()`를 콜백 **앞으로** 옮기거나,
+2. `catch (e: SecurityException)`을 `catch (e: Exception)`으로 넓히고 `finally`에서 응답 보장,
+3. `CardFragment`에서 `requireActivity()` 대신 `activity?.runOnUiThread` (null-safe) 사용.
+
+**이쪽 대응**: 근본 해결 불가. `Write Channel Response` 스위치를 끄면 ATT 응답을 기다리지
+않아 30초 대기는 사라지지만, Fragment가 detach된 상태라면 상대가 데이터를 처리하지 못하는 것은
+그대로다. 운영상으로는 **폰 화면을 켠 채 앱을 전면(카드 화면)에 두는 것**이 유일한 회피책이다.
+
 ### 안드로이드 폰의 시스템 특성 (fallback 금지 대상)
 
 폰 자체가 SIG 표준 서비스를 다수 노출하며, 쓰기 가능한 것도 많다:
