@@ -32,6 +32,18 @@ def short_uuid_of(uuid_str):
     """16-bit short form of a 128-bit UUID string (0000fff1-... -> fff1)."""
     return str(uuid_str).lower().split("-")[0][-4:]
 
+
+# Errors that mean the link itself is gone rather than this characteristic
+# refusing. Retrying another characteristic over a dead link only stacks up
+# failures. -2147483629 is "the object was closed", -2147483634 is "the method was
+# called at an unexpected time"; both arrive localised, so match on the code.
+LINK_GONE_MARKERS = ("not connected", "unreachable", "closed", "-2147483629", "-2147483634")
+
+
+def link_is_gone(error):
+    text = str(error).lower()
+    return any(marker in text for marker in LINK_GONE_MARKERS)
+
 class BLEScannerApp:
     def __init__(self, page: ft.Page):
         self.page = page
@@ -622,7 +634,13 @@ class BLEScannerApp:
         than once, which it does. When several matched, the others are tried in turn
         so a stale duplicate does not sink the write.
         """
-        candidates = self.write_candidates or [self.target_write_char]
+        # Hold the client locally: the disconnect callback clears the attribute
+        # mid-loop, which otherwise turns a link failure into an AttributeError.
+        client = self.connected_client
+        if client is None:
+            raise RuntimeError("no active connection")
+
+        candidates = [c for c in (self.write_candidates or [self.target_write_char]) if c]
         last_error = None
         self.io_busy = True
         self.send_btn.disabled = True
@@ -630,7 +648,7 @@ class BLEScannerApp:
             for char in candidates:
                 started = datetime.datetime.now()
                 try:
-                    await self.connected_client.write_gatt_char(char, payload, response=response)
+                    await client.write_gatt_char(char, payload, response=response)
                     return char
                 except Exception as ex:
                     last_error = ex
@@ -643,12 +661,19 @@ class BLEScannerApp:
                             f"before failing — the peer stopped responding mid-write.",
                             color="amber",
                         )
+                    if link_is_gone(ex) or self.connected_client is None:
+                        self.log_message(
+                            f"  - handle {char.handle} failed and the link is gone ({ex}); "
+                            "not trying the remaining matches",
+                            color="grey400",
+                        )
+                        break
                     if len(candidates) > 1:
                         self.log_message(
                             f"  - handle {char.handle} rejected the write ({ex}); trying the next match",
                             color="grey400",
                         )
-            raise last_error
+            raise last_error or RuntimeError("no write characteristic available")
         finally:
             self.io_busy = False
             self.send_btn.disabled = self.connected_client is None
@@ -662,11 +687,12 @@ class BLEScannerApp:
         """
         if not self.connected_client or not self.target_read_char:
             return
-        candidates = self.read_candidates or [self.target_read_char]
+        client = self.connected_client
+        candidates = [c for c in (self.read_candidates or [self.target_read_char]) if c]
         last_error = None
         for char in candidates:
             try:
-                data = await self.connected_client.read_gatt_char(char)
+                data = await client.read_gatt_char(char)
                 decoded = data.decode('utf-8', errors='ignore').strip()
                 if decoded:
                     self.log_message(f"  - Response ({label}): {decoded}", color="blue")
@@ -676,6 +702,8 @@ class BLEScannerApp:
                 return
             except Exception as ex:
                 last_error = ex
+                if link_is_gone(ex) or self.connected_client is None:
+                    break
         self.log_message(f"  - Response ({label}) read failed: {last_error}", color="red")
 
     async def send_handshake(self):

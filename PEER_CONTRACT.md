@@ -108,13 +108,33 @@ Android는 BLE 주소를 수 분마다 바꾼다(랜덤 사설 주소). **같은
   벤더 base가 그쪽 매칭에 영향을 줄 수 있다 — **실기기 로그로만 확인 가능.**
 - 쓰기 방식은 `AT+TRX_CHAN=…,1` → type=1 = With Response. 이쪽 기본값과 일치한다.
 
-### ⚠️ fff0 서비스가 두 벌로 보인다 (원인 미확정)
+### ⚠️ fff0 서비스 사본이 연결할 때마다 늘어난다
 
-2026-08-23 실기기에서 Windows 쪽 탐색 결과에 **`fff0` 서비스 블록이 두 번** 나타나
-`fff1`/`fff2`가 각각 2개씩 잡혔다. 상대 앱은 서비스 하나에 write·read 채널을 등록할 뿐이라고
-확인됨 — 따라서 원인은 앱 코드가 아니라 **Windows GATT 캐시에 이전 서비스 정의가 남은 것**일
-가능성이 높다 (base UUID를 바꾼 빌드로 교체한 이력이 있어 캐시와 현행이 공존할 수 있다).
-확정하려면 Windows에서 해당 기기의 페어링/캐시를 지우고 재탐색해봐야 한다.
+2026-08-23 실기기 관측: 15:30 로그에서 **2벌**, 15:47 로그에서 **3벌**
+(`fff1` handle 155·161·167, `fff2` handle 158·164·170). 재연결할수록 누적된다.
+
+GitHub HEAD의 `GattServerManager.startGattServer()`가 이 패턴과 일치한다 —
+**이전 서버를 닫지 않고 `openGattServer()`를 다시 호출**한다:
+
+```kotlin
+fun startGattServer() {
+    ...
+    bluetoothGattServer = bluetoothManager.openGattServer(context, gattServerCallback)  // 이전 것 close 없음
+    ...
+    bluetoothGattServer?.addService(service)
+}
+```
+
+`stopGattServer()`는 `clearServices()` + `close()`를 제대로 하지만, `stop` 없이 `start`가
+두 번 불리면 이전 서버 참조를 잃은 채 스택에 남아 서비스가 하나 더 등록된다.
+(`startAdvertiseAndGatt`는 `CardFragment` 두 곳에서 호출되고 100ms `postDelayed`를 탄다.)
+
+**이쪽 대응**: 매칭된 특성을 전부 보관하고 순서대로 시도한다. 단, 링크가 죽은 뒤
+(`Not connected` / `Unreachable` / WinError `-2147483629`·`-2147483634`)에는 남은 후보를
+시도하지 않는다 — 같은 죽은 링크 위라 실패만 쌓인다.
+
+**근본 해결은 상대측**: `startGattServer()` 진입 시 기존 서버를 닫거나, 이미 열려 있으면
+재등록하지 않아야 한다.
 
 이 상태에서 **UUID 문자열로 특성을 지정하면 Bleak이 실패한다**:
 `Multiple Characteristics with this UUID, refer to your desired characteristic by the 'handle' attribute instead`

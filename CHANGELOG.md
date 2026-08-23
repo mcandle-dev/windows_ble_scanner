@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 
 ## [2026-08-23]
+### Fixed (Dead-Link Handling)
+- **`'NoneType' object has no attribute 'write_gatt_char'`**: The candidate loop re-read
+  `self.connected_client` on every attempt, which the disconnect callback clears mid-loop, so a
+  link failure surfaced as an AttributeError and buried the real cause. The client is now held
+  locally for the duration of the write.
+- **Stop Retrying A Dead Link**: `Not connected`, `Unreachable` and the WinError codes for "object
+  closed" and "method called at an unexpected time" mean the link is gone, not that this
+  characteristic refused. Remaining candidates are skipped instead of producing one failure each.
+  A genuine per-characteristic refusal such as `Insufficient Authentication` still falls through
+  to the next match.
+
 ### Added (Connect & Send — spec 002)
 - **Order Goes Out With The Connection**: Connect now runs the whole exchange — connect, discover,
   `AT+CONNECT`, read the reply, write the order, read the reply — without waiting on further
