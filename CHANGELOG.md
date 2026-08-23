@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 
 ## [2026-08-23]
+### Changed (Layout)
+- **Left Panels Follow The Window**: Only the Activity Logs panel responded to resizing. Detected
+  Devices was pinned at 260px and the message field at 400px, so dragging the split divider or
+  resizing the window clipped them. Both left panels now take a share of the height (3:2) and the
+  message field expands with its panel.
+- **Device Table Scrolls Both Ways**: The table scrolls horizontally as well as vertically, so
+  narrowing the left panel scrolls the columns instead of cutting them off.
+
 ### Changed (Device List)
 - **One Row Per Phone**: Android rotates its BLE address every few minutes, so a single handset
   appeared in Detected Devices under three or more MACs at once. Rows are now keyed on what the

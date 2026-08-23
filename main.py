@@ -120,7 +120,9 @@ class BLEScannerApp:
         self.order_info_text = ft.Text("Order Information: None", size=16, weight="bold", color="amber300")
         self.read_char_text = ft.Text("Read Channel: -", size=14, color="grey400")
         self.write_char_text = ft.Text("Write Channel: -", size=14, color="grey400")
-        self.message_input = ft.TextField(label="Message to Send", width=400)
+        # Expands with the panel rather than holding a fixed width that gets clipped
+        # when the split divider is dragged left.
+        self.message_input = ft.TextField(label="Message to Send", expand=True)
         self.send_btn = ft.FilledButton("Send", on_click=self.send_data, disabled=True)
         self.status_text = ft.Text("Status: Idle", color="grey400")
 
@@ -137,10 +139,18 @@ class BLEScannerApp:
                 # Left Column: Devices and Connection Info
                 ft.Column([
                     ft.Text("Detected Devices", size=20, weight="bold"),
+                    # Both panels take a share of the height instead of a fixed one, so
+                    # they follow the window and the drag divider like the log does.
+                    # The table scrolls in both directions rather than being clipped
+                    # when the panel is narrowed.
                     ft.Container(
-                        content=ft.Column([self.device_list], scroll=ft.ScrollMode.ALWAYS), 
-                        height=260, 
-                        border=ft.Border.all(width=1, color="grey800"), 
+                        content=ft.Column(
+                            [ft.Row([self.device_list], scroll=ft.ScrollMode.AUTO)],
+                            scroll=ft.ScrollMode.AUTO,
+                            expand=True,
+                        ),
+                        expand=3,
+                        border=ft.Border.all(width=1, color="grey800"),
                         border_radius=10
                     ),
                     ft.Divider(),
@@ -151,13 +161,13 @@ class BLEScannerApp:
                     ft.Container(
                         content=ft.Column([
                             self.order_info_text,
-                            ft.Row([self.read_char_text, self.write_char_text], spacing=20),
+                            ft.Row([self.read_char_text, self.write_char_text], spacing=20, wrap=True),
                             ft.Row([self.message_input, self.send_btn], spacing=10),
-                        ], spacing=15),
+                        ], spacing=15, scroll=ft.ScrollMode.AUTO, expand=True),
                         padding=10,
                         border=ft.Border.all(width=1, color="grey900"),
                         border_radius=10,
-                        expand=True
+                        expand=2
                     ),
                 ], expand=True),
                 # Draggable Divider

@@ -75,6 +75,8 @@ TARGET_READ_UUID    = "0000fff2-0000-1000-8000-00805f9b34fb"
 ```
 
 - 좌우 50:50, `GestureDetector` 드래그로 좌측 폭 조절(300–1200px).
+- 좌측 두 패널(Detected Devices 3 : Connection Information 2)과 우측 로그 모두 `expand` 기반이라
+  창 크기·분할 위치 변경에 함께 대응한다. 장치 테이블은 좌우 스크롤을 가진다.
 
 ## 4. 핵심 흐름
 
