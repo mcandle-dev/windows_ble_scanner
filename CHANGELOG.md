@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 
 ## [2026-08-23]
+### Changed (Write Timeouts)
+- **No Queue Pile-Up**: A write with response blocks until the peer answers or the GATT layer gives
+  up ~30s later. Sends pressed during that wait queued behind it and all failed together. Send is
+  now rejected (with the reason logged) and the button disabled while a write is outstanding.
+- **Stalled Writes Are Named**: A write that fails after 5s or more now logs how long it waited,
+  distinguishing a peer that stopped responding from one that refused outright.
+- **`Unreachable` Diagnosed**: This error now maps to the peer-gone hint instead of the generic
+  branch, and the hint names all four ways ble-advertiser's server disappears — the 60s timer,
+  receiving one order, the screen locking, and the app leaving the foreground.
+
 ### Fixed (Duplicate Characteristics)
 - **"Multiple Characteristics with this UUID"**: Discovery returned the `fff0` service twice on
   device, so two `fff1` and two `fff2` characteristics were present. Every GATT call passed a UUID

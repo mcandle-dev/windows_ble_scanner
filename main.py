@@ -44,6 +44,10 @@ class BLEScannerApp:
         # the other one instead of failing outright.
         self.write_candidates = []
         self.read_candidates = []
+        # A write with response blocks until the peer answers or the GATT layer times
+        # out ~30s later. Without this guard every Send pressed during that wait
+        # queues up behind it and fails together when it finally gives up.
+        self.io_busy = False
         self.is_scanning = False
         self.scanning_task = None
         self.log_display = ft.ListView(expand=True, spacing=2, auto_scroll=True)
@@ -576,18 +580,34 @@ class BLEScannerApp:
         """
         candidates = self.write_candidates or [self.target_write_char]
         last_error = None
-        for char in candidates:
-            try:
-                await self.connected_client.write_gatt_char(char, payload, response=response)
-                return char
-            except Exception as ex:
-                last_error = ex
-                if len(candidates) > 1:
-                    self.log_message(
-                        f"  - handle {char.handle} rejected the write ({ex}); trying the next match",
-                        color="grey400",
-                    )
-        raise last_error
+        self.io_busy = True
+        self.send_btn.disabled = True
+        try:
+            for char in candidates:
+                started = datetime.datetime.now()
+                try:
+                    await self.connected_client.write_gatt_char(char, payload, response=response)
+                    return char
+                except Exception as ex:
+                    last_error = ex
+                    waited = (datetime.datetime.now() - started).total_seconds()
+                    # A long wait means the peer stopped answering rather than
+                    # refusing: the GATT layer sat on the request until it expired.
+                    if waited >= 5:
+                        self.log_message(
+                            f"  - handle {char.handle} did not answer for {waited:.0f}s "
+                            f"before failing — the peer stopped responding mid-write.",
+                            color="amber",
+                        )
+                    if len(candidates) > 1:
+                        self.log_message(
+                            f"  - handle {char.handle} rejected the write ({ex}); trying the next match",
+                            color="grey400",
+                        )
+            raise last_error
+        finally:
+            self.io_busy = False
+            self.send_btn.disabled = self.connected_client is None
 
     async def read_peer_response(self, label):
         """Reads the peer's reply to the command we just wrote.
@@ -633,7 +653,9 @@ class BLEScannerApp:
     async def send_data(self, e):
         # Report which precondition blocked the send; this used to return silently,
         # leaving no trace in the Activity Log of why nothing was transmitted.
-        if not self.connected_client:
+        if self.io_busy:
+            reason = "a previous write is still waiting on the peer"
+        elif not self.connected_client:
             reason = "no device connected"
         elif not self.target_write_char:
             reason = "no write channel selected"
@@ -681,11 +703,12 @@ class BLEScannerApp:
             
             if "Access Denied" in err_msg:
                 self.status_text.value = f"Status: Failed (Access Denied for {short_id}). Pairing may be required."
-            elif "-2147483629" in err_msg or "closed" in err_msg.lower():
+            elif "Unreachable" in err_msg or "-2147483629" in err_msg or "closed" in err_msg.lower():
                 self.log_message(
-                    "  - Hint: the peer already closed its GATT server (ble-advertiser stops it "
-                    "60s after advertising starts, and again as soon as one order is received). "
-                    "Restart advertising on the device and reconnect.",
+                    "  - Hint: the peer's GATT server is gone. ble-advertiser stops it 60s after "
+                    "advertising starts, as soon as one order is received, and when the phone "
+                    "screen locks or the app leaves the foreground. Tap the payment button on the "
+                    "device again, keep its screen on, then reconnect and send promptly.",
                     color="amber",
                 )
                 self.status_text.value = "Status: Send failed (peer closed its GATT server)."
