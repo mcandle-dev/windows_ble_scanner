@@ -109,7 +109,6 @@ Windows는 GATT 서비스 DB를 캐싱하므로, 상대가 서버를 내려도 �
 - 스캔 루프가 `discover()` 폴링 방식이라 갱신 주기가 ~6초(타임아웃 5s + sleep 1s).
 - 자동 재연결 없음 (해제 감지까지만 구현됨).
 - 테스트 코드 없음. 실기기(Windows BT + Android/iOS 광고 장치) 수동 검증에 의존.
-- `decode_uuid_data`의 literal 판정 휴리스틱(`010`/`1234` prefix)은 데모 데이터에 맞춘 것.
 
 ## 7. 저장소 구조
 

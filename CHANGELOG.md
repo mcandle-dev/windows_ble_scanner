@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 
 ## [2026-08-23]
+### Fixed (Decoding)
+- **Phone/Card Were Swapped**: `decode_uuid_data` read UUID segments 1-3 as the phone number and
+  segment 4 as the card number. The advertiser lays the UUID out as
+  `{card[0:8]}-{card[8:12]}-{card[12:16]}-0000-{phone4}00805F9B`, so segments 1-3 are the **card
+  number**, segment 4 is fixed padding, and only the **last 4 digits of the phone** are carried at
+  the head of segment 5. The constant `DECODED CARD: 0000` in the logs was this padding.
+  The legacy iOS layout (phone suffix in segment 4) is still accepted.
+- **Column Label**: `Phone No` → `Phone (last4)`, since only 4 digits are ever advertised.
+
 ### Added
 - **AT+CONNECT Handshake**: The scanner now sends `AT+CONNECT` on the write channel right
   after GATT discovery. `ble-advertiser` (Android) waits for this command and shuts down its

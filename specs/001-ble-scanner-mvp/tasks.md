@@ -16,12 +16,16 @@
 - [x] T10. 재연결 로직 수정(명시적 disconnect) + Connection Information 레이아웃 개선 (`db04a7b`)
 - [x] T11. 문서화: README 로직 설명(한국어), TECHNICAL_STACK, CHANGELOG (`7fe3be3`, `cc779d3` 외)
 
-## 미완 (차기 spec 후보)
+## 후속 (2026-08-23 상대측 계약 정합 작업)
 
 - [x] T12a. 연결 유실 감지: Bleak `disconnected_callback` 등록, UI 상태·Send 버튼 초기화
 - [x] T12b. `AT+CONNECT` 핸드셰이크 전송 (ble-advertiser 대기 타이머 취소)
 - [x] T12c. 고정 Read 채널(fff2) 초기 Read 누락 버그 수정
+- [x] T13. UUID 파싱 정정: 카드/전화 필드 뒤바뀜 수정, 송신측 실제 인코딩과 정합.
+      데모 데이터용 휴리스틱(`010`/`1234` prefix)을 실제 배치 판정으로 대체
+
+## 미완 (차기 spec 후보)
+
 - [ ] T12d. 자동 재연결 (연결 유실 시 사용자 확인 후 재시도)
-- [ ] T13. UUID 파싱 정밀화: 제조사 데이터(manufacturer data) 패턴 지원, literal 판정
-      휴리스틱(`010`/`1234` prefix) 정식화
 - [ ] T14. Notify 구독 지원 검토 (현재 Read 폴링/1회 읽기만 존재)
+- [ ] T15. 상대측 1회 전송 제약 대응 — 전송 후 자동 재연결 또는 UI 안내 (PEER_CONTRACT §4)

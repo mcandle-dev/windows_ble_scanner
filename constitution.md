@@ -17,11 +17,22 @@
 
 ## 3. ble-advertiser 인코딩 규약 준수
 
-- 데이터 추출은 [ble-advertiser](https://github.com/mcandle-dev/ble-advertiser) 방식을 따르며,
-  파싱 규칙은 두 단계로 고정한다:
-  1. **Literal Hex**: UUID `8-4-4-4-12` 형식에서 앞 3개 세그먼트(16자리)=전화번호, 4번째 세그먼트(4자리)=카드번호.
-  2. **ASCII Fallback**: UUID 전체 hex를 ASCII로 변환 후 정규식 탐색 (`010\d{8}` 전화번호, `\d{8,16}` 카드번호).
-- 이 규약을 바꾸는 변경은 송신측(iOS 앱 / ble-advertiser)과의 호환성 검증 없이는 금지한다.
+- 데이터 추출은 [ble-advertiser](https://github.com/mcandle-dev/ble-advertiser)의 **실제 인코딩
+  코드**(`AdvertisePacketBuilder.makeMinimalUuid`)를 따른다. 파싱 규칙은 두 단계로 고정한다:
+  1. **Literal Segments**: UUID `8-4-4-4-12` 형식에서
+     - 앞 3개 세그먼트(16자리) = **카드번호**
+     - 세그먼트 4가 `0000`이고 세그먼트 5가 `00805f9b`로 끝나면 → 세그먼트 5의 앞 4자리 =
+       **전화번호 뒤 4자리** (ble-advertiser / Android)
+     - 세그먼트 4가 `0000`이 아니면 → 세그먼트 4 = **전화번호 뒤 4자리** (mcandle-ios-app / 레거시)
+  2. **ASCII Fallback**: UUID 전체 hex를 ASCII로 변환 후 정규식 탐색
+     (`010\d{8}` 전화번호, `\d{8,16}` 카드번호).
+- **전화번호는 뒤 4자리만 송출된다.** 전체 번호를 기대하는 UI·로직을 만들지 않는다.
+- 이 규약을 바꾸는 변경은 송신측 코드 확인 없이는 금지한다. 확인은 `ble-peer-analyst`
+  에이전트로 수행하고, 결과를 [PEER_CONTRACT.md](PEER_CONTRACT.md)에 반영한다.
+
+> 이력: 2026-08-23까지 이 항목은 세그먼트 1–3을 *전화번호*, 세그먼트 4를 *카드번호*로 규정하고
+> 있었다. 상대 코드와 대조한 결과 두 필드가 뒤바뀐 것으로 확인되어 정정했다
+> (`DECODED CARD: 0000`이 계속 찍히던 증상의 원인).
 
 ## 4. GATT 채널 선정: 고정 UUID 우선, Fallback 허용
 

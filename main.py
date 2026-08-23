@@ -89,7 +89,8 @@ class BLEScannerApp:
         self.device_list = ft.DataTable(
             columns=[
                 ft.DataColumn(ft.Text("Name (MAC)")),
-                ft.DataColumn(ft.Text("Phone No")),
+                # The advertisement only carries the last 4 digits of the phone number.
+                ft.DataColumn(ft.Text("Phone (last4)")),
                 ft.DataColumn(ft.Text("Card No")),
                 ft.DataColumn(ft.Text("RSSI"), numeric=True),
                 ft.DataColumn(ft.Text("Action")),
@@ -206,28 +207,35 @@ class BLEScannerApp:
     def decode_uuid_data(self, uuids):
         """
         Extracts phone and card numbers from Service UUID strings.
-        Handle both literal hex segments and ASCII conversion.
+        Handle both literal segments and ASCII conversion.
         """
         phone = ""
         card = ""
-        
+
         for uuid in uuids:
-            parts = uuid.split("-")
-            
-            # --- Rule A: Literal Hex Segments (User's specific Request) ---
-            # If standard 8-4-4-4-12 UUID format
+            parts = uuid.lower().split("-")
+
+            # --- Rule A: Literal Segments (mcandle advertisement layout) ---
+            # ble-advertiser (Android, MINIMAL mode) builds the UUID as
+            #   {card[0:8]}-{card[8:12]}-{card[12:16]}-0000-{phone4}00805F9B
+            # so the card number fills segments 1-3 and only the last 4 digits of
+            # the phone number are carried, leading segment 5. The retired iOS
+            # peripheral placed those 4 digits in segment 4 instead, behind the same
+            # segments 1-3 card number. Both layouts are accepted below.
             if len(parts) == 5:
-                # Phone = Segments 1, 2, 3 concatenated (8+4+4 = 16 hex chars)
-                # Card = Segment 4 (4 hex chars)
-                lit_phone = f"{parts[0]}{parts[1]}{parts[2]}"
-                lit_card = parts[3]
-                
-                # Check if these literal parts contain data (e.g., starting with 010 for phone)
-                # If they look like literal data, we use them.
-                if lit_phone.startswith("010") or lit_phone.startswith("1234"):  # Added 1234 for user's example
-                    phone = lit_phone
-                    card = lit_card
-                    break
+                lit_card = f"{parts[0]}{parts[1]}{parts[2]}"
+                if lit_card.isdigit():
+                    if parts[3] == "0000" and parts[4].endswith("00805f9b"):
+                        lit_phone = parts[4][:4]   # ble-advertiser (Android)
+                    elif parts[3] != "0000":
+                        lit_phone = parts[3]       # mcandle-ios-app (legacy)
+                    else:
+                        lit_phone = ""
+
+                    if lit_phone.isdigit():
+                        card = lit_card
+                        phone = lit_phone
+                        break
 
             # --- Rule B: ASCII Conversion (Fallback) ---
             clean_uuid = uuid.replace("-", "")
