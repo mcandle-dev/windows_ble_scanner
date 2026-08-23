@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 
 ## [2026-08-23]
+### Fixed (Duplicate Service Registration)
+- **"Multiple Characteristics with this UUID"**: The peer registers its `fff0` service twice, so
+  discovery finds two `fff1` and two `fff2` characteristics. Every GATT call passed a UUID string,
+  which Bleak cannot resolve when it matches more than one characteristic — the handshake and the
+  initial read both failed with `Multiple Characteristics with this UUID, refer to your desired
+  characteristic by the 'handle' attribute instead`. Reads and writes now address the
+  characteristic object directly.
+- **Duplicate Fallback**: All matching characteristics are kept. A write tries them in turn, so a
+  stale duplicate no longer sinks the send, and the handshake pins the channel to whichever handle
+  accepted it. Discovery logs a warning naming the duplicate handles.
+
 ### Changed (Layout)
 - **Left Panels Follow The Window**: Only the Activity Logs panel responded to resizing. Detected
   Devices was pinned at 260px and the message field at 400px, so dragging the split divider or

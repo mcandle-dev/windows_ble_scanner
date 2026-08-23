@@ -108,6 +108,17 @@ Android는 BLE 주소를 수 분마다 바꾼다(랜덤 사설 주소). **같은
   벤더 base가 그쪽 매칭에 영향을 줄 수 있다 — **실기기 로그로만 확인 가능.**
 - 쓰기 방식은 `AT+TRX_CHAN=…,1` → type=1 = With Response. 이쪽 기본값과 일치한다.
 
+### ⚠️ fff0 서비스가 두 번 등록된다
+
+2026-08-23 실기기에서 **`fff0` 서비스가 두 번 노출**되어 `fff1`/`fff2`가 각각 2개씩 잡혔다.
+`startGattServer()`가 중복 호출됐거나 Windows GATT 캐시에 이전 등록이 남은 것으로 보인다.
+
+이 상태에서 **UUID 문자열로 특성을 지정하면 Bleak이 실패한다**:
+`Multiple Characteristics with this UUID, refer to your desired characteristic by the 'handle' attribute instead`
+
+→ 이쪽은 **특성 객체(handle)로 지정**하고, 매칭된 것이 여럿이면 순서대로 시도한다.
+UUID 문자열로 되돌리지 말 것.
+
 ### 안드로이드 폰의 시스템 특성 (fallback 금지 대상)
 
 폰 자체가 SIG 표준 서비스를 다수 노출하며, 쓰기 가능한 것도 많다:

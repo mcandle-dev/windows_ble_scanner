@@ -39,6 +39,11 @@ class BLEScannerApp:
         self.connected_client = None
         self.target_write_char = None
         self.target_read_char = None
+        # The peer has been seen registering its fff0 service twice, leaving two
+        # characteristics per channel. Keep every match so a write can fall back to
+        # the other one instead of failing outright.
+        self.write_candidates = []
+        self.read_candidates = []
         self.is_scanning = False
         self.scanning_task = None
         self.log_display = ft.ListView(expand=True, spacing=2, auto_scroll=True)
@@ -473,6 +478,8 @@ class BLEScannerApp:
             found_info = False
             self.target_write_char = None
             self.target_read_char = None
+            self.write_candidates = []
+            self.read_candidates = []
             
             for service in services:
                 in_target_service = short_uuid_of(service.uuid) == TARGET_SERVICE_SHORT
@@ -490,15 +497,17 @@ class BLEScannerApp:
                     # base UUID still resolves to the right channel.
                     if char_uuid == TARGET_WRITE_UUID or (in_target_service and short_uuid == TARGET_WRITE_SHORT):
                         label = "Fixed" if char_uuid == TARGET_WRITE_UUID else "Vendor base"
-                        self.target_write_char = char
+                        self.write_candidates.append(char)
+                        self.target_write_char = self.write_candidates[0]
                         self.write_char_text.value = f"Write Channel: {short_uuid} ({label})"
-                        self.log_message(f"      -> [MATCH] TARGET WRITE Characteristic found! ({label})", color="green")
+                        self.log_message(f"      -> [MATCH] TARGET WRITE Characteristic found! ({label}, handle {char.handle})", color="green")
 
                     if char_uuid == TARGET_READ_UUID or (in_target_service and short_uuid == TARGET_READ_SHORT):
                         label = "Fixed" if char_uuid == TARGET_READ_UUID else "Vendor base"
-                        self.target_read_char = char
+                        self.read_candidates.append(char)
+                        self.target_read_char = self.read_candidates[0]
                         self.read_char_text.value = f"Read Channel: {short_uuid} ({label})"
-                        self.log_message(f"      -> [MATCH] TARGET READ Characteristic found! ({label})", color="green")
+                        self.log_message(f"      -> [MATCH] TARGET READ Characteristic found! ({label}, handle {char.handle})", color="green")
 
                     # --- Priority 2: Fallback Logic (if not found yet) ---
                     # Standard SIG characteristics are excluded outright: the phone
@@ -518,12 +527,22 @@ class BLEScannerApp:
             # Read once from the channel we finally settled on. Reading inside the
             # discovery loop only ever hit the fallback characteristic, so the fixed
             # fff2 target was discovered but never actually read.
+            for kind, found in (("WRITE", self.write_candidates), ("READ", self.read_candidates)):
+                if len(found) > 1:
+                    handles = ", ".join(str(c.handle) for c in found)
+                    self.log_message(
+                        f"[WARN] {len(found)} {kind} characteristics share this UUID "
+                        f"(handles {handles}) — the peer registered its service more than once. "
+                        f"Using handle {found[0].handle}, falling back to the others if it rejects.",
+                        color="amber",
+                    )
+
             # Diagnostic only: this runs before the handshake, so the peer has not
             # loaded a reply yet and answers with its placeholder. The value shown in
             # Order Information comes from read_peer_response() after each command.
             if self.target_read_char:
                 try:
-                    data = await client.read_gatt_char(self.target_read_char.uuid)
+                    data = await client.read_gatt_char(self.target_read_char)
                     decoded = data.decode('utf-8', errors='ignore')
                     if decoded.strip():
                         self.log_message(f"[GATT] Initial Read Data: {decoded}", color="blue")
@@ -547,6 +566,29 @@ class BLEScannerApp:
         
         self.page.update()
 
+    async def write_to_peer(self, payload, response):
+        """Writes to the target characteristic, addressing it by object.
+
+        Passing the UUID string instead makes Bleak fail with "Multiple
+        Characteristics with this UUID" whenever the peer registers its service more
+        than once, which it does. When several matched, the others are tried in turn
+        so a stale duplicate does not sink the write.
+        """
+        candidates = self.write_candidates or [self.target_write_char]
+        last_error = None
+        for char in candidates:
+            try:
+                await self.connected_client.write_gatt_char(char, payload, response=response)
+                return char
+            except Exception as ex:
+                last_error = ex
+                if len(candidates) > 1:
+                    self.log_message(
+                        f"  - handle {char.handle} rejected the write ({ex}); trying the next match",
+                        color="grey400",
+                    )
+        raise last_error
+
     async def read_peer_response(self, label):
         """Reads the peer's reply to the command we just wrote.
 
@@ -556,16 +598,21 @@ class BLEScannerApp:
         """
         if not self.connected_client or not self.target_read_char:
             return
-        try:
-            data = await self.connected_client.read_gatt_char(self.target_read_char.uuid)
-            decoded = data.decode('utf-8', errors='ignore').strip()
-            if decoded:
-                self.log_message(f"  - Response ({label}): {decoded}", color="blue")
-                self.order_info_text.value = f"Order Information: {decoded}"
-            else:
-                self.log_message(f"  - Response ({label}): <empty>", color="grey400")
-        except Exception as ex:
-            self.log_message(f"  - Response ({label}) read failed: {ex}", color="red")
+        candidates = self.read_candidates or [self.target_read_char]
+        last_error = None
+        for char in candidates:
+            try:
+                data = await self.connected_client.read_gatt_char(char)
+                decoded = data.decode('utf-8', errors='ignore').strip()
+                if decoded:
+                    self.log_message(f"  - Response ({label}): {decoded}", color="blue")
+                    self.order_info_text.value = f"Order Information: {decoded}"
+                else:
+                    self.log_message(f"  - Response ({label}): <empty>", color="grey400")
+                return
+            except Exception as ex:
+                last_error = ex
+        self.log_message(f"  - Response ({label}) read failed: {last_error}", color="red")
 
     async def send_handshake(self):
         """Announces us to the peer so it leaves its 'waiting for terminal' state.
@@ -575,12 +622,10 @@ class BLEScannerApp:
         """
         try:
             self.log_message(f"[HANDSHAKE] Sending {HANDSHAKE_CONNECT_CMD}...", color="amber")
-            await self.connected_client.write_gatt_char(
-                self.target_write_char.uuid,
-                HANDSHAKE_CONNECT_CMD.encode('utf-8'),
-                response=True,
-            )
-            self.log_message(f"[HANDSHAKE] {HANDSHAKE_CONNECT_CMD} acknowledged.", color="green")
+            used = await self.write_to_peer(HANDSHAKE_CONNECT_CMD.encode('utf-8'), response=True)
+            # Stay on whichever duplicate accepted the handshake.
+            self.target_write_char = used
+            self.log_message(f"[HANDSHAKE] {HANDSHAKE_CONNECT_CMD} acknowledged (handle {used.handle}).", color="green")
             await self.read_peer_response(HANDSHAKE_CONNECT_CMD)
         except Exception as ex:
             self.log_message(f"[HANDSHAKE] {HANDSHAKE_CONNECT_CMD} failed: {ex}", color="red")
@@ -618,7 +663,7 @@ class BLEScannerApp:
             method_str = "With Response" if use_response else "Without Response"
             
             self.log_message(f"  - Method (Override): {method_str}", color="grey400")
-            await self.connected_client.write_gatt_char(char.uuid, msg, response=use_response)
+            await self.write_to_peer(msg, response=use_response)
             self.status_text.value = f"Status: Data sent to {short_id} ({method_str})"
 
             self.log_message(f"  - Result: Sent successfully", color="green")
