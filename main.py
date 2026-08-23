@@ -234,20 +234,22 @@ class BLEScannerApp:
         for uuid in uuids:
             parts = uuid.lower().split("-")
 
-            # --- Rule A: Literal Segments (mcandle advertisement layout) ---
-            # ble-advertiser (Android, MINIMAL mode) builds the UUID as
-            #   {card[0:8]}-{card[8:12]}-{card[12:16]}-0000-{phone4}00805F9B
-            # so the card number fills segments 1-3 and only the last 4 digits of
-            # the phone number are carried, leading segment 5. The retired iOS
-            # peripheral placed those 4 digits in segment 4 instead, behind the same
-            # segments 1-3 card number. Both layouts are accepted below.
+            # --- Rule A: Literal Segments (mcandle MINIMAL advertisement) ---
+            # MINIMAL is the operative mode: the DATA mode carries its payload in
+            # Service Data, which iOS centrals cannot read, so it is not used.
+            # Every known MINIMAL build puts the card number in segments 1-3 and
+            # carries only the last 4 digits of the phone number, but they disagree
+            # on where those 4 digits sit:
+            #   ...-0000-{phone4}00805F9B   ble-advertiser at GitHub HEAD
+            #   ...-{phone4}-00805F9B34FB   the build observed on device 2026-08-23,
+            #                               and the retired iOS peripheral
             if len(parts) == 5:
                 lit_card = f"{parts[0]}{parts[1]}{parts[2]}"
                 if lit_card.isdigit():
                     if parts[3] == "0000" and parts[4].endswith("00805f9b"):
-                        lit_phone = parts[4][:4]   # ble-advertiser (Android)
+                        lit_phone = parts[4][:4]   # phone suffix leads segment 5
                     elif parts[3] != "0000":
-                        lit_phone = parts[3]       # mcandle-ios-app (legacy)
+                        lit_phone = parts[3]       # phone suffix occupies segment 4
                     else:
                         lit_phone = ""
 
