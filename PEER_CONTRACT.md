@@ -62,22 +62,45 @@ Service Data (`0000FE10-…`)에 `카드번호+전화뒤4자리`를 ASCII 또는
 
 `GattServiceConfig.kt`
 
-| 항목 | UUID (GitHub HEAD) | 속성 |
+16비트 값은 `fff0`(Service) / `fff1`(Write) / `fff2`(Read·Notify)로 고정이며,
+**base UUID는 두 가지가 병존한다.**
+
+| base | 사용처 | 예 (Write) |
 |---|---|---|
-| Service | `0000fff0-0000-1000-8000-00805f9b34fb` | primary |
-| Write (Scanner→Store) | `0000fff1-0000-1000-8000-00805f9b34fb` | WRITE, WRITE_NO_RESPONSE / PERMISSION_WRITE |
-| Read/Notify (Store→Scanner) | `0000fff2-0000-1000-8000-00805f9b34fb` | READ, NOTIFY / PERMISSION_READ |
+| `-1234-1234-8000-00805f9b34fb` | **현행 로컬 빌드 (의도된 변경)** | `0000fff1-1234-1234-8000-00805f9b34fb` |
+| `-0000-1000-8000-00805f9b34fb` | GitHub HEAD `0035a76` (미갱신) | `0000fff1-0000-1000-8000-00805f9b34fb` |
+
+| 항목 | 속성 |
+|---|---|
+| Service `fff0` | primary |
+| Write `fff1` (Scanner→Store) | WRITE, WRITE_NO_RESPONSE / PERMISSION_WRITE |
+| Read `fff2` (Store→Scanner) | READ, NOTIFY / PERMISSION_READ |
 
 본딩·암호화 요구 없음 (`PERMISSION_WRITE`/`PERMISSION_READ` 평문).
 
-> ⚠️ **base UUID가 빌드마다 다르다.** 2026-08-23 실기기 로그(`ble_20260823_130656.txt`)의
-> 단말은 `0000fff0-1234-1234-8000-00805f9b34fb` / `…fff1-1234-1234-…` / `…fff2-1234-1234-…`
-> 를 노출했다. GitHub HEAD(`0035a76`)는 표준 base이므로, **사용자 로컬 빌드
-> (`D:\dev\mcandle\ble-advertiser`)가 GitHub과 다르다**는 뜻이다.
-> 16비트 값(`fff0`/`fff1`/`fff2`)은 유지되므로, 이쪽은 **`fff0` 서비스 내 short UUID 매칭**으로
-> 양쪽을 모두 수용한다 (constitution §4).
-> 광고의 Scan Response에는 여전히 표준 `0000fff0-0000-1000-8000-…`가 실린다 — 광고와 실제
-> GATT 서비스의 base가 서로 다르다.
+> **벤더 base(`-1234-1234-`)는 의도된 설계다** (2026-08-23 사용자 확인). 표준 base로
+> 되돌리자고 제안하지 말 것. GitHub HEAD가 아직 표준인 것은 로컬 변경이 푸시되지 않았기 때문이다.
+> 실측 근거: `logs/ble_20260823_130656.txt`.
+>
+> 이쪽은 **`fff0` 서비스 내 16비트 short UUID 매칭**으로 두 base를 모두 수용한다
+> (constitution §4). 어느 한쪽만 지원하도록 단순화하지 말 것.
+>
+> 광고의 Scan Response에는 표준 `0000fff0-0000-1000-8000-…`가 실린다 — 광고와 실제 GATT
+> 서비스의 base가 다르므로, 광고에서 본 UUID로 GATT 특성을 찾으려 하면 안 된다.
+
+### 다른 Central: POS 단말 앱 (`mcandle-dev/vpos_claude_pos`)
+
+이 리포 외에 **POS 단말 앱도 같은 광고 장치에 붙는다.** 이쪽 변경이 그쪽을 깨뜨리지 않는지
+확인이 필요할 때 참고할 것. 그 앱은 Android GATT API가 아니라 단말 벤더 SDK에 AT 명령
+(`AT+MASTER_PAIR` → `AT+UUID_SCAN=1` → `AT+CONNECT` → `AT+TRX_CHAN` → `AT+SEND`)을 보낸다.
+
+- 채널 선정이 두 갈래로 갈려 있다: `BeaconActivity.java:932`는 `uuid.equals("DECA")`,
+  브랜치 `claude/fix-android-15-uuid-C148W`의 `BleConnection.java:718`은 `contains("f1ff")`.
+  둘 다 `fff1`과 무관한 값이라 어느 쪽이 실제 경로인지 미확인.
+- 그 앱은 주석에 표준 base를 전제로 적어두었다(`BleConnection.java:705-707`).
+  단말이 `AT+UUID_SCAN` 응답에 16비트 short를 주는지 128비트 전체를 주는지에 따라
+  벤더 base가 그쪽 매칭에 영향을 줄 수 있다 — **실기기 로그로만 확인 가능.**
+- 쓰기 방식은 `AT+TRX_CHAN=…,1` → type=1 = With Response. 이쪽 기본값과 일치한다.
 
 ### 안드로이드 폰의 시스템 특성 (fallback 금지 대상)
 
