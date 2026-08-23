@@ -293,12 +293,16 @@ class BLEScannerApp:
             try:
                 # return_adv=True returns a dict: {address: (device, advertisement_data)}
                 devices_dict = await BleakScanner.discover(timeout=5.0, return_adv=True)
-                self.device_list.rows.clear()
-                
+                filter_val = (self.filter_input.value or "").lower()
+
+                # Android rotates its BLE address every few minutes, so one phone
+                # turns up under several MACs and would fill the table with copies of
+                # itself. Key on what it advertises instead, keeping the strongest
+                # signal — that is the address most likely to still be reachable.
+                seen = {}
                 for address, (d, adv) in devices_dict.items():
                     name = d.name or "Unknown"
-                    filter_val = self.filter_input.value.lower()
-                    
+
                     # Filtering Logic (Like search)
                     if filter_val and filter_val not in name.lower():
                         continue
@@ -307,28 +311,52 @@ class BLEScannerApp:
                     uuids = adv.service_uuids or []
                     phone, card = self.decode_uuid_data(uuids)
                     rssi = adv.rssi  # Get RSSI from AdvertisementData
-                    
-                    # Log to UI
-                    self.log_message(f"[SCAN] Found: {name} ({address}) | RSSI: {rssi}", color="amber")
-                    if uuids: self.log_message(f"  - UUIDs: {uuids}", color="grey400")
-                    if phone: self.log_message(f"  - DECODED PHONE: {phone}", color="green")
-                    if card: self.log_message(f"  - DECODED CARD: {card}", color="green")
 
-                    self.devices[d.address] = {
+                    # Fall back to the address only when nothing identifying was
+                    # decoded, so unrelated devices are still listed individually.
+                    identity = (name, card, phone) if (card or phone) else (name, address)
+                    known = seen.get(identity)
+                    if known and known["rssi"] >= rssi:
+                        known["aliases"].add(address)
+                        continue
+
+                    aliases = known["aliases"] if known else set()
+                    aliases.add(address)
+                    seen[identity] = {
                         "device": d,
+                        "address": address,
+                        "name": name,
                         "phone": phone,
                         "card": card,
-                        "rssi": rssi
+                        "rssi": rssi,
+                        "uuids": uuids,
+                        "aliases": aliases,
                     }
+
+                self.devices = seen
+                self.device_list.rows.clear()
+
+                for info in seen.values():
+                    extra = len(info["aliases"]) - 1
+                    suffix = f" +{extra} MAC" if extra > 0 else ""
+
+                    # Log to UI
+                    self.log_message(
+                        f"[SCAN] Found: {info['name']} ({info['address']}){suffix} | RSSI: {info['rssi']}",
+                        color="amber",
+                    )
+                    if info["uuids"]: self.log_message(f"  - UUIDs: {info['uuids']}", color="grey400")
+                    if info["phone"]: self.log_message(f"  - DECODED PHONE: {info['phone']}", color="green")
+                    if info["card"]: self.log_message(f"  - DECODED CARD: {info['card']}", color="green")
 
                     self.device_list.rows.append(
                         ft.DataRow(
                             cells=[
-                                ft.DataCell(ft.Text(f"{d.name or 'Unknown'} ({d.address})")),
-                                ft.DataCell(ft.Text(phone or "-")),
-                                ft.DataCell(ft.Text(card or "-")),
-                                ft.DataCell(ft.Text(str(rssi))),
-                                ft.DataCell(ft.FilledButton("Connect", on_click=lambda e, addr=d.address: self.page.run_task(self.connect_device, addr))),
+                                ft.DataCell(ft.Text(f"{info['name']} ({info['address']}){suffix}")),
+                                ft.DataCell(ft.Text(info["phone"] or "-")),
+                                ft.DataCell(ft.Text(info["card"] or "-")),
+                                ft.DataCell(ft.Text(str(info["rssi"]))),
+                                ft.DataCell(ft.FilledButton("Connect", on_click=lambda e, addr=info["address"]: self.page.run_task(self.connect_device, addr))),
                             ]
                         )
                     )

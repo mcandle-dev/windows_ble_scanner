@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 
 ## [2026-08-23]
+### Changed (Device List)
+- **One Row Per Phone**: Android rotates its BLE address every few minutes, so a single handset
+  appeared in Detected Devices under three or more MACs at once. Rows are now keyed on what the
+  device advertises (name + decoded card + phone) rather than its address, keeping the strongest
+  signal — the address most likely to still be reachable — and marking collapsed duplicates as
+  `+N MAC`. Devices that advertise nothing identifying still get one row per address.
+
 ### Fixed (Channel Selection)
 - **Insufficient Authentication On Every Write**: A peer build exposes the GATT service on a
   non-standard base UUID (`0000fff1-1234-1234-8000-…`), so the exact-UUID match missed it and the
