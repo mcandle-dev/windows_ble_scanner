@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-09-19]
+### Removed
+- **spec 003 moved out**: The UWB membership work drafted as `specs/003-pos-beacon-simulator/`
+  now lives in its own repository, [uwb-pos-simulator](https://github.com/mcandle-dev/uwb-pos-simulator).
+  It is a separate system — this repo is the BLE Central, that one is the Peripheral; the data
+  flows the other way, over a different protocol, toward an Android 11 POS rather than Windows.
+  Keeping both here would have required one constitution to hold two contradictory sets of rules.
+
 ## [2026-08-23]
 ### Changed (Post-Order Read)
 - **Expected Teardown Is Not An Error**: The peer closes its GATT server the moment it accepts an
